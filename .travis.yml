@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+- 2.2.2
+deploy:
+  provider: heroku
+  api_key:
+    secure: d3IRhxZYHkOHkAERn/1KCiHgybrlJH3QI5zTafxqMXa/jQ4eVjCEk/3GHDP97QhjG4wDD/+0DzrKvxxXWS8HJFKMGjhq82qhkQSxBQvaR1D184ZNdlCntT3R4B4YjRQJQV4zJjj2DeGHrgoUNaODUGOzsaollmWKqbe19ULaURga3eEaIxM/QWwowcWsJXQMLdgxUC/AkPlwmjZrezGc/3jZreWtCxg98JzkN4zrMzFsIUINB8ABteBlyc+dpclGkjW8gSOFi/2b56lMk//es24ldjhQ1wSNprSx8aTNgkYC3Pd6ZZsjFSRzTWaKIZOyKOv92ZCN99ORWd9AymkhE1tXAFO1Or47KmrKOddx7sMCHRZYcL06oknk+NC7qSpYFxOFGxdjW363WWni2RMHR1XhfRRBlU3pc5eBTiq1s8idbuNvxs28QEKe6VzyM6UB6/ce89qEzlC2ZCJ9PKBYZW8HtzTUZ2SZBMCQ8Y6tGqpYJGuVK+VyB50Y8gjQxvjXbJmnsL7thauY6+faBRq6MYnfsVW4lT+/xMb7gFlbDinaPc5kGx29YM4fU2UX8qQKPfQKAN+0M7hlNRHSHPj7dfyWJ7it9hLJVJ11wUaIR/hIHeJa+nFKJ8GtoV2H70zZki89VobtI25RABEetDdJYVfLKvyCrD8HNX4c7iHQIXE=
+  app: lit-journey-4733
+  on:
+    repo: KahokuHanten/oyako
+cache:
+  directories:
+  - vendor/bundle
+addons:
+  postgresql: "9.3"
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+
