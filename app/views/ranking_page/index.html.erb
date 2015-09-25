@@ -1,0 +1,22 @@
+<h1>ランキング</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>値段</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rankings.each do |ranking| %>
+      <tr>
+        <td><%= ranking.name %></td>
+        <td><%= ranking.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

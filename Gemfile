@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'rails_12factor', group: :production
 ruby '2.2.2'
+gem 'rakuten_web_service'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
