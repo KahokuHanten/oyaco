@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Birthday year:</strong>
+  <%= @user.birthday_year %>
+</p>
+
+<p>
+  <strong>Birthday month:</strong>
+  <%= @user.birthday_month %>
+</p>
+
+<p>
+  <strong>Birthday day:</strong>
+  <%= @user.birthday_day %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
