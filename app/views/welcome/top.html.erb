@@ -1,7 +1,5 @@
 <div class="center hero-unit">
-<h1>親孝行サービス</h1>
-<a href="#" class="btn btn-large btn-primary">Sign up now!</a>
-<p>
+<p class="lead">
   <% @events.first(1).each do |event| %>
   <% evetDate = event.event_date %>
   <%= evetDate.strftime('%-m月%e日') %>は<%= event.event_name %>です。
@@ -32,6 +30,13 @@
   <h1> 誕生日おめでとうございます！</h1>
 </p>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 
 <a href="/events">イベント管理</a><br>
