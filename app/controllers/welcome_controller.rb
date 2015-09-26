@@ -7,6 +7,7 @@ class WelcomeController < ApplicationController
       c.affiliate_id = ENV["AFID"]
     end
 
-    @rankings = RakutenWebService::Ichiba::Item.ranking(:age => 50, :sex => 0)
+    # @rankings = RakutenWebService::Ichiba::Item.ranking(:age => 50, :sex => 0)
+    @items = RakutenWebService::Ichiba::Item.search(:keyword => '敬老の日')
   end
 end
