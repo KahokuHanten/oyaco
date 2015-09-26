@@ -1,0 +1,59 @@
+/* --- ナビゲーションバー --- */
+div.nav {
+width: 100%; /* ナビゲーションの幅 */
+padding-top: 20px; /* ナビゲーションの上パディング */
+background-color: #ffffff; /* ナビゲーションの背景色 */
+border-bottom: 3px #004080 solid; /* 下境界線 */
+font-size: 80%;
+}
+
+/* --- メニューエリア --- */
+div.nav ul.nl {
+width: 99%; /* メニューの幅 */
+margin: 0 auto; /* メニューのマージン（上下、左右） */
+padding: 0;
+list-style-type: none;
+text-align: center;
+}
+
+/* --- メニュー項目 --- */
+div.nav ul.nl li {
+width: 8em; /* タブの幅 */
+margin-right: 4px; /* タブの右マージン */
+background: #f9f9f9 url(tab_gen1_left.gif) no-repeat left top; /* タブの背景（左） */
+float: left;
+}
+
+/* --- リンク --- */
+div.nav ul.nl li a {
+display: block;
+position: relative; /* IE6用 */
+padding: 6px 2px 5px; /* リンクエリアのパディング（上、左右、下） */
+background: url(tab_gen1_right.gif) no-repeat right top; /* タブの背景（右） */
+text-decoration: none; /* テキストの下線（なし） */
+}
+/* --- ポイント時の設定 --- */
+div.nav ul.nl li a:hover {
+text-decoration: underline; /* テキストの下線（あり） */
+}
+
+/* --- アクティブなタブ --- */
+div.nav ul.nl li.active {
+background: #004080 url(tab_act1_left.gif) no-repeat left top; /* タブの背景（左） */
+}
+div.nav ul.nl li.active a {
+background: url(tab_act1_right.gif) no-repeat right top; /* タブの背景（右） */
+color: #ffffff; /* アクティブタブの文字色 */
+}
+
+/* --- clearfix --- */
+.clearFix:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+.clearFix {
+min-height: 1px;
+}
