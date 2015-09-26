@@ -1,0 +1,24 @@
+<h1>親孝行サービス</h1>
+
+<p>
+  １０月１日はお父さんの誕生日です！<br>
+  こんなプレゼントはどうですか？
+</p>
+<table>
+  <tbody>
+    <% @rankings.each do |ranking| %>
+      <tr>
+        <td><img src="<%= ranking['smallImageUrls'][0]['imageUrl'] %>"></td>
+        <td><%= ranking.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p>
+  こんな言葉を贈ってはどうですか？
+</p>
+<p>
+  誕生日おめどとうございます！
+</p>
+
+<br>
