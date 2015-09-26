@@ -1,17 +1,14 @@
 <div class="center hero-unit">
 <p class="lead">
+  <h1>
   <% @events.first(1).each do |event| %>
   <% evetDate = event.event_date %>
   <%= evetDate.strftime('%-m月%e日') %>は<%= event.event_name %>です。
   <% end %>
-<br>
-<br>
-</p>
-
-<p>
+</h1>
   <h1>こんなプレゼントはどうですか？</h1>
 </p>
-<table border=1>
+<table class="table">
   <tbody>
     <% @items.first(3).each do |item| %>
       <tr>
@@ -36,7 +33,5 @@
 <br>
 <br>
 <br>
-<br>
-<br>
 
-<a href="/events">イベント管理</a><br>
+<a class="btn btn-primary" href="/events" role="button">イベント管理</a>
