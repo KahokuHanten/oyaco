@@ -1,20 +1,19 @@
 <div class="center hero-unit">
 <h1>親孝行サービス</h1>
-
-<p class="lead">
-  <h1>10月1日はお父さんの誕生日です！</h1>
-  <h1>こんなプレゼントはどうですか？</h1>
+<a href="#" class="btn btn-large btn-primary">Sign up now!</a>
+<p>
+  １０月１日はお父さんの誕生日です！<br>
 </p>
 
 <p>
-
+  <h1>こんなプレゼントはどうですか？</h1>
 </p>
-<table class="table table-hover">
+<table border=1>
   <tbody>
     <% @items.first(3).each do |item| %>
       <tr>
-        <td><img src="<%= item['smallImageUrls'][0]['imageUrl'] %>"></td>
-        <td><a href="<%= item['affiliateUrl'] %>" target="_blank"><%= item.name %></a></td>
+        <td><img src="<%= item['mediumImageUrls'][0]['imageUrl'] %>"></td>
+        <td><a href="<%= item['affiliateUrl'] %>" target="_blank"><h3><%= item.name %></h3></a></td>
       </tr>
     <% end %>
   </tbody>
@@ -27,6 +26,7 @@
 <p>
   <h1> 誕生日おめでとうございます！</h1>
 </p>
-<p>
-<a class="btn btn-primary" href="/events" role="button">イベント管理</a>
-</p>
+
+<br>
+
+<a href="/events">イベント管理</a><br>
