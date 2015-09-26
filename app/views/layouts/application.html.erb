@@ -10,7 +10,23 @@
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <div class="container">
+  <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <%= link_to "親孝行サービス（仮）", '#', id: "logo" %>
+          <nav>
+            <ul class="nav pull-right">
+              <!--
+              <li><%= link_to "Home",    '#' %></li>
+              <li><%= link_to "Help",    '#' %></li>
+              <li><%= link_to "Sign in", '#' %></li>
+            -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class="container">
     <%= yield %>
   </div>
 </body>
