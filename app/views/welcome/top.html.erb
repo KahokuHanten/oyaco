@@ -1,18 +1,22 @@
 <div class="center hero-unit">
 <p class="lead">
-  <h1>10月1日はお父さんの誕生日です！</h1>
-  <h1>こんなプレゼントはどうですか？</h1>
+  <% @events.first(1).each do |event| %>
+  <% evetDate = event.event_date %>
+  <%= evetDate.strftime('%-m月%e日') %>は<%= event.event_name %>です。
+  <% end %>
+<br>
+<br>
 </p>
 
 <p>
-
+  <h1>こんなプレゼントはどうですか？</h1>
 </p>
-<table class="table table-hover">
+<table border=1>
   <tbody>
     <% @items.first(3).each do |item| %>
       <tr>
-        <td><img src="<%= item['smallImageUrls'][0]['imageUrl'] %>"></td>
-        <td><a href="<%= item['affiliateUrl'] %>" target="_blank"><%= item.name %></a></td>
+        <td><img src="<%= item['mediumImageUrls'][0]['imageUrl'] %>"></td>
+        <td><a href="<%= item['affiliateUrl'] %>" target="_blank"><h3><%= item.name %></h3></a></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,6 +29,14 @@
 <p>
   <h1> 誕生日おめでとうございます！</h1>
 </p>
-<p>
-<a class="btn btn-primary" href="/events" role="button">イベント管理</a>
-</p>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<a href="/events">イベント管理</a><br>
