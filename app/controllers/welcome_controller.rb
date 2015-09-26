@@ -10,7 +10,31 @@ class WelcomeController < ApplicationController
       c.affiliate_id = ENV["AFID"]
     end
 
-    # @rankings = RakutenWebService::Ichiba::Item.ranking(:age => 50, :sex => 0)
-    @items = RakutenWebService::Ichiba::Item.search(:keyword => '敬老の日')
+    
+
+    case Time.now.strftime("%S")[-1]
+    when "1" then
+       keyword = '敬老の日'
+    when "2" then
+       keyword = 'おじいちゃん プレゼント'
+    when "3" then
+       keyword = 'おばあちゃん プレゼント'
+    when "4" then
+       keyword = '父の日 ギフト'
+    when "5" then
+       keyword = '母の日 ギフト'
+    when "6" then
+       keyword = '敬老の日'
+    when "7" then
+       keyword = 'おじいちゃん プレゼント'
+    when "8" then
+       keyword = 'おばあちゃん プレゼント'
+    when "9" then
+       keyword = '父の日 ギフト'
+    else
+       keyword = '母の日 ギフト'
+    end
+
+    @items = RakutenWebService::Ichiba::Item.search(:keyword => keyword)
   end
 end
