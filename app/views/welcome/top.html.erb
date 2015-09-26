@@ -3,22 +3,30 @@
 <a href="#" class="btn btn-large btn-primary">Sign up now!</a>
 <p>
   １０月１日はお父さんの誕生日です！<br>
-  こんなプレゼントはどうですか？
+</p>
+
+<p>
+  <h1>こんなプレゼントはどうですか？</h1>
 </p>
 <table>
   <tbody>
-    <% @rankings.each do |ranking| %>
+    <% @items.first(3).each do |item| %>
       <tr>
-        <td><img src="<%= ranking['smallImageUrls'][0]['imageUrl'] %>"></td>
-        <td><%= ranking.name %></td>
+        <td><img src="<%= item['smallImageUrls'][0]['imageUrl'] %>"></td>
+        <td><%= item.name %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
 <p>
-  こんな言葉を贈ってはどうですか？
+  <h1>こんな言葉を贈ってはどうですか？</h1>
 </p>
+
 <p>
-  誕生日おめでとうございます！
+  <h1> 誕生日おめでとうございます！</h1>
 </p>
-</div>
+
+<br>
+
+<a href="/events">イベント管理</a><br>
