@@ -1,7 +1,12 @@
 <h1>親孝行サービス</h1>
 
 <p>
-  １０月１日はお父さんの誕生日です！<br>
+  <% @events.first(1).each do |event| %>
+  <% evetDate = event.event_date %>
+  <%= evetDate.strftime('%-m月%e日') %>は<%= event.event_name %>です。
+  <% end %>
+<br>
+<br>
   こんなプレゼントはどうですか？
 </p>
 <table>
