@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
       c.affiliate_id = ENV["AFID"]
     end
 
-    
+
 
     case Time.now.strftime("%S")[-1]
     when "1" then
@@ -36,5 +36,15 @@ class WelcomeController < ApplicationController
     end
 
     @items = RakutenWebService::Ichiba::Item.search(:keyword => keyword)
+  end
+
+  def holidaytop
+    #祝日情報の取得
+    @holidays = Holiday.where('holiday_date > ?',Date.today).order('holiday_date')
+
+    RakutenWebService.configuration do |c|
+      c.application_id = ENV["APPID"]
+      c.affiliate_id = ENV["AFID"]
+    end
   end
 end
