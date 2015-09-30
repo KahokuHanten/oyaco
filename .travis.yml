@@ -9,6 +9,7 @@ deploy:
   on:
     repo: KahokuHanten/oyako
   run: "rake db:migrate"
+  run: "bin/rake db:seed"
 cache:
   directories:
   - vendor/bundle
