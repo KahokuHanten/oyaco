@@ -8,9 +8,9 @@ deploy:
   app: lit-journey-4733
   on:
     repo: KahokuHanten/oyako
-   run:
-     - "rake db:migrate"
-     - "rake db:seed"
+  run:
+    - "rake db:migrate"
+    - "rake db:seed"
 cache:
   directories:
   - vendor/bundle
