@@ -10,8 +10,6 @@ class WelcomeController < ApplicationController
       c.affiliate_id = ENV["AFID"]
     end
 
-
-
     case Time.now.strftime("%S")[-1]
     when "1" then
        keyword = '敬老の日'
@@ -36,6 +34,8 @@ class WelcomeController < ApplicationController
     end
 
     @items = RakutenWebService::Ichiba::Item.search(:keyword => keyword)
+
+    @warnings = LocalInfo.get_weather_warnings("13")
   end
 
   def holidaytop
