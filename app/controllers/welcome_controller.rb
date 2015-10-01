@@ -2,6 +2,8 @@
 class WelcomeController < ApplicationController
   # GET /
   def top
+    @pref_id = params[:pref_id]
+
     #イベント情報の取得
     @events = Event.where('event_date > ?',Date.today).order('event_date')
 
@@ -9,8 +11,6 @@ class WelcomeController < ApplicationController
       c.application_id = ENV["APPID"]
       c.affiliate_id = ENV["AFID"]
     end
-
-
 
     case Time.now.strftime("%S")[-1]
     when "1" then
@@ -36,6 +36,8 @@ class WelcomeController < ApplicationController
     end
 
     @items = RakutenWebService::Ichiba::Item.search(:keyword => keyword)
+
+    @warnings = LocalInfo.get_weather_warnings(@pref_id)
   end
 
   def holidaytop
