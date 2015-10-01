@@ -7,7 +7,7 @@ class LocalInfo
   def self.get_weather_warnings(id)
     doc = ""
     messages = []
-    pref = ""
+    pref = "%02d" % id
     if id == "01" then
       pref = "01b" # FIXME
     else
