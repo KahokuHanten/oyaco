@@ -8,7 +8,7 @@ class LocalInfo
     doc = ""
     messages = []
     pref = "%02d" % id
-    if id == "01" then
+    if id == "1" then
       pref = "01b" # FIXME
     else
       pref = id
