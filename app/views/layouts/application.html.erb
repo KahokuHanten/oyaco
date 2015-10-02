@@ -1,33 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Oyako</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-</head>
-<body>
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container">
-          <%= link_to "親孝行サービス（仮）", '#', id: "logo" %>
-          <nav>
-            <ul class="nav pull-right">
-              <!--
-              <li><%= link_to "Home",    '#' %></li>
-              <li><%= link_to "Help",    '#' %></li>
-              <li><%= link_to "Sign in", '#' %></li>
-            -->
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
-    <div class="container">
-    <%= yield %>
-  </div>
+</head>
+<body>
+
+  <%= yield %>
+
+  <footer class="container-fluid">
+    <a href="">Copyright (C) 2015 KahokuHanten All Rights Reserved.</a>
+  </footer>
 </body>
 </html>

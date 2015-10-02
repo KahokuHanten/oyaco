@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 gem 'rails_12factor', group: :production
 ruby '2.2.2'
 gem 'rakuten_web_service'
+gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
+gem 'bootswatch-rails'
 gem 'sprockets'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

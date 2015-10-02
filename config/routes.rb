@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'question_page1#index'
+  root 'top#index'
+#  root 'question_page1#index'
 #  get 'welcome' => 'welcome#holidaytop'
   get 'welcome' => 'welcome#top'
 
