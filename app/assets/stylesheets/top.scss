@@ -1,8 +1,46 @@
 // Place all the styles related to the top controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-/* Footer */
-footer {
-  text-align: center;
-  padding: 50px 0;
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #33bb9c;
+    //color: #ffffff;
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 7.5em;
+      font-weight: 700;
+    }
+    h4 {
+      margin: 0;
+      padding: 0;
+      font-weight: 500;
+    }
+}
+
+/* Header */
+.header {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: image-url("gahag-0002156290a.jpg") no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    color: #FFFFFF;
+}
+
+/* About */
+.about {
+    padding: 20px 0;
+}
+
+/* Services */
+.question {
+    padding: 20px 0;
 }
