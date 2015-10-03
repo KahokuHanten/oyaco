@@ -9,14 +9,15 @@ deploy:
   on:
     repo: KahokuHanten/oyako
   run:
-    - "rake db:migrate"
-    - "rake db:seed"
+  - rake db:migrate
+  - rake db:seed
 cache:
   directories:
   - vendor/bundle
 addons:
-  postgresql: "9.3"
+  postgresql: '9.3'
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - cp config/database.yml.travis config/database.yml
-
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+env:
+  secure: d0WZpzWMoUH+GiHh67N4posTlmuVxGbjrX9sRA9UFOie3VuR1W5iMGbtmxIRYlsZYD8IeQ2PrlkEzPoGqWq+5owmofJ3OToSa68KZzSuiRC7UuIqT8wBvzcTCkcbmFMLxIsEzSbP8ApYOgNCjD/YgL1F0KKsQ6AGF0dpJBNrgh7GKHjleeyxTlfHz4ciV131Lc4dhOHvxHwP6F5hIFcDjL0fmBR6U+9b4omg9ZRxZUsQ2ATqZ5RJKdUoRgpKQj4BoOLx2gZAlmLnzftM0aI2zu2c6UfMS8CMujazTkw3p3Ps/yX5+Q1pLkLHMYNOVdb+ZYfADb43a8JMOvUltvYcbcNVFJhpiNpkzMrAhRgnh3mrUMiqdY2AeQLAghGgHzf156fCzijfQpfTglUj6YYkQKL0d4riRUF4Y3VKL/Ujb80KV9RUD8JVhb8MdxN5YhEWIC8pYJ8S4454ndNeZs8+h9e7K2XYQS6iTUpD8TdEBGsFfQ32SSFWfU9xquWsSKPXw2+K0kWfJH6D/fPizteFcf+c3CYFQs+bOzMZx1OQ5hajPkTBpb+P8Jk0bU9UHfsF/yNGeXbPhlJiYfwtiVs7P4fa02vIGylI+TJwICR4Ii8M9Vvi9zYW4Ntwjx3klMexKBqLgsb/NTRsPyXVK6GehmxnV1PWw6JtngAsk1VLTS0=
