@@ -11,6 +11,9 @@ class WelcomeController < ApplicationController
     #都道府県コードをもとに警報・注意報を取得する
     @warnings = LocalInfo.get_weather_warnings(@pref_id)
 
+    #コメントを作る
+    @message = MessageGenerator.new(@warnings).generate
+
     #祝日情報を取得する
     @holidays = Holiday.where('holiday_date > ?',Date.today).order('holiday_date')
 
