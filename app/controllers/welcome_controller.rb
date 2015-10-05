@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'pp'
+# -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
   # GET /
   def top
@@ -16,6 +18,9 @@ class WelcomeController < ApplicationController
 
     #祝日情報を取得する
     @holidays = Holiday.where('holiday_date > ?',Date.today).order('holiday_date')
+
+    #Google search
+    @googleNews = LocalInfo.get_google_news(@pref_name)
 
     #楽天API呼出し用のIDを環境変数から取得する
     RakutenWebService.configuration do |c|
