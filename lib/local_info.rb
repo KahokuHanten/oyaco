@@ -8,16 +8,18 @@ class LocalInfo
     doc = ""
     messages = []
     pref = "%02d" % id
-    if id == "1" then
+    if pref == "01" then
       pref = "01b" # FIXME
-    else
-      pref = id
     end
 
-    doc = Nokogiri::XML(open(WW_URL + pref + '.xml').read)
-    doc.xpath('//item/description').each {|node|
-      messages.push(node.text) unless /livedoor/.match(node.text)
-    }
+    begin
+      doc = Nokogiri::XML(open(WW_URL + pref + '.xml').read)
+      doc.xpath('//item/description').each {|node|
+        messages.push(node.text) unless /livedoor/.match(node.text)
+      }
+    rescue
+      messages = nil
+    end
     messages
   end
 end
