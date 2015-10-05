@@ -10,7 +10,7 @@ class CanRecommendTopicsTest < Capybara::Rails::TestCase
     visit root_path
     within '#question-form' do
       fill_in 'dad', with: '1960-10-10'
-      fill_in 'man', with: '1960-10-10'
+      fill_in 'mom', with: '1960-10-10'
       select '北海道', from: 'pref_id'
       click_button 'recommend'
     end
