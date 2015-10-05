@@ -6,6 +6,7 @@ gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'sprockets'
+gem 'google_custom_search_api'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'

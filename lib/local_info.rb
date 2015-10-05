@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'open-uri'
 require 'nokogiri'
 
@@ -21,5 +22,9 @@ class LocalInfo
       messages = nil
     end
     messages
+  end
+  def self.get_google_news(pref_name)
+    searchText = pref_name+" 事件"
+    return GoogleCustomSearchApi.search(searchText)
   end
 end
