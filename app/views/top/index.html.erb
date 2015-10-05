@@ -17,7 +17,7 @@
   <div class="container-fluid">
   <h3 class="text-center">いくつかの質問に答えるだけで、ぴったりの話題を提案します</h2>
 
-  <form class="form-horizontal" method="get" action="welcome">
+  <form class="form-horizontal" method="get" action="welcome" >
     <fieldset>
       <legend></legend>
       <div class="form-group">
@@ -35,8 +35,8 @@
       <div class="form-group">
         <label for="select" class="col-sm-6 control-label">Q3: あなたのご両親のお住まいは？</label>
         <div class="col-sm-4">
-          <select class="form-control" id="select" name="pref_id">
-            <option value="" selected>都道府県</option>
+          <select class="form-control" id="select" name="pref_id" required>
+            <option></option>
             <option value="1">北海道</option>
             <option value="2">青森県</option>
             <option value="3">岩手県</option>

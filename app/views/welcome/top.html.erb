@@ -33,30 +33,12 @@ body {
     <h3> おじいちゃん、いつも、ありがとう！！！！！！！</h3>
   </p>
   
+  <HR>
 <% end %>
-  </div>
 
 
 <!-- テスト -->
-<p>
-  <h1>
-  ★<%= @pref_name %>ではこんな注意報・警報が出ています。★
-  </h1>
-  <pre>
-    <% @warnings.each do |msg| %>
-      <%= msg %><br>
-    <% end %>
-  </pre>
-</p>
 
-<!-- google news -->
 <p>
-  <h1>
-  ★<%= @pref_name %>ではこんなニュースがあります。★
-  </h1>
-  <pre>
-    <% @googleNews['items'].each do |item| %>
-      <%= item.title %><br>
-    <% end %>
-  </pre>
+<h3><%= @pref_name %>は<%= @message %></h3>
 </p>
