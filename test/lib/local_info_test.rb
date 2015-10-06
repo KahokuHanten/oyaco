@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 class LocalInfoTest < ActiveSupport::TestCase
@@ -9,5 +10,8 @@ class LocalInfoTest < ActiveSupport::TestCase
   test "should get nil on any errors" do
     assert_nil LocalInfo.get_weather_warnings(0)
     assert_nil LocalInfo.get_weather_warnings(100)
+  end
+  test "should get google news" do
+    assert_not_nil LocalInfo.get_google_news("埼玉")
   end
 end
