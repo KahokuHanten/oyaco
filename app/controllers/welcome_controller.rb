@@ -6,7 +6,13 @@ class WelcomeController < ApplicationController
   def top
     #リクエストパラメータから都道府県コードを取得する
     @pref_id = params[:pref_id]
-    
+
+    #父親の誕生日
+    @dad_barthday = params[:dad]
+
+    #母親の誕生日
+    @mom_barthday = params[:mom]
+
     #都道府県コードをもとに都道府県名を取得する
     @pref_name = PrefName.get_pref_name(@pref_id)
     
@@ -20,7 +26,7 @@ class WelcomeController < ApplicationController
     @holidays = Holiday.where('holiday_date > ?',Date.today).order('holiday_date')
 
     #Google search
-    @googleNews = LocalInfo.get_google_news(@pref_name)
+    @googlenews = LocalInfo.get_google_news(@pref_name)
 
     #楽天API呼出し用のIDを環境変数から取得する
     RakutenWebService.configuration do |c|

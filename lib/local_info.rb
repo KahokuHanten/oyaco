@@ -23,8 +23,9 @@ class LocalInfo
     end
     messages
   end
+
   def self.get_google_news(pref_name)
-    searchText = pref_name+" 事件"
-    return GoogleCustomSearchApi.search(searchText)
+    searchtext = pref_name+" ニュース"
+    return GoogleCustomSearchApi.search(searchtext)
   end
 end
