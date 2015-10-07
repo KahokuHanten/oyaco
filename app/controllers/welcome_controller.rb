@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-require 'pp'
-# -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
   # GET /
   def top
@@ -15,7 +12,7 @@ class WelcomeController < ApplicationController
 
     #都道府県コードをもとに都道府県名を取得する
     @pref_name = PrefName.get_pref_name(@pref_id)
-    
+
     #都道府県コードをもとに警報・注意報を取得する
     @warnings = LocalInfo.get_weather_warnings(@pref_id)
 
@@ -33,7 +30,6 @@ class WelcomeController < ApplicationController
       c.application_id = ENV["APPID"]
       c.affiliate_id = ENV["AFID"]
     end
-    
-    
+
   end
 end
