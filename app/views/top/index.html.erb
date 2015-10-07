@@ -22,19 +22,19 @@
       <div class="form-group">
         <%= label_tag(:dad, "Q1: あなたのお父さんの誕生日は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= date_field_tag(:dad, "1950-12-31", class: "form-control") %>
+          <%= date_field_tag(:dad, cookies.signed[:dad] ||= "1950-12-31", class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
         <%= label_tag(:mom, "Q2: あなたのお母さんの誕生日は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= date_field_tag(:mom, "1950-12-31", class: "form-control") %>
+          <%= date_field_tag(:mom, cookies.signed[:mom] ||= "1950-12-31", class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
         <%= label_tag(:pref_id, "Q3: あなたのご両親のお住まいは？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= select_tag(:pref_id, options_from_collection_for_select(JpPrefecture::Prefecture.all, :code, :name), class: "form-control") %>
+          <%= select_tag(:pref_id, options_from_collection_for_select(JpPrefecture::Prefecture.all, :code, :name, cookies.signed[:pref_id] ||= "1"), class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
