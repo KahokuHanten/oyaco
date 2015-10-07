@@ -18,7 +18,7 @@
   <h3 class="text-center">いくつかの質問に答えるだけで、ぴったりの話題を提案します</h3>
 
   <div class="form-horizontal" role="form">
-    <%= form_tag("/welcome", method: "get") do %>
+    <%= form_tag("/welcome", method: "get", :id => "question-form") do %>
       <div class="form-group">
         <%= label_tag(:dad, "Q1: あなたのお父さんの誕生日は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
@@ -39,7 +39,7 @@
       </div>
       <div class="form-group">
         <div class="col-sm-4 col-sm-offset-6">
-          <%= submit_tag("相談してみる", class: "btn btn-success btn-default") %>
+          <%= submit_tag("相談してみる", :id => "recommend", class: "btn btn-success btn-default") %>
         </div>
       </div>
     <% end %>
