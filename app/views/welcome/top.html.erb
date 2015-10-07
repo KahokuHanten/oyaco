@@ -1,62 +1,69 @@
-<div class="center hero-unit">
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+</script>
+
+<div class="container-fluid">
+
 <% @holidays.each do |holiday| %>
-  <p class="lead">
-    <h1>
-    ★<%= holiday.holiday_date.strftime('%Y年%-m月%e日') %>は<%= holiday.holiday_name %>です。★
-  </h1>
-    <h3>
-      <% comment="帰省しましょう。お土産はどうですか" %>
-      <% comment="カーネーションと一緒にプレゼントを贈りましょう" if holiday.holiday_name =~ /母/ %>
-      <% comment="父の日に贈り物はどうでしょう" if holiday.holiday_name =~ /父/ %>
-      <% comment="お墓参りに帰省しましょう" if holiday.holiday_name =~ /春|秋/ %>
-      <% comment="おじいさん、おばあさんにプレゼントを贈りましょう" if holiday.holiday_name =~ /敬老/ %>
-      <%= comment %>
-   </h3>
-  </p>
-  <table class="table">
-    <tbody>
-      <% @items = RakutenWebService::Ichiba::Item.search(:keyword => holiday.holiday_name) %>
-      <% @items.first(3).each do |item| %>
-        <tr>
-	  <a href="<%= item['affiliateUrl'] %>" target="_blank"><img src="<%= item['mediumImageUrls'][0]['imageUrl'] %>"></a>&nbsp;
-		</tr>
-      <% end %>
-    </tbody>
-  </table>
 
-  <p>
-    <h3>こんな言葉を贈ってはどうですか？</h3>
-  </p>
+  <div class="popover-message">
+    <div class="">
+      <div class="popover right">
+        <div class="arrow"></div>
+        <h3 class="popover-title"><%= holiday.holiday_date.strftime('%Y年%-m月%e日') %>は<%= holiday.holiday_name %></h3>
+        <div class="popover-content">
+          <!-- present items -->
+          <% comment="帰省しましょう。お土産はどうですか" %>
+          <% comment="カーネーションと一緒にプレゼントを贈りましょう" if holiday.holiday_name =~ /母/ %>
+          <% comment="父の日に贈り物はどうでしょう" if holiday.holiday_name =~ /父/ %>
+          <% comment="お墓参りに帰省しましょう" if holiday.holiday_name =~ /春|秋/ %>
+          <% comment="おじいさん、おばあさんにプレゼントを贈りましょう" if holiday.holiday_name =~ /敬老/ %>
+          <p><%= comment %></p>
 
-  <p>
-    <h3>
-      <% word="あけましておめでとう。今年もよろしくお願いします" %>
-      <% word="いつも家事をしてくれてありがとう" if holiday.holiday_name =~ /母/ %>
-      <% word="お仕事いつもやってやってくれてありがとう" if holiday.holiday_name =~ /父/ %>
-      <% word="ご先祖様ありがとう" if holiday.holiday_name =~ /春|秋/ %>
-      <% word="おじいちゃん、おばあちゃん、長生きしてね" if holiday.holiday_name =~ /敬老/ %>
-      <%= word %>
-   </h3>
-  </p>
+          <!-- present items -->
+          <table class="table">
+            <tbody>
+              <tr>
+                <% @items = RakutenWebService::Ichiba::Item.search(:keyword => holiday.holiday_name) %>
+                <% @items.first(3).each do |item| %>
+                  <td>
+                    <a href="<%= item['affiliateUrl'] %>" target="_blank"><img src="<%= item['mediumImageUrls'][0]['imageUrl'] %>" class="img-rounded"></a>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
 
-  <HR>
+          <!-- message -->
+          <p>こんな言葉を贈ってはどうですか？</p>
+          <p>
+            <% word="あけましておめでとう。今年もよろしくお願いします" %>
+            <% word="いつも家事をしてくれてありがとう" if holiday.holiday_name =~ /母/ %>
+            <% word="お仕事いつもやってやってくれてありがとう" if holiday.holiday_name =~ /父/ %>
+            <% word="ご先祖様ありがとう" if holiday.holiday_name =~ /春|秋/ %>
+            <% word="おじいちゃん、おばあちゃん、長生きしてね" if holiday.holiday_name =~ /敬老/ %>
+            「<%= word %>」
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
+<div class="popover-message">
+  <div class="">
+    <div class="popover right">
+      <div class="arrow"></div>
+      <div class="popover-content">
+        <p><%= @pref_name %>は<%= @message %></p>
+        <p>父の誕生日は<%= @dad_barthday %></p>
+        <p>母の誕生日は<%= @mom_barthday %></p>
+        <!-- <p><%= @googlenews %></p> -->
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- テスト -->
-
-<p>
-<h3><%= @pref_name %>は<%= @message %></h3>
-</p>
-
-<p>
-<h3>父の誕生日は<%= @dad_barthday %></h3>
-</p>
-
-<p>
-<h3>母の誕生日は<%= @mom_barthday %></h3>
-</p>
-
-<p>
-<h3><%= @googlenews %></h3>
-</p>
+</div>
