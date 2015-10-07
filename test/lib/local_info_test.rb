@@ -11,6 +11,7 @@ class LocalInfoTest < ActiveSupport::TestCase
     assert_nil LocalInfo.get_weather_warnings(0)
     assert_nil LocalInfo.get_weather_warnings(100)
   end
+
   test "should get google news" do
     news = LocalInfo.get_google_news("埼玉")
     assert !news.has_key?("error")
