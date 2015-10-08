@@ -15,7 +15,7 @@ class RememberInputsTest < Capybara::Rails::TestCase
     within '#question-form' do
       assert_equal find_field('dad').value, '1960-10-10'
       assert_equal find_field('mom').value, '1960-10-10'
-      assert_equal find_field('pref_id').value, JpPrefecture::Prefecture.find(name: "東京都").code.to_s
+      assert_equal find_field('pref_id').value, PrefName.get_pref_id("東京都")
     end
   end
 
@@ -29,13 +29,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
     end
 
     Capybara.current_session.reset!
-    
+
     visit root_path
 
     within '#question-form' do
       assert_equal find_field('dad').value, '1950-12-31'
       assert_equal find_field('mom').value, '1950-12-31'
-      assert_equal find_field('pref_id').value, JpPrefecture::Prefecture.find(name: "北海道").code.to_s
+      assert_equal find_field('pref_id').value, PrefName.get_pref_id("北海道")
     end
   end
 end
