@@ -66,4 +66,12 @@
   </div>
 </div>
 
+<%= form_tag("/", method: "get", :id => "gototop-form") do %>
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-offset-6">
+      <%= submit_tag("再設定", :id => "gototop", class: "btn btn-success btn-default") %>
+    </div>
+  </div>
+<% end %>
+
 </div>
