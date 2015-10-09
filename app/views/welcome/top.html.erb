@@ -83,6 +83,11 @@
         <div class="arrow"></div>
         <div class="popover-content">
           <p><%= @pref_name %>は<%= @message %></p>
+          <p><%= @pref_name %>のニュース</p>
+          <% @googlenews["items"].first(3).each do |news| %>
+          <p><%= news["title"] %></p>
+          <p><%= news["link"] %></p>
+          <% end %>
           <!-- <p><%= @googlenews %></p> -->
         </div>
       </div>
