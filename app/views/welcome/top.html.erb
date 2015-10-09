@@ -60,7 +60,11 @@
         <p><%= @pref_name %>は<%= @message %></p>
         <p>父の誕生日は<%= @dad_barthday %></p>
         <p>母の誕生日は<%= @mom_barthday %></p>
-        <!-- <p><%= @googlenews %></p> -->
+        <p><%= @pref_name %>のニュース</p>
+        <% @googlenews["items"].first(3).each do |news| %>
+        <p><%= news["title"] %></p>
+        <p><%= news["link"] %></p>
+        <% end %>
       </div>
     </div>
   </div>
