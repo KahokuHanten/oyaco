@@ -12,11 +12,7 @@ class RememberInputsTest < Capybara::Rails::TestCase
 
     visit root_path
 
-    within '#question-form' do
-      assert_equal find_field('dad').value, '1960-10-10'
-      assert_equal find_field('mom').value, '1960-10-10'
-      assert_equal find_field('pref_id').value, PrefName.get_pref_id("東京都")
-    end
+    assert page.has_button?('再設定')
   end
 
   test "forget cookie and set to default" do
