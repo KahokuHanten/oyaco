@@ -6,7 +6,33 @@
 
 <div class="container-fluid">
 
-<% @holidays.each do |holiday| %>
+  <% @topics_birthday.each do |topic| %>
+  <div class="popover-message">
+    <div class="">
+      <div class="popover right">
+        <div class="arrow"></div>
+        <h3 class="popover-title"><%= topic[:title] %></h3>
+        <div class="popover-content">
+          <p><%= topic[:comment] %></p>
+          <!-- present items -->
+          <table class="table">
+            <tbody>
+              <tr>
+                <% topic[:items].first(3).each do |item| %>
+                <td>
+                  <a href="<%= item['affiliateUrl'] %>" target="_blank"><img class="img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>"></a>
+                </td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <% @holidays.each do |holiday| %>
 
   <div class="popover-message">
     <div class="">
@@ -14,7 +40,6 @@
         <div class="arrow"></div>
         <h3 class="popover-title"><%= holiday.holiday_date.strftime('%Y年%-m月%e日') %>は<%= holiday.holiday_name %></h3>
         <div class="popover-content">
-          <!-- present items -->
           <% comment="帰省しましょう。お土産はどうですか" %>
           <% comment="カーネーションと一緒にプレゼントを贈りましょう" if holiday.holiday_name =~ /母/ %>
           <% comment="父の日に贈り物はどうでしょう" if holiday.holiday_name =~ /父/ %>
@@ -28,9 +53,9 @@
               <tr>
                 <% @items = RakutenWebService::Ichiba::Item.search(:keyword => holiday.holiday_name) %>
                 <% @items.first(3).each do |item| %>
-                  <td>
-                    <a href="<%= item['affiliateUrl'] %>" target="_blank"><img src="<%= item['mediumImageUrls'][0]['imageUrl'] %>" class="img-rounded"></a>
-                  </td>
+                <td>
+                  <a href="<%= item['affiliateUrl'] %>" target="_blank"><img class="img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>"></a>
+                </td>
                 <% end %>
               </tr>
             </tbody>
@@ -50,32 +75,31 @@
       </div>
     </div>
   </div>
-<% end %>
+  <% end %>
 
-<div class="popover-message">
-  <div class="">
-    <div class="popover right">
-      <div class="arrow"></div>
-      <div class="popover-content">
-        <p><%= @pref_name %>は<%= @message %></p>
-        <p>父の誕生日は<%= @dad_barthday %></p>
-        <p>母の誕生日は<%= @mom_barthday %></p>
-        <p><%= @pref_name %>のニュース</p>
-        <% @googlenews["items"].first(3).each do |news| %>
-        <p><%= news["title"] %></p>
-        <p><%= news["link"] %></p>
-        <% end %>
+  <div class="popover-message">
+    <div class="">
+      <div class="popover right">
+        <div class="arrow"></div>
+        <div class="popover-content">
+          <p><%= @pref_name %>は<%= @message %></p>
+          <p><%= @pref_name %>のニュース</p>
+          <% @googlenews["items"].first(3).each do |news| %>
+          <p><%= news["title"] %></p>
+          <p><%= news["link"] %></p>
+          <% end %>
+          <!-- <p><%= @googlenews %></p> -->
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<%= form_tag("/", method: "get", :id => "gototop-form") do %>
+  <%= form_tag("/", method: "get", :id => "gototop-form") do %>
   <div class="form-group">
-    <div class="col-sm-4 col-sm-offset-6">
+    <div class="text-center">
       <%= submit_tag("再設定", :id => "gototop", class: "btn btn-success btn-default") %>
     </div>
   </div>
-<% end %>
+  <% end %>
 
 </div>
