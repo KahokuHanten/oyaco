@@ -14,7 +14,6 @@
         <div class="arrow"></div>
         <h3 class="popover-title"><%= holiday.holiday_date.strftime('%Y年%-m月%e日') %>は<%= holiday.holiday_name %></h3>
         <div class="popover-content">
-          <!-- present items -->
           <% comment="帰省しましょう。お土産はどうですか" %>
           <% comment="カーネーションと一緒にプレゼントを贈りましょう" if holiday.holiday_name =~ /母/ %>
           <% comment="父の日に贈り物はどうでしょう" if holiday.holiday_name =~ /父/ %>
@@ -58,8 +57,8 @@
       <div class="arrow"></div>
       <div class="popover-content">
         <p><%= @pref_name %>は<%= @message %></p>
-        <p>父の誕生日は<%= @dad_barthday %></p>
-        <p>母の誕生日は<%= @mom_barthday %></p>
+        <p>父の誕生日は<%= @dad_birthday %></p>
+        <p>母の誕生日は<%= @mom_birthday %></p>
         <!-- <p><%= @googlenews %></p> -->
       </div>
     </div>

@@ -6,11 +6,11 @@ class WelcomeController < ApplicationController
     cookies.signed[:pref_id] = params[:pref_id]
 
     #父親の誕生日
-    @dad_barthday = params[:dad]
+    @dad_birthday = params[:dad]
     cookies.signed[:dad] = params[:dad]
 
     #母親の誕生日
-    @mom_barthday = params[:mom]
+    @mom_birthday = params[:mom]
     cookies.signed[:mom] = params[:mom]
 
     #都道府県コードをもとに都道府県名を取得する
