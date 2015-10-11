@@ -38,6 +38,12 @@
         </div>
       </div>
       <div class="form-group">
+        <%= label_tag(:mom, "Q2: あなたのご両親の電話番号は？", class: "col-sm-6 control-label") %>
+        <div class="col-sm-4">
+          <%= telephone_field_tag(:tel, cookies.signed[:tel] ||= "111", class: "form-control") %>
+        </div>
+      </div>
+      <div class="form-group">
         <div class="col-sm-4 col-sm-offset-6">
           <%= submit_tag("相談してみる", :id => "recommend", class: "btn btn-success btn-default") %>
         </div>

@@ -4,6 +4,7 @@ class WelcomeController < ApplicationController
     cookies.signed[:dad] = params[:dad]
     cookies.signed[:mom] = params[:mom]
     cookies.signed[:pref_id] = params[:pref_id]
+    cookies.signed[:tel] = params[:tel]
 
     #リクエストパラメータから都道府県コードを取得する
     @pref_id = params[:pref_id]
@@ -60,6 +61,8 @@ class WelcomeController < ApplicationController
       c.application_id = ENV["APPID"]
       c.affiliate_id = ENV["AFID"]
     end
+
+    @tel = params[:tel]
   end
 
 private
