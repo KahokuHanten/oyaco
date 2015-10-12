@@ -1,24 +1,23 @@
 <!-- Header -->
-<header id="top" class="header">
+<header class="header" id="top">
   <div class="text-vertical-center">
     <h1>OYAKO</h1>
     <h4>親子の会話を促す、話題レコメンドサービス</h4>
     <br><br>
-    <a href="#about" class="btn btn-success btn-default">使ってみる</a>
+    <a class="btn btn-success btn-default" href="#about">使ってみる</a>
   </div>
 </header>
 
 <!-- About -->
-<section id="about" class="about">
-</section>
+<section class="about" id="about"></section>
 
 <!-- Question -->
-<section id="question" class="question">
+<section class="question" id="question">
   <div class="container-fluid">
-  <h3 class="text-center">いくつかの質問に答えるだけで、ぴったりの話題を提案します</h3>
+    <h3 class="text-center">いくつかの質問に答えるだけで、ぴったりの話題を提案します</h3>
 
-  <div class="form-horizontal" role="form">
-    <%= form_tag("/welcome", method: "get", :id => "question-form") do %>
+    <div class="form-horizontal" role="form">
+      <%= form_tag("/welcome", method: "get", :id => "question-form") do %>
       <div class="form-group">
         <%= label_tag(:dad, "Q1: あなたのお父さんの誕生日は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
@@ -38,11 +37,17 @@
         </div>
       </div>
       <div class="form-group">
+        <%= label_tag(:mom, "Q2: あなたのご両親の電話番号は？", class: "col-sm-6 control-label") %>
+        <div class="col-sm-4">
+          <%= telephone_field_tag(:tel, cookies.signed[:tel] ||= "111", class: "form-control") %>
+        </div>
+      </div>
+      <div class="form-group">
         <div class="col-sm-4 col-sm-offset-6">
           <%= submit_tag("相談してみる", :id => "recommend", class: "btn btn-success btn-default") %>
         </div>
       </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
   </div>
 </section>

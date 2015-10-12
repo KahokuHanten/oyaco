@@ -85,21 +85,24 @@
           <p><%= @pref_name %>は<%= @message %></p>
           <p><%= @pref_name %>のニュース</p>
           <% @googlenews["items"].first(3).each do |news| %>
-          <p><%= news["title"] %></p>
-          <p><%= news["link"] %></p>
+            <p><%= news["title"] %></p>
+            <p><%= news["link"] %></p>
           <% end %>
-          <!-- <p><%= @googlenews %></p> -->
         </div>
       </div>
     </div>
   </div>
 
-  <%= form_tag("/", method: "get", :id => "gototop-form") do %>
-  <div class="form-group">
-    <div class="text-center">
-      <%= submit_tag("再設定", :id => "gototop", class: "btn btn-success btn-default") %>
-    </div>
+  <div class="text-center">
+    <%= link_to('電話する', 'tel:' + @tel, class: "btn btn-primary text-center") %>
   </div>
+
+  <%= form_tag("/", method: "get", :id => "gototop-form") do %>
+    <div class="form-group">
+      <div class="text-center">
+        <%= submit_tag("再設定", :id => "gototop", class: "btn btn-success btn-default") %>
+      </div>
+    </div>
   <% end %>
 
 </div>
