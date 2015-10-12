@@ -14,7 +14,6 @@
         <h3 class="popover-title"><%= topic[:title] %></h3>
         <div class="popover-content">
           <p><%= topic[:comment] %></p>
-          <!-- present items -->
           <table class="table">
             <tbody>
               <tr>
@@ -26,9 +25,9 @@
               </tr>
             </tbody>
           </table>
-          <% if topic[:message].presence %>
+          <% if topic[:message].present? %>
             <p>こんな言葉を贈ってはどうですか？</p>
-            <p>「<%= topic[:message].presence %>」</p>
+            <p>「<%= topic[:message] %>」</p>
           <% end %>
         </div>
       </div>

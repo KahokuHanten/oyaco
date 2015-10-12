@@ -6,18 +6,10 @@ class WelcomeController < ApplicationController
       cookies.signed[param] = params[param]
     end
 
-    # 楽天API呼出し用のIDを環境変数から取得する
-    RakutenWebService.configuration do |c|
-      c.application_id = ENV['APPID']
-      c.affiliate_id = ENV['AFID']
-    end
-
     # リクエストパラメータから都道府県コードを取得する
     @pref_id = params[:pref_id]
 
     remind_months_ago = Oyako::Application.config.remind_months_ago
-
-    # 誕生日の話題
     @topics = []
 
     # FIXME: need to create model
@@ -104,16 +96,15 @@ class WelcomeController < ApplicationController
   end
 
   def get_message_by_event(holiday)
-    prefix = ""
     case holiday.holiday_name
     when /母/
-      "いつも家事をしてくれてありがとう"
+      "お母さん。いつもありがとう。いつまでも元気で長生きしてください。"
     when /父/
-      "お仕事いつもやってやってくれてありがとう"
+      "お父さん。いつもありがとう。いつまでも元気で長生きしてください。"
     when /春|秋/
       "ご先祖様ありがとう"
     when /敬老/
-      "おじいちゃん、おばあちゃん、長生きしてね"
+      # "おじいちゃん、おばあちゃん、長生きしてね"
     else
       nil
     end
