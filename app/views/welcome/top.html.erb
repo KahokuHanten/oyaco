@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
 
-  <% @topics_birthday.each do |topic| %>
+  <% @topics.each do |topic| %>
   <div class="popover-message">
     <div class="">
       <div class="popover right">
@@ -26,51 +26,10 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% end %>
-
-  <% @holidays.each do |holiday| %>
-
-  <div class="popover-message">
-    <div class="">
-      <div class="popover right">
-        <div class="arrow"></div>
-        <h3 class="popover-title"><%= holiday.holiday_date.strftime('%Y年%-m月%e日') %>は<%= holiday.holiday_name %></h3>
-        <div class="popover-content">
-          <% comment="帰省しましょう。お土産はどうですか" %>
-          <% comment="カーネーションと一緒にプレゼントを贈りましょう" if holiday.holiday_name =~ /母/ %>
-          <% comment="父の日に贈り物はどうでしょう" if holiday.holiday_name =~ /父/ %>
-          <% comment="お墓参りに帰省しましょう" if holiday.holiday_name =~ /春|秋/ %>
-          <% comment="おじいさん、おばあさんにプレゼントを贈りましょう" if holiday.holiday_name =~ /敬老/ %>
-          <p><%= comment %></p>
-
-          <!-- present items -->
-          <table class="table">
-            <tbody>
-              <tr>
-                <% @items = RakutenWebService::Ichiba::Item.search(:keyword => holiday.holiday_name) %>
-                <% @items.first(3).each do |item| %>
-                <td>
-                  <a href="<%= item['affiliateUrl'] %>" target="_blank"><img class="img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>"></a>
-                </td>
-                <% end %>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- message -->
-          <p>こんな言葉を贈ってはどうですか？</p>
-          <p>
-            <% word="あけましておめでとう。今年もよろしくお願いします" %>
-            <% word="いつも家事をしてくれてありがとう" if holiday.holiday_name =~ /母/ %>
-            <% word="お仕事いつもやってやってくれてありがとう" if holiday.holiday_name =~ /父/ %>
-            <% word="ご先祖様ありがとう" if holiday.holiday_name =~ /春|秋/ %>
-            <% word="おじいちゃん、おばあちゃん、長生きしてね" if holiday.holiday_name =~ /敬老/ %>
-            「<%= word %>」
-          </p>
+          <% if topic[:message].presence %>
+            <p>こんな言葉を贈ってはどうですか？</p>
+            <p>「<%= topic[:message].presence %>」</p>
+          <% end %>
         </div>
       </div>
     </div>
@@ -95,7 +54,7 @@
         <div class="popover-content">
           <p><%= @pref_name %>のニュース</p>
           <% @googlenews["items"].first(3).each do |news| %>
-            <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
+          <a href="<%= news[" link"] %>"><%= news["title"] %><br></a>
           <% end %>
         </div>
       </div>
@@ -107,11 +66,10 @@
   </div>
 
   <%= form_tag("/", method: "get", :id => "gototop-form") do %>
-    <div class="form-group">
-      <div class="text-center">
-        <%= submit_tag("再設定", :id => "gototop", class: "btn btn-success btn-default") %>
-      </div>
+  <div class="form-group">
+    <div class="text-center">
+      <%= submit_tag("再設定", :id => "gototop", class: "btn btn-success btn-default") %>
     </div>
+  </div>
   <% end %>
-
 </div>

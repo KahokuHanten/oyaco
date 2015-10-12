@@ -25,5 +25,7 @@ module Oyako
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.autoload_paths += %W(#{config.root}/lib)
+
+    config.remind_months_ago = 3
   end
 end
