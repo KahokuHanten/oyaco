@@ -53,7 +53,7 @@
         <div class="popover-content">
           <p><%= @pref_name %>のニュース</p>
           <% @googlenews["items"].first(3).each do |news| %>
-          <a href="<%= news[" link"] %>"><%= news["title"] %><br></a>
+          <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
           <% end %>
         </div>
       </div>
