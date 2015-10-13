@@ -6,3 +6,4 @@ Rails.application.initialize!
 
 require 'local_info'
 require 'pref_name'
+require 'hobby'
