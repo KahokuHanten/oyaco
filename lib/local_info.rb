@@ -28,4 +28,15 @@ class LocalInfo
     searchtext = pref_name+" ニュース"
     return GoogleCustomSearchApi.search(searchtext)
   end
+  def self.get_hobby_news(hobby)
+    #一旦、スケルトンで実装
+    #GoogleCustomerSearch APIからニュースを取得する
+    #if keyにerrorがセットされているもしっくはitemsが空の場合は
+    #  エラーメッセージを返却する
+    #for
+    #  if link にg=jfnが含まれている then
+    #    返却するハッシュの先頭に挿入する
+    #  else
+    #    返却ハッシュの末尾に挿入する
+  end
 end
