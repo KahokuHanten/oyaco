@@ -29,14 +29,24 @@ class LocalInfo
     return GoogleCustomSearchApi.search(searchtext)
   end
   def self.get_hobby_news(hobby)
-    #一旦、スケルトンで実装
     #GoogleCustomerSearch APIからニュースを取得する
-    #if keyにerrorがセットされているもしっくはitemsが空の場合は
-    #  エラーメッセージを返却する
-    #for
-    #  if link にg=jfnが含まれている then
-    #    返却するハッシュの先頭に挿入する
-    #  else
-    #    返却ハッシュの末尾に挿入する
+    hobby_result = GoogleCustomSearchApi.search(hobby)
+    #if keyにerrorがセットされているもしくはitemsが空の場合は
+    result = []
+    if !hobby_result.has_key?("error") && !hobby_result["items"].blank? then
+      hobby_result["items"].each do |a_news|
+        #にっぽんもぎたて便の場合は返却する配列の先頭に挿入する
+        if a_news["link"].include?("g=jfn") then
+          result.unshift(a_news)
+        else
+          #通常ニュースの場合は返却配列の末尾に挿入する
+          result.push(a_news)
+        end
+      end
+    else 
+      #エラーメッセージを返却する
+      result["error"] = hobby + "に関するニュースは見つかりませんでした"
+    end
+    return result
   end
 end
