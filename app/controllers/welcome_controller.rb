@@ -27,12 +27,12 @@ class WelcomeController < ApplicationController
     end
 
     # 祝日関連の話題
-    @holidays = Holiday.where(holiday_date: Date.today..Date.today.months_since(remind_months_ago)).order('holiday_date')
+    @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')
     @holidays.each do |holiday|
       @topics.push(
-        title: holiday.holiday_date.strftime('%Y年%-m月%e日') + 'は' + holiday.holiday_name,
+        title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
         comment: get_comment_by_event(holiday),
-        items: RakutenWebService::Ichiba::Item.search(keyword: holiday.holiday_name),
+        items: RakutenWebService::Ichiba::Item.search(keyword: holiday.name),
         message: get_message_by_event(holiday))
     end
 
@@ -48,7 +48,7 @@ class WelcomeController < ApplicationController
   end
 
   def get_comment_by_event(holiday)
-    case holiday.holiday_name
+    case holiday.name
     when /母/
       'カーネーションと一緒にプレゼントを贈りましょう'
     when /父/
@@ -63,7 +63,7 @@ class WelcomeController < ApplicationController
   end
 
   def get_message_by_event(holiday)
-    case holiday.holiday_name
+    case holiday.name
     when /母/
       'お母さん。いつもありがとう。いつまでも元気で長生きしてください。'
     when /父/
