@@ -37,13 +37,13 @@
         </div>
       </div>
       <div class="form-group">
-        <%= label_tag(:mom, "Q4: あなたのご両親の電話番号は？", class: "col-sm-6 control-label") %>
+        <%= label_tag(:tel, "Q4: あなたのご両親の電話番号は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
           <%= telephone_field_tag(:tel, cookies.signed[:tel] ||= "111", class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
-        <%= label_tag(:pref_id, "Q5: あなたのご両親の趣味は？", class: "col-sm-6 control-label") %>
+        <%= label_tag(:hobby, "Q5: あなたのご両親の趣味は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
           <%= select_tag(:hobby, options_from_collection_for_select(Hobby.all, :name, :name, cookies.signed[:hobby] ||= "温泉旅行"), class: "form-control") %>
         </div>

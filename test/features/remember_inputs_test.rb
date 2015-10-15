@@ -12,7 +12,7 @@ class RememberInputsTest < Capybara::Rails::TestCase
 
     visit root_path
 
-    assert page.has_button?('再設定')
+    assert page.has_button?('gototop')
   end
 
   test "forget cookie and set to default" do

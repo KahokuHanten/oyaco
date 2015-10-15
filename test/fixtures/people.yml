@@ -1,9 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  user_id: 
   name: MyString
-  date: 2015-09-29
+  relation: 1
+  birthday: 2015-10-15
+  location: 1
 
 two:
+  user_id: 
   name: MyString
-  date: 2015-09-30
+  relation: 1
+  birthday: 2015-10-15
+  location: 1
