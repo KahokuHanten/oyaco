@@ -12,38 +12,27 @@ class WelcomeController < ApplicationController
     remind_months_ago = Oyako::Application.config.remind_months_ago
     @topics = []
 
-    # FIXME: need to create model
-    # 父
-    birthdate = params[:dad]
-    age = get_age(birthdate)
-    age_r = get_rakuten_age(age)
-    next_birthday = get_next_birthday(birthdate)
-    if next_birthday < Date.today.months_since(remind_months_ago)
-      @topics.push(
-        title: 'もうすぐお父さんの' + (age + 1).to_s + '歳の誕生日（' + next_birthday.strftime('%-m月%e日') + ')',
-        comment: 'こんなプレゼントはいかがですか？',
-        items: RakutenWebService::Ichiba::Item.ranking(age: age_r, sex: 0))
-    end
+    father = Person.new
+    father.assign_attributes(relation: 0, birthday: params[:dad], location: params[:pref_id])
+    mother = Person.new
+    mother.assign_attributes(relation: 1, birthday: params[:mom], location: params[:pref_id])
 
-    # 母  FIXME: DRY
-    birthdate = params[:mom]
-    age = get_age(birthdate)
-    age_r = get_rakuten_age(age)
-    next_birthday = get_next_birthday(birthdate)
-    if next_birthday < Date.today.months_since(remind_months_ago)
-      @topics.push(
-        title: 'もうすぐお母さんの' + (age + 1).to_s + '歳の誕生日（' + next_birthday.strftime('%-m月%e日') + ')',
-        comment: 'こんなプレゼントはいかがですか？',
-        items: RakutenWebService::Ichiba::Item.ranking(age: age_r, sex: 1))
+    [father, mother].each do |person|
+      if person.next_birthday < Date.today.months_since(remind_months_ago)
+        @topics.push(
+          title: "もうすぐ #{person.name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
+          comment: 'こんなプレゼントはいかがですか？',
+          items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
+      end
     end
 
     # 祝日関連の話題
-    @holidays = Holiday.where(holiday_date: Date.today..Date.today.months_since(remind_months_ago)).order('holiday_date')
+    @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')
     @holidays.each do |holiday|
       @topics.push(
-        title: holiday.holiday_date.strftime('%Y年%-m月%e日') + 'は' + holiday.holiday_name,
+        title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
         comment: get_comment_by_event(holiday),
-        items: RakutenWebService::Ichiba::Item.search(:keyword => holiday.holiday_name),
+        items: RakutenWebService::Ichiba::Item.search(keyword: holiday.name),
         message: get_message_by_event(holiday))
     end
 
@@ -58,55 +47,31 @@ class WelcomeController < ApplicationController
     @tel = params[:tel]
   end
 
-  private
-  def get_age(birthdate)
-    age = ((Date.today.strftime('%Y%m%d').to_i -
-            Date.strptime(birthdate).strftime('%Y%m%d').to_i) / 10_000)
-  end
-
-  def get_rakuten_age(age)
-    age_r = age.round(-1)
-    age_r = 50 if age_r > 50
-    age_r = 10 if age_r == 0
-    age_r
-  end
-
-  def get_next_birthday(birthdate)
-    birthday = Date.strptime(birthdate)
-    next_birthday = Date.new(Date.today.year, birthday.month, birthday.day)
-    if next_birthday < Date.today
-      next_birthday = Date.new(Date.today.year + 1, birthday.month, birthday.day)
-    end
-    next_birthday
-  end
-
   def get_comment_by_event(holiday)
-    case holiday.holiday_name
+    case holiday.name
     when /母/
-      "カーネーションと一緒にプレゼントを贈りましょう"
+      'カーネーションと一緒にプレゼントを贈りましょう'
     when /父/
-      "父の日に贈り物はどうでしょう"
+      '父の日に贈り物はどうでしょう'
     when /春|秋/
-      "お墓参りに帰省しましょう"
+      'お墓参りに帰省しましょう'
     when /敬老/
-      "おじいさん、おばあさんにプレゼントを贈りましょう"
+      'おじいさん、おばあさんにプレゼントを贈りましょう'
     else
-      "帰省しましょう。お土産はどうですか"
+      '帰省しましょう。お土産はどうですか'
     end
   end
 
   def get_message_by_event(holiday)
-    case holiday.holiday_name
+    case holiday.name
     when /母/
-      "お母さん。いつもありがとう。いつまでも元気で長生きしてください。"
+      'お母さん。いつもありがとう。いつまでも元気で長生きしてください。'
     when /父/
-      "お父さん。いつもありがとう。いつまでも元気で長生きしてください。"
+      'お父さん。いつもありがとう。いつまでも元気で長生きしてください。'
     when /春|秋/
-      "ご先祖様ありがとう"
+      'ご先祖様ありがとう'
     when /敬老/
       # "おじいちゃん、おばあちゃん、長生きしてね"
-    else
-      nil
     end
   end
 end
