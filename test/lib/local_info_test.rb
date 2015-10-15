@@ -18,19 +18,17 @@ class LocalInfoTest < ActiveSupport::TestCase
     assert !news.has_key?("error")
   end
 =end
-=begin
-  google apiのリクエスト制限に掛かるため
-  テストをコメントアウトする
-  test "should get any hobby news" do
+
+  test "should get any hobby news or error message" do
     hobby_news = LocalInfo.get_hobby_news("イラスト")
-    if !hobby_news.has_key?("error")
-      && !hobby_news["items"].blank?
-    then
-      hobby_news["items"].each do |a_news|
-        assert a_news["title"].blank?
-        assert a_news["link"]
+    if hobby_news.has_key?("items") then
+      link = nil
+      hobby_news["items"].first(1).each do |a_news|
+        link = a_news["link"]
       end
+      assert !link.blank?
+    else
+      assert !hobby_news["error"].blank?
     end
   end
-=end
 end
