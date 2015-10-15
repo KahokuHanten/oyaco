@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929144910) do
+ActiveRecord::Schema.define(version: 20151015014251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(version: 20150929144910) do
 
   add_index "holidays", ["holiday_date"], name: "index_holidays_on_holiday_date", unique: true, using: :btree
 
+  create_table "people", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.integer  "relation"
+    t.date     "birthday"
+    t.integer  "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "people", ["user_id"], name: "index_people_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.integer  "birthday_year"
@@ -42,4 +54,5 @@ ActiveRecord::Schema.define(version: 20150929144910) do
     t.datetime "updated_at",     null: false
   end
 
+  add_foreign_key "people", "users"
 end
