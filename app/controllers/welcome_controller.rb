@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   # GET /
   def top
     # Set cookies
-    [:dad, :mom, :pref_id, :tel].each do |param|
+    [:dad, :mom, :pref_id, :tel, :hobby].each do |param|
       cookies.signed[param] = params[param]
     end
 
@@ -42,6 +42,10 @@ class WelcomeController < ApplicationController
 
     # Google search
     @googlenews = LocalInfo.get_google_news(@pref_name)
+
+    #趣味
+    @hobby = params[:hobby]
+    @hobbynews = LocalInfo.get_hobby_news(@hobby)
 
     # 電話番号
     @tel = params[:tel]

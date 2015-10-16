@@ -5,7 +5,8 @@ class TopController < ApplicationController
                   dad: cookies.signed[:dad],
                   mom: cookies.signed[:mom],
                   pref_id: cookies.signed[:pref_id],
-                  tel: cookies.signed[:tel])
+                  tel: cookies.signed[:tel],
+                  hobby: cookies.signed[:hobby])
     end
   end
 end
