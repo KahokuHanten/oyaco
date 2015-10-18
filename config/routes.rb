@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 #  get 'welcome' => 'welcome#holidaytop'
   get 'welcome' => 'welcome#top'
 
+  # Twilio Support
+  get 'twilio' => 'twilio#index'
+  post 'twilio/voice' => 'twilio#voice'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
