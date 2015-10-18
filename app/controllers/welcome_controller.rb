@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
     # リクエストパラメータから都道府県コードを取得する
     @pref_id = params[:pref_id]
 
-    remind_months_ago = Oyako::Application.config.remind_months_ago
+    remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
     father = Person.new
