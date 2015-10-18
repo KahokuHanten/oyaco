@@ -3,7 +3,7 @@ require "test_helper"
 class CanRecommendTopicsTest < Capybara::Rails::TestCase
   test "sanity" do
     visit root_path
-    assert_content page, "OYAKO"
+    assert_content page, "OYACO"
   end
 
   test "user enters valid input" do
