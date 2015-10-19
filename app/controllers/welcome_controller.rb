@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  # GET /
+  # POST /
   def top
     # Set cookies
     [:dad, :mom, :pref_id, :tel, :hobby].each do |param|
