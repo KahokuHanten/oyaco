@@ -90,13 +90,9 @@
       </div>
     </div>
     <div class="col-xs-4">
-      <%= form_tag("/", method: "get", :id => "gototop-form") do %>
-      <div class="form-group">
-        <div class="text-center">
-          <%= submit_tag("質問をやり直す", :id => "gototop", name: "retry", class: "btn btn-info btn-default") %>
-        </div>
+      <div class="text-center">
+        <%= link_to('質問をやり直す', root_path(anchor: "question"), class: "btn btn-info btn-default") %>
       </div>
-      <% end %>
     </div>
   </div>
 </div>

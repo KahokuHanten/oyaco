@@ -3,6 +3,7 @@ require "test_helper"
 class RememberInputsTest < Capybara::Rails::TestCase
   test "remember inputs via cookie" do
     visit root_path
+
     within '#question-form' do
       fill_in 'dad', with: '1960-10-10'
       fill_in 'mom', with: '1960-10-10'
@@ -12,7 +13,9 @@ class RememberInputsTest < Capybara::Rails::TestCase
 
     visit root_path
 
-    assert page.has_button?('gototop')
+    assert_equal find_field('dad').value, '1960-10-10'
+    assert_equal find_field('mom').value, '1960-10-10'
+    assert_equal find_field('pref_id').value, PrefName.get_pref_id("東京都")
   end
 
   test "forget cookie and set to default" do
