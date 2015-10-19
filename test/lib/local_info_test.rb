@@ -12,12 +12,15 @@ class LocalInfoTest < ActiveSupport::TestCase
     assert_nil LocalInfo.get_weather_warnings(100)
   end
 
-=begin
   test "should get google news" do
     news = LocalInfo.get_google_news("埼玉")
-    assert !news.has_key?("error")
+    if !news.has_key?("error") then
+      assert !news["items"].blank?
+    else
+      assert !news["error"].blank?
+    end
+
   end
-=end
 
   test "should get any hobby news or error message" do
     hobby_news = LocalInfo.get_hobby_news("イラスト")

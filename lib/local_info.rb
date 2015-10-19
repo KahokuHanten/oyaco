@@ -25,13 +25,11 @@ class LocalInfo
   end
 
   def self.get_google_news(pref_name)
-    searchtext = pref_name+" ニュース"
-    return GoogleCustomSearchApi.search(searchtext)
+    return LocalInfo::find_cse(pref_name+" ニュース",pref_name)
   end
 
   def self.get_hobby_news(hobby)
-    #GoogleCustomerSearch APIからニュースを取得する
-    hobby_result = GoogleCustomSearchApi.search(hobby)
+    hobby_result = LocalInfo::find_cse(hobby,hobby)
     hobbys = []
     result = {}
     if !hobby_result.has_key?("error") && !hobby_result["items"].blank? then
@@ -45,9 +43,14 @@ class LocalInfo
         end
       end
       result["items"] = hobbys
-    else 
-      #エラーメッセージを返却する
-      result["error"] = hobby + "に関するニュースは見つかりませんでした"
+    end
+    return result
+  end
+
+  def self.find_cse(search_text,error_preffix)
+    result = GoogleCustomSearchApi.search(search_text)
+    if result.has_key?("error") || result["items"].blank? then
+      result["error"] = error_preffix + "に関するニュースは見つかりませんでした"
     end
     return result
   end
