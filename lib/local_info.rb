@@ -31,7 +31,6 @@ class LocalInfo
   def self.get_hobby_news(hobby)
     hobby_result = LocalInfo::find_cse(hobby,hobby)
     hobbys = []
-    result = {}
     if !hobby_result.has_key?("error") && !hobby_result["items"].blank? then
       hobby_result["items"].each do |a_news|
         #にっぽんもぎたて便の場合は返却する配列の先頭に挿入する
@@ -42,9 +41,9 @@ class LocalInfo
           hobbys.push(a_news)
         end
       end
-      result["items"] = hobbys
+      hobby_result["items"] = hobbys
     end
-    return result
+    return hobby_result
   end
 
   def self.find_cse(search_text,error_preffix)
