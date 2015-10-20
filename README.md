@@ -1,8 +1,8 @@
 ## OYACO
 [![Build Status](https://travis-ci.org/KahokuHanten/oyaco.svg?branch=master)](https://travis-ci.org/KahokuHanten/oyaco)
-* service: https://lit-journey-4733.herokuapp.com/
+* service: https://oyaco.herokuapp.com/
 * CI/test: https://travis-ci.org/KahokuHanten/oyaco
-* backlog: https://trello.com/b/W5HXXb1h/-
+* backlog: https://trello.com/b/W5HXXb1h/oyaco
 
 ### エレベーターピッチ
 
