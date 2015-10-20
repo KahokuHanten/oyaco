@@ -4,6 +4,8 @@ require 'nokogiri'
 
 class LocalInfo
   WW_URL = 'http://weather.livedoor.com/forecast/rss/warn/'
+  NEWS_NOT_FOUND_MESSAGE = 'に関するニュースは見つかりませんでした'
+  API_USAGE_LIMIT = '使用APIの回数制限のため、検索できませんでした'
 
   def self.get_weather_warnings(id)
     doc = ""
@@ -46,10 +48,13 @@ class LocalInfo
     return hobby_result
   end
 
-  def self.find_cse(search_text,error_preffix)
+  def self.find_cse(search_text,error_prefix)
     result = GoogleCustomSearchApi.search(search_text)
-    if result.has_key?("error") || result["items"].blank? then
-      result["error"] = error_preffix + "に関するニュースは見つかりませんでした"
+    errorReason = result["error"]["errors"][0]["reason"] rescue nil
+    if !errorReason.blank? && errorReason=="dailyLimitExceeded"
+      result["error_usage_limit"] = API_USAGE_LIMIT
+    elsif result.has_key?("error") || result["items"].blank? then
+      result["error"] = error_prefix + NEWS_NOT_FOUND_MESSAGE
     end
     return result
   end
