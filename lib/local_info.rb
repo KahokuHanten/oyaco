@@ -26,7 +26,7 @@ class LocalInfo
     messages
   end
 
-  def self.get_google_news(pref_name)
+  def self.get_local_news(pref_name)
     return LocalInfo::find_cse(pref_name+" ニュース",pref_name)
   end
 
