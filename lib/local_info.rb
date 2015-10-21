@@ -50,8 +50,8 @@ class LocalInfo
 
   def self.find_cse(search_text,error_prefix)
     result = GoogleCustomSearchApi.search(search_text)
-    errorReason = result["error"]["errors"][0]["reason"] rescue nil
-    if !errorReason.blank? && errorReason=="dailyLimitExceeded"
+    error_reason = result["error"]["errors"][0]["reason"] rescue nil
+    if !error_reason.blank? && error_reason=="dailyLimitExceeded"
       result["error_usage_limit"] = API_USAGE_LIMIT
     elsif result.has_key?("error") || result["items"].blank? then
       result["error"] = error_prefix + NEWS_NOT_FOUND_MESSAGE
