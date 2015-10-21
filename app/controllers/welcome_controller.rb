@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
   # POST /
   def top
@@ -41,7 +42,7 @@ class WelcomeController < ApplicationController
     @message = MessageGenerator.new(@warnings).generate
 
     # Google search
-    @googlenews = LocalInfo.get_google_news(@pref_name)
+    @googlenews = LocalInfo.get_local_news(@pref_name)
 
     #趣味
     @hobby = params[:hobby]

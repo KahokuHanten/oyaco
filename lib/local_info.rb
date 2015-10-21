@@ -4,6 +4,8 @@ require 'nokogiri'
 
 class LocalInfo
   WW_URL = 'http://weather.livedoor.com/forecast/rss/warn/'
+  NEWS_NOT_FOUND_MESSAGE = 'に関するニュースは見つかりませんでした'
+  API_USAGE_LIMIT = '使用APIの回数制限のため、検索できませんでした'
 
   def self.get_weather_warnings(id)
     doc = ""
@@ -24,16 +26,13 @@ class LocalInfo
     messages
   end
 
-  def self.get_google_news(pref_name)
-    searchtext = pref_name+" ニュース"
-    return GoogleCustomSearchApi.search(searchtext)
+  def self.get_local_news(pref_name)
+    return LocalInfo::find_cse(pref_name+" ニュース",pref_name)
   end
 
   def self.get_hobby_news(hobby)
-    #GoogleCustomerSearch APIからニュースを取得する
-    hobby_result = GoogleCustomSearchApi.search(hobby)
+    hobby_result = LocalInfo::find_cse(hobby,hobby)
     hobbys = []
-    result = {}
     if !hobby_result.has_key?("error") && !hobby_result["items"].blank? then
       hobby_result["items"].each do |a_news|
         #にっぽんもぎたて便の場合は返却する配列の先頭に挿入する
@@ -44,10 +43,18 @@ class LocalInfo
           hobbys.push(a_news)
         end
       end
-      result["items"] = hobbys
-    else 
-      #エラーメッセージを返却する
-      result["error"] = hobby + "に関するニュースは見つかりませんでした"
+      hobby_result["items"] = hobbys
+    end
+    return hobby_result
+  end
+
+  def self.find_cse(search_text,error_prefix)
+    result = GoogleCustomSearchApi.search(search_text)
+    error_reason = result["error"]["errors"][0]["reason"] rescue nil
+    if !error_reason.blank? && error_reason=="dailyLimitExceeded"
+      result["error_usage_limit"] = API_USAGE_LIMIT
+    elsif result.has_key?("error") || result["items"].blank? then
+      result["error"] = error_prefix + NEWS_NOT_FOUND_MESSAGE
     end
     return result
   end
