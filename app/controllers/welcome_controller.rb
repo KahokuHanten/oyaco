@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
   # POST /
   def top
     # Set cookies
-    [:dad, :mom, :pref_id, :tel, :hobby].each do |param|
+    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = params[param]
     end
 
@@ -45,8 +45,16 @@ class WelcomeController < ApplicationController
     @googlenews = LocalInfo.get_local_news(@pref_name)
 
     #趣味
-    @hobby = params[:hobby]
-    @hobbynews = LocalInfo.get_hobby_news(@hobby)
+    @hobbys = []
+    [:hobby, :hobby2, :hobby3].each do |param|
+      hobby_input = params[param]
+      if hobby_input > ""
+        @hobbys.push(
+          name: hobby_input,
+          news: LocalInfo.get_hobby_news(hobby_input)
+        )
+      end
+    end
 
     # 電話番号
     @tel = params[:tel]

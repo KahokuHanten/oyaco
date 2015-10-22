@@ -62,14 +62,15 @@
     </div>
   </div>
 
+  <% @hobbys.each do |hobby| %>
   <div class="popover-message">
     <div class="">
       <div class="popover right">
         <div class="arrow"></div>
         <div class="popover-content">
-          <p>趣味のニュース</p>
-          <% if @hobbynews["items"] %>
-            <% @hobbynews["items"].first(3).each do |news| %>
+          <p>趣味<%= "（" << hobby[:name] << "）" %>のニュース</p>
+          <% if hobby[:news]["items"] %>
+            <% hobby[:news]["items"].first(3).each do |news| %>
               <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
             <% end %>
           <% end %>
@@ -77,6 +78,7 @@
       </div>
     </div>
   </div>
+  <% end %>
 
   <div class="row">
     <div class="col-xs-4">
