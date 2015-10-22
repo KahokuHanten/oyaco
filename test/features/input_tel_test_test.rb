@@ -11,7 +11,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
     refute page.find('#tel')[:class].include?("disabled")
   end
 
-  test "user don't input number" do
+  test "user doesn't input number" do
     visit root_path
     within '#question-form' do
       fill_in 'tel', with: ''
