@@ -6,6 +6,7 @@ class LocalInfo
   WW_URL = 'http://weather.livedoor.com/forecast/rss/warn/'
   NEWS_NOT_FOUND_MESSAGE = 'に関するニュースは見つかりませんでした'
   API_USAGE_LIMIT = '使用APIの回数制限のため、検索できませんでした'
+  JAPAN_FRESH_NEWS = 'jfn'
 
   def self.get_weather_warnings(id)
     doc = ""
@@ -27,7 +28,7 @@ class LocalInfo
   end
 
   def self.get_local_news(pref_name)
-    return LocalInfo::find_cse(pref_name+" ニュース",pref_name)
+    return LocalInfo::find_cse(pref_name+JAPAN_FRESH_NEWS,pref_name)
   end
 
   def self.get_hobby_news(hobby)
