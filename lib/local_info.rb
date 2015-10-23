@@ -32,7 +32,7 @@ class LocalInfo
   end
 
   def self.get_hobby_news(hobby)
-    hobby_result = LocalInfo::find_cse(hobby+' '+JAPAN_FRESH_NEWS,hobby)
+    hobby_result = LocalInfo::find_cse(hobby,hobby)
     hobbys = []
     if !hobby_result.has_key?("error") && !hobby_result["items"].blank? then
       hobby_result["items"].each do |a_news|
