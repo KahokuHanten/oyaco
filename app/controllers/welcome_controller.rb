@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
+  helper_method :smartphone?
+
   # POST /
   def top
     # Set cookies
@@ -44,11 +46,11 @@ class WelcomeController < ApplicationController
     # Google search
     @googlenews = LocalInfo.get_local_news(@pref_name)
 
-    #趣味
+    # 趣味
     @hobbys = []
     [:hobby, :hobby2, :hobby3].each do |param|
       hobby_input = params[param]
-      if hobby_input > ""
+      if hobby_input > ''
         @hobbys.push(
           name: hobby_input,
           news: LocalInfo.get_hobby_news(hobby_input)
@@ -59,6 +61,8 @@ class WelcomeController < ApplicationController
     # 電話番号
     @tel = params[:tel]
   end
+
+  private
 
   def get_comment_by_event(holiday)
     case holiday.name
@@ -86,5 +90,12 @@ class WelcomeController < ApplicationController
     when /敬老/
       # "おじいちゃん、おばあちゃん、長生きしてね"
     end
+  end
+
+  def smartphone?
+    ua = request.user_agent
+    return true if ua.match(/iPhone/i)
+    return true if ua.match(/Android/i) && ua.match(/Mobile/i)
+    false
   end
 end
