@@ -27,7 +27,7 @@ class RememberInputsTest < Capybara::Rails::TestCase
       click_button 'recommend'
     end
 
-    Capybara.current_session.reset!
+    click_on '質問をやり直す'
 
     visit root_path
 
