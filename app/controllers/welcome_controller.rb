@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
   # GET /welcome
   def show
-    redirect_to root_path unless cookies.signed[:dad]
+    return redirect_to root_path unless cookies.signed[:dad]
 
     # get params from cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
