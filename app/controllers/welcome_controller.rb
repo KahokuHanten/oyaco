@@ -98,4 +98,9 @@ class WelcomeController < ApplicationController
     return true if ua.match(/Android/i) && ua.match(/Mobile/i)
     false
   end
+
+  def save_subscription_id()
+    subscription_id = params[:subscription_id]
+    #todo:save subscription id to model
+  end
 end

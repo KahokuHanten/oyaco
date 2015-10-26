@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root 'top#index'
 
   post 'welcome' => 'welcome#top'
+  post 'welcome/save_subscription_id' => 'welcome#save_subscription_id'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
