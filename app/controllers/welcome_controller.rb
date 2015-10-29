@@ -4,6 +4,10 @@ class WelcomeController < ApplicationController
 
   # POST /
   def top
+
+    @questionnaire = Questionnaire.new
+    @questionnaire.assign_attributes(params[:questionnaire])
+
     # Set cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = params[param]
@@ -16,9 +20,13 @@ class WelcomeController < ApplicationController
     @topics = []
 
     father = Person.new
-    father.assign_attributes(relation: 0, birthday: params[:dad], location: params[:pref_id])
+    father.assign_attributes(relation: 0, 
+                             birthday: @questionnaire.dad, 
+                             location: params[:pref_id])
     mother = Person.new
-    mother.assign_attributes(relation: 1, birthday: params[:mom], location: params[:pref_id])
+    mother.assign_attributes(relation: 1, 
+                             birthday: @questionnaire.mom, 
+                             location: params[:pref_id])
 
     [father, mother].each do |person|
       if person.next_birthday < Date.today.months_since(remind_months_ago)
