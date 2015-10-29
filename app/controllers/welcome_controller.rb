@@ -2,13 +2,39 @@
 class WelcomeController < ApplicationController
   helper_method :smartphone?
 
-  # POST /
+  # GET /welcome
+  def show
+    return redirect_to root_path unless cookies.signed[:dad]
+
+    # get params from cookies
+    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
+      params[param] = cookies.signed[param]
+    end
+    build_topics(params)
+    render :top
+  end
+
+  # POST /welcome
   def top
     # Set cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = params[param]
     end
 
+    build_topics(params)
+    render :top
+  end
+
+  # DELETE /welcome
+  def clear
+    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
+      cookies.delete(param)
+    end
+    redirect_to root_path(anchor: "question")
+  end
+
+  private
+  def build_topics(params)
     # リクエストパラメータから都道府県コードを取得する
     @pref_id = params[:pref_id]
 
@@ -61,8 +87,6 @@ class WelcomeController < ApplicationController
     # 電話番号
     @tel = params[:tel]
   end
-
-  private
 
   def get_comment_by_event(holiday)
     case holiday.name
