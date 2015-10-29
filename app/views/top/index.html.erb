@@ -21,19 +21,19 @@
       <div class="form-group">
         <%= label_tag(:dad, "Q1: あなたのお父さんの誕生日は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= date_field_tag(:dad, cookies.signed[:dad] ||= "1950-10-31", class: "form-control") %>
+          <%= date_field_tag(:dad, cookies.signed[:dad] || "1950-10-31", class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
         <%= label_tag(:mom, "Q2: あなたのお母さんの誕生日は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= date_field_tag(:mom, cookies.signed[:mom] ||= "1950-12-31", class: "form-control") %>
+          <%= date_field_tag(:mom, cookies.signed[:mom] || "1950-12-31", class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
         <%= label_tag(:pref_id, "Q3: あなたのご両親のお住まいは？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= select_tag(:pref_id, options_from_collection_for_select(JpPrefecture::Prefecture.all, :code, :name, cookies.signed[:pref_id] ||= "1"), class: "form-control") %>
+          <%= select_tag(:pref_id, options_from_collection_for_select(JpPrefecture::Prefecture.all, :code, :name, cookies.signed[:pref_id] || "1"), class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
@@ -46,9 +46,9 @@
       <div class="form-group">
         <%= label_tag(:hobby, "Q5: あなたのご両親の趣味は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= text_field_tag(:hobby, cookies.signed[:hobby] ||= "温泉旅行", class: "form-control") %>
-          <%= text_field_tag(:hobby2, cookies.signed[:hobby2] ||= "ゴルフ", class: "form-control") %>
-          <%= text_field_tag(:hobby3, cookies.signed[:hobby3] ||= "落語", class: "form-control") %>
+          <%= text_field_tag(:hobby, cookies.signed[:hobby] || "温泉旅行", class: "form-control") %>
+          <%= text_field_tag(:hobby2, cookies.signed[:hobby2] || "ゴルフ", class: "form-control") %>
+          <%= text_field_tag(:hobby3, cookies.signed[:hobby3] || "落語", class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
