@@ -1,6 +1,6 @@
 'use strict';
 
-var API_KEY = 'AIzaSyDy1PFNtJeku-dUGT9CBVQgX90yKLc2l6k';
+var API_KEY = '<%= ENV['GOOGLE_API_KEY'] %>';
 var GCM_ENDPOINT = 'https://android.googleapis.com/gcm/send';
 
 var curlCommandDiv = document.querySelector('.js-curl-command');
@@ -85,7 +85,7 @@ function sendSubscription(mergedEndpoint) {
 function unsubscribe() {
   var pushButton = document.querySelector('.js-push-button');
   pushButton.disabled = true;
-  curlCommandDiv.textContent = '';
+//  curlCommandDiv.textContent = '';
 
   navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
     // To unsubscribe from push messaging, you need get the

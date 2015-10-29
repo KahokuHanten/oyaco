@@ -13,5 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree ./common_coffee
+//= require_tree ./common
 //= require bootstrap-sprockets
