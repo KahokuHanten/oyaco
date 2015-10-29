@@ -5,8 +5,7 @@ class Questionnaire
   #取り敢えず誕生日のみ
   #, :pref_id, :tel, :hobby, :hobby2, :hobby3
 
-  DEFAULT_BIRTHDAY = Date.new(1957, 1, 1)
-
+  DEFAULT_BIRTHDAY = Date.new(1960, 10, 10)
   #年月日
   def assign_attributes(params)
     begin
@@ -52,4 +51,3 @@ class Questionnaire
     end
   end
 end
-
