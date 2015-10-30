@@ -1,5 +1,8 @@
+require 'net/http'
+require 'uri'
+
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :push]
 
   # GET /users
   # GET /users.json
@@ -59,6 +62,22 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # POST /users/1
+  def push
+    uri = URI.parse("https://android.googleapis.com/gcm/send")
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    req = Net::HTTP::Post.new(uri.request_uri)
+    req["Content-Type"] = "application/json"
+    req["Authorization"] = "key=" + ENV['GOOGLE_API_KEY']
+    payload = {
+      'registration_ids': [@user.subscription_id]
+    }.to_json
+    req.body = payload
+    @res = https.request(req)
+    render "push"
   end
 
   private

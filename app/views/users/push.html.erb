@@ -1,0 +1,17 @@
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Registration ID:</strong>
+  <%= @user.subscription_id %>
+</p>
+
+<p>
+  <%= @res.code %>
+  <%= @res.msg %>
+  <%= @res.body %>
+</p>
+
+<%= link_to 'Back', users_path %>
