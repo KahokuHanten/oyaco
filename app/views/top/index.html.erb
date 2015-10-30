@@ -1,21 +1,39 @@
 <!-- Header -->
 <header class="header" id="top">
-  <div class="text-vertical-center">
+  <div class="inside">
     <h1>OYACO</h1>
     <h4>親子の会話を促す、話題レコメンドサービス</h4>
-    <br><br>
-    <a class="btn btn-success btn-default" href="#about">使ってみる</a>
+    <a class="btn btn-success btn-default" href="#about">主な機能</a>
+    <a class="btn btn-success btn-default" href="#question">試してみる</a>
   </div>
 </header>
 
 <!-- About -->
-<section class="about" id="about"></section>
+<section class="about" id="about">
+  <div class="container feature">
+    <div class="row">
+      <div class="col-sm-4">
+        <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="150" height="150">
+        <h3>話題の提供</h3>
+        <p>いくつかの質問に答えるだけで、ぴったりの話題を提案します。もう話のネタに困ることはありません。</p>
+      </div>
+      <div class="col-sm-4">
+        <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="150" height="150">
+        <h3>イベントの通知</h3>
+        <p>誕生日や敬老の日といったイベントを事前にお知らせします。もううっかり忘れてしまうことはありません。<div class="note">※ 対応ブラウザ: Chrome</div></p>
+      </div>
+      <div class="col-sm-4">
+        <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="150" height="150">
+        <h3>すぐに電話</h3>
+        <p>電話番号を入力しておくと、すぐに電話がかけられます。<div class="note">※ 対応機器: iPhone及びAndroid携帯</div></p>
+      </div>
+    </div>
+</section>
 
 <!-- Question -->
 <section class="question" id="question">
   <div class="container-fluid">
-    <h3 class="text-center">いくつかの質問に答えるだけで、ぴったりの話題を提案します</h3>
-
+    <h3 class="text-center">試してみましょう。以下について教えて下さい</h3>
     <div class="form-horizontal" role="form">
       <%= form_tag("/welcome", method: "post", :id => "question-form") do %>
       <div class="form-group">
