@@ -2,12 +2,7 @@
 
 one:
   name: MyString
-  birthday_year: 1
-  birthday_month: 1
-  birthday_day: 1
-
+  email: one@example.com
 two:
   name: MyString
-  birthday_year: 1
-  birthday_month: 1
-  birthday_day: 1
+  email: two@example.com

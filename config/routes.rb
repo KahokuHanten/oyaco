@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :people
   resources :events
-  resources :users
+  scope "/admin" do
+    resources :users
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
