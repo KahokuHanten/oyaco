@@ -33,6 +33,14 @@ class WelcomeController < ApplicationController
     redirect_to root_path(anchor: "question")
   end
 
+  # POST /welcome/save_subscription_id
+  def save_subscription_id
+    subscription_id = params[:subscription_id]
+    if current_or_guest_user
+      current_or_guest_user.update_attribute(:subscription_id, subscription_id)
+    end
+  end
+
   private
   def build_topics(params)
     # リクエストパラメータから都道府県コードを取得する
@@ -121,10 +129,5 @@ class WelcomeController < ApplicationController
     return true if ua.match(/iPhone/i)
     return true if ua.match(/Android/i) && ua.match(/Mobile/i)
     false
-  end
-
-  def save_subscription_id()
-    subscription_id = params[:subscription_id]
-    #todo:save subscription id to model
   end
 end
