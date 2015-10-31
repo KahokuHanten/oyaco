@@ -11,8 +11,28 @@
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
+<!--  <nav> -->
+<!--  Logged in as <strong><%= current_or_guest_user.email %></strong>. -->
+  Logged in as <strong><%= current_or_guest_user.name %></strong>.
+<!--
+  <% if user_signed_in? %>
+    <%= link_to "プロフィール変更", edit_user_registration_path %> |
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "ユーザー登録", new_user_registration_path %> |
+    <%= link_to "ログイン", new_user_session_path %>
+  <% end %>
+</nav>
+-->
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
 
   <%= yield %>
 

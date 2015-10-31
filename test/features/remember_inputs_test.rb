@@ -8,13 +8,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
 #      fill_in 'dad', with: '1960-10-10'
 #      fill_in 'mom', with: '1960-10-10'
 
-      fill_in 'dad_year', with: '1960'
-      fill_in 'dad_month', with: '10'
-      fill_in 'dad_day', with: '10'
+      select '1960', from: 'questionnaire[dad(1i)]'
+      select '10', from: 'questionnaire[dad(2i)]'
+      select '10', from: 'questionnaire[dad(3i)]'
 
-      fill_in 'mom_year', with: '1960'
-      fill_in 'mom_month', with: '10'
-      fill_in 'mom_day', with: '10'
+      select '1960', from: 'questionnaire[mom(1i)]'
+      select '10', from: 'questionnaire[mom(2i)]'
+      select '10', from: 'questionnaire[mom(3i)]'
 
 
 
@@ -45,19 +45,21 @@ class RememberInputsTest < Capybara::Rails::TestCase
 #      fill_in 'dad', with: '1960-10-10'
 #      fill_in 'mom', with: '1960-10-10'
 
-      fill_in 'dad_year', with: '1960'
-      fill_in 'dad_month', with: '10'
-      fill_in 'dad_day', with: '10'
 
-      fill_in 'mom_year', with: '1960'
-      fill_in 'mom_month', with: '10'
-      fill_in 'mom_day', with: '10'
+      select '1960', from: 'questionnaire[dad(1i)]'
+      select '10', from: 'questionnaire[dad(2i)]'
+      select '10', from: 'questionnaire[dad(3i)]'
+
+      select '1960', from: 'questionnaire[mom(1i)]'
+      select '10', from: 'questionnaire[mom(2i)]'
+      select '10', from: 'questionnaire[mom(3i)]'
+
 
       select '東京都', from: 'pref_id'
       click_button 'recommend'
     end
 
-    Capybara.current_session.reset!
+    click_on '質問をやり直す'
 
     visit root_path
 

@@ -1,14 +1,25 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :people
   resources :events
-  resources :users
+  scope "/admin" do
+    resources :users do
+      member do
+        post 'push'
+      end
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'top#index'
 
+  get 'welcome' => 'welcome#show'
   post 'welcome' => 'welcome#top'
+  post 'welcome/save_subscription_id' => 'welcome#save_subscription_id'
+  delete 'welcome' => 'welcome#clear'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
