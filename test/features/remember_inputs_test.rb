@@ -27,13 +27,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
 #    assert_equal find_field('dad').value, '1960-10-10'
 #    assert_equal find_field('mom').value, '1960-10-10'
 
-    assert_equal find_field('dad_year').value, '1960'
-    assert_equal find_field('dad_month').value, '10'
-    assert_equal find_field('dad_day').value, '10'
+    assert_equal find_field('questionnaire[dad(1i)]').value, '1960'
+    assert_equal find_field('questionnaire[dad(2i)]').value, '10'
+    assert_equal find_field('questionnaire[dad(3i)]').value, '10'
 
-    assert_equal find_field('mom_year').value, '1960'
-    assert_equal find_field('mom_month').value, '10'
-    assert_equal find_field('mom_day').value, '10'
+    assert_equal find_field('questionnaire[mom(1i)]').value, '1960'
+    assert_equal find_field('questionnaire[mom(2i)]').value, '10'
+    assert_equal find_field('questionnaire[mom(3i)]').value, '10'
 
 
     assert_equal find_field('pref_id').value, PrefName.get_pref_id("東京都")
@@ -67,13 +67,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
 #      assert_equal find_field('dad').value, '1950-10-31'
 #      assert_equal find_field('mom').value, '1950-12-31'
 
-      assert_equal find_field('dad_year').value, '1950'
-      assert_equal find_field('dad_month').value, '10'
-      assert_equal find_field('dad_day').value, '31'
+      assert_equal find_field('questionnaire[dad(1i)]').value, '1960'
+      assert_equal find_field('questionnaire[dad(2i)]').value, '10'
+      assert_equal find_field('questionnaire[dad(3i)]').value, '10'
 
-      assert_equal find_field('mom_year').value, '1950'
-      assert_equal find_field('mom_month').value, '12'
-      assert_equal find_field('mom_day').value, '31'
+      assert_equal find_field('questionnaire[mom(1i)]').value, '1960'
+      assert_equal find_field('questionnaire[mom(2i)]').value, '10'
+      assert_equal find_field('questionnaire[mom(3i)]').value, '10'
 
 
       assert_equal find_field('pref_id').value, PrefName.get_pref_id("北海道")
