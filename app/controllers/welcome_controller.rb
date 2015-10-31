@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
+  before_action :authenticate_user!
   helper_method :smartphone?
 
   # GET /welcome
@@ -54,12 +55,12 @@ class WelcomeController < ApplicationController
     @topics = []
 
     father = Person.new
-    father.assign_attributes(relation: 0, 
-                             birthday: @questionnaire.dad, 
+    father.assign_attributes(relation: 0,
+                             birthday: @questionnaire.dad,
                              location: params[:pref_id])
     mother = Person.new
-    mother.assign_attributes(relation: 1, 
-                             birthday: @questionnaire.mom, 
+    mother.assign_attributes(relation: 1,
+                             birthday: @questionnaire.mom,
                              location: params[:pref_id])
 
     [father, mother].each do |person|

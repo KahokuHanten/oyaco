@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
 
   # https://github.com/plataformatec/devise/wiki/How-To:-Create-a-guest-user
   # skip_before_filter :verify_authenticity_token, :only => [:name_of_your_action]
