@@ -35,7 +35,7 @@ class WelcomeController < ApplicationController
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.delete(param)
     end
-    redirect_to root_path(anchor: "question")
+    redirect_to question_path
   end
 
   # POST /welcome/save_subscription_id

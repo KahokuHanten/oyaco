@@ -4,7 +4,7 @@
     <h1>OYACO</h1>
     <h4>親子の会話を促す、話題レコメンドサービス</h4>
     <a class="btn btn-success btn-default" href="#about">主な機能</a>
-    <a class="btn btn-success btn-default" href="#question">試してみる</a>
+    <%= button_to '試してみる', question_path, method: :get, class: "btn btn-success btn-default" %>
   </div>
 </section>
 
@@ -30,60 +30,6 @@
         <p>電話番号を入力しておくと、すぐに電話がかけられます。
           <div class="note">※ 対応機器: iPhone及びAndroid携帯</div>
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Question -->
-  <section class="question" id="question">
-    <div class="container-fluid">
-      <h3 class="text-center">試してみましょう。以下について教えて下さい</h3>
-      <div class="form-horizontal" role="form">
-        <%= form_for(@questionnaire, url: "/welcome", method: "post", :html => {:id => "question-form"}) do |f| %>
-        <div class="form-group">
-          <%= label_tag(:dad, "Q1: あなたのお父さんの誕生日は？", class: "col-sm-6 control-label") %>
-          <div class="col-sm-4">
-            <%= f.date_select(:dad, { start_year: 1900, end_year: Time.now.year,
-            use_month_numbers: true, date_separator: '/' },
-            class: "form-control", style: "display: inline-block; width: auto") %>
-          </div>
-        </div>
-        <div class="form-group">
-          <%= label_tag(:mom, "Q2: あなたのお母さんの誕生日は？", class: "col-sm-6 control-label") %>
-          <div class="col-sm-4">
-            <%= f.date_select(:mom, { start_year: 1900, end_year: Time.now.year,
-            use_month_numbers: true, date_separator: '/' },
-            class: "form-control", style: "display: inline-block; width: auto") %>
-          </div>
-        </div>
-        <div class="form-group">
-          <%= label_tag(:pref_id, "Q3: あなたのご両親のお住まいは？", class: "col-sm-6 control-label") %>
-          <div class="col-sm-4">
-            <%= select_tag(:pref_id, options_from_collection_for_select(JpPrefecture::Prefecture.all, :code, :name, cookies.signed[:pref_id] ||= "1"),
-           class: "form-control", style: "display: inline-block; width: auto") %>
-          </div>
-        </div>
-        <div class="form-group">
-          <%= label_tag(:tel, "Q4: あなたのご両親の電話番号は？", class: "col-sm-6 control-label") %>
-          <div class="col-sm-4">
-            <%= telephone_field_tag(:tel, cookies.signed[:tel],
-            placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control") %>
-          </div>
-        </div>
-        <div class="form-group">
-          <%= label_tag(:hobby, "Q5: あなたのご両親の趣味は？", class: "col-sm-6 control-label") %>
-          <div class="col-sm-4">
-            <%= text_field_tag(:hobby, cookies.signed[:hobby] || "温泉旅行", class: "form-control") %>
-            <%= text_field_tag(:hobby2, cookies.signed[:hobby2] || "ゴルフ", class: "form-control") %>
-            <%= text_field_tag(:hobby3, cookies.signed[:hobby3] || "落語", class: "form-control") %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-4 col-sm-offset-6">
-            <%= submit_tag("相談してみる", :id => "recommend", class: "btn btn-success btn-default") %>
-          </div>
-        </div>
-        <% end %>
       </div>
     </div>
   </section>

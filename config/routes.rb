@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'top#index'
-
+  get 'question' => 'question#index'
   get 'welcome' => 'welcome#show'
   post 'welcome' => 'welcome#top'
   post 'welcome/save_subscription_id' => 'welcome#save_subscription_id'

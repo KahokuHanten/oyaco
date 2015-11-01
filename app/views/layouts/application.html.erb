@@ -16,8 +16,8 @@
 <body>
   <header>
     <nav>
-      <strong><%= current_or_guest_user.name %></strong>さん、こんにちは。
       <% if user_signed_in? %>
+        <strong><%= current_or_guest_user.name %></strong>さん、こんにちは。
         <%= link_to "プロフィール変更", edit_user_registration_path %> |
         <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
       <% else %>
