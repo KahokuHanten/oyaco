@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
 
   # GET /welcome
   def show
-    return redirect_to root_path unless cookies.signed[:dad]
+    return redirect_to root_path unless cookies.signed[:pref_id]
 
     # get params from cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
@@ -17,7 +17,6 @@ class WelcomeController < ApplicationController
 
   # POST /welcome
   def top
-
     @questionnaire = Questionnaire.new
     @questionnaire.assign_attributes(params[:questionnaire])
 
@@ -54,6 +53,9 @@ class WelcomeController < ApplicationController
     remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
+    # FIXME
+    if @questionnaire
+
     father = Person.new
     father.assign_attributes(relation: 0,
                              birthday: @questionnaire.dad,
@@ -71,6 +73,8 @@ class WelcomeController < ApplicationController
           items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
       end
     end
+
+  end # if @questionnaire
 
     # 祝日関連の話題
     @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')
