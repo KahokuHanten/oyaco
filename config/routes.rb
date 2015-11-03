@@ -18,8 +18,9 @@ Rails.application.routes.draw do
 
   get 'welcome' => 'welcome#show'
   post 'welcome' => 'welcome#top'
-  post 'welcome/save_subscription_id' => 'welcome#save_subscription_id'
   delete 'welcome' => 'welcome#clear'
+  post 'welcome/save_subscription_id' => 'welcome#save_subscription_id'
+  post 'welcome/clear_subscription_id' => 'welcome#clear_subscription_id'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
