@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!
   helper_method :smartphone?
 
   # GET /welcome
   def show
-    return redirect_to root_path unless cookies.signed[:pref_id]
+    return redirect_to question_path unless cookies.signed[:pref_id]
 
     # get params from cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
@@ -97,7 +96,7 @@ class WelcomeController < ApplicationController
     @hobbys = []
     [:hobby, :hobby2, :hobby3].each do |param|
       hobby_input = params[param]
-      if hobby_input > ''
+      if hobby_input.present?
         @hobbys.push(
           name: hobby_input,
           news: LocalInfo.get_hobby_news(hobby_input)
@@ -106,7 +105,7 @@ class WelcomeController < ApplicationController
     end
 
     # 電話番号
-    @tel = params[:tel]
+    @tel = (params[:tel] ||= '')
   end
 
   def get_comment_by_event(holiday)

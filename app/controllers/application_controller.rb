@@ -2,19 +2,23 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
-  # https://github.com/plataformatec/devise/wiki/How-To:-Create-a-guest-user
-  # skip_before_filter :verify_authenticity_token, :only => [:name_of_your_action]
-
   helper_method :current_or_guest_user
+
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+
+  def after_sign_in_path_for(resource)
+    welcome_path
+  end
 
   # if user is logged in, return current_user, else return guest_user
   def current_or_guest_user
     if current_user
-      if session[:guest_user_id] && session[:guest_user_id] != current_user.id
+      if cookies.signed[:guest_user_email]
         logging_in
-        guest_user(with_retry = false).try(:destroy)
-        session[:guest_user_id] = nil
+        guest_user.delete
+        cookies.delete :guest_user_email
       end
       current_user
     else
@@ -24,13 +28,14 @@ class ApplicationController < ActionController::Base
 
   # find guest_user object associated with the current session,
   # creating one as needed
-  def guest_user(with_retry = true)
+  def guest_user
     # Cache the value the first time it's gotten.
-    @cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
+    @cached_guest_user ||= User.find_by!(email: (cookies.permanent.signed[:guest_user_email] ||= create_guest_user.email))
 
-  rescue ActiveRecord::RecordNotFound # if session[:guest_user_id] invalid
-    session[:guest_user_id] = nil
-    guest_user if with_retry
+  # if cookies.signed[:guest_user_email] invalid
+  rescue ActiveRecord::RecordNotFound
+      cookies.delete :guest_user_email
+      guest_user
   end
 
   private
@@ -38,18 +43,18 @@ class ApplicationController < ActionController::Base
   # called (once) when the user logs in, insert any code your application needs
   # to hand off from guest_user to current_user.
   def logging_in
-    # For example:
-    # guest_comments = guest_user.comments.all
-    # guest_comments.each do |comment|
-      # comment.user_id = current_user.id
-      # comment.save!
-    # end
+    # TODO:
+    # put all your processing for transferring
+    # from a guest user to a registered user
+    # i.e. update votes, update comments, etc.
   end
 
+  # creates guest user by adding a record to the DB
+  # with a guest name and email
   def create_guest_user
-    u = User.create(name: 'guest', email: "guest_#{Time.now.to_i}#{rand(100)}@example.com")
+    u = User.create(name: 'guest', email: "guest_#{Time.now.to_i}#{rand(99)}@example.com")
+    # u.skip_confirmation!
     u.save!(validate: false)
-    session[:guest_user_id] = u.id
     u
   end
 end
