@@ -1,6 +1,5 @@
 class TopController < ApplicationController
   def index
-    @questionnaire = Questionnaire.new
-    @questionnaire.restore_attributes_from_cookies(cookies.signed)
+    return redirect_to welcome_path if user_signed_in?
   end
 end

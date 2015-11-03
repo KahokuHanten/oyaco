@@ -31,18 +31,18 @@ class Questionnaire
 
   #クッキー　きれいでない
   def restore_attributes_from_cookies(cookies)
-    if cookies[:dad]
+    if cookies.signed[:dad]
       begin
-        self.dad = Date.parse(cookies[:dad])
+        self.dad = Date.parse(cookies.signed[:dad])
       rescue ArgumentError
         self.dad = DEFAULT_BIRTHDAY
       end
     else
       self.dad = DEFAULT_BIRTHDAY
     end
-    if cookies[:mom]
+    if cookies.signed[:mom]
       begin
-        self.mom = Date.parse(cookies[:mom])
+        self.mom = Date.parse(cookies.signed[:mom])
       rescue ArgumentError
         self.mom = DEFAULT_BIRTHDAY
       end

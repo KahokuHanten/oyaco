@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
   # GET /welcome
   def show
-    return redirect_to root_path unless cookies.signed[:dad]
+    return redirect_to question_path unless cookies.signed[:pref_id]
 
     # get params from cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
@@ -16,7 +16,6 @@ class WelcomeController < ApplicationController
 
   # POST /welcome
   def top
-
     @questionnaire = Questionnaire.new
     @questionnaire.assign_attributes(params[:questionnaire])
 
@@ -34,7 +33,7 @@ class WelcomeController < ApplicationController
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.delete(param)
     end
-    redirect_to root_path(anchor: "question")
+    redirect_to question_path
   end
 
   # POST /welcome/save_subscription_id
@@ -53,13 +52,16 @@ class WelcomeController < ApplicationController
     remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
+    # FIXME
+    if @questionnaire
+
     father = Person.new
-    father.assign_attributes(relation: 0, 
-                             birthday: @questionnaire.dad, 
+    father.assign_attributes(relation: 0,
+                             birthday: @questionnaire.dad,
                              location: params[:pref_id])
     mother = Person.new
-    mother.assign_attributes(relation: 1, 
-                             birthday: @questionnaire.mom, 
+    mother.assign_attributes(relation: 1,
+                             birthday: @questionnaire.mom,
                              location: params[:pref_id])
 
     [father, mother].each do |person|
@@ -70,6 +72,8 @@ class WelcomeController < ApplicationController
           items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
       end
     end
+
+  end # if @questionnaire
 
     # 祝日関連の話題
     @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')
@@ -92,7 +96,7 @@ class WelcomeController < ApplicationController
     @hobbys = []
     [:hobby, :hobby2, :hobby3].each do |param|
       hobby_input = params[param]
-      if hobby_input > ''
+      if hobby_input.present?
         @hobbys.push(
           name: hobby_input,
           news: LocalInfo.get_hobby_news(hobby_input)
@@ -101,7 +105,7 @@ class WelcomeController < ApplicationController
     end
 
     # 電話番号
-    @tel = params[:tel]
+    @tel = (params[:tel] ||= '')
   end
 
   def get_comment_by_event(holiday)
