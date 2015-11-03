@@ -53,6 +53,7 @@ group :development, :test do
 
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'meta_request'
 end
 
 group :test do
