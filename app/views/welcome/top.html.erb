@@ -4,85 +4,9 @@
     $('[data-toggle="tooltip"]').tooltip()
   })
 </script>
-
 <%= javascript_include_tag "push_messaging/config","push_messaging/demo","push_messaging/main" %>
-
-<div class="container-fluid">
-
-  <% @topics.each do |topic| %>
-  <div class="popover-message">
-    <div class="">
-      <div class="popover right">
-        <div class="arrow"></div>
-        <h3 class="popover-title"><%= topic[:title] %></h3>
-        <div class="popover-content">
-          <p><%= topic[:comment] %></p>
-          <div class="row">
-            <div class="col-xs-1"></div>
-            <% topic[:items].first(3).each do |item| %>
-              <div class="col-xs-3">
-                <a href="<%= item['affiliateUrl'] %>" target="_blank">
-                  <img class="img-responsive img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>">
-                </a>
-              </div>
-            <% end %>
-          </div>
-
-          <% if topic[:message].present? %>
-            <p>こんな言葉を贈ってはどうですか？</p>
-            <p>「<%= topic[:message] %>」</p>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% end %>
-
-  <div class="popover-message">
-    <div class="">
-      <div class="popover right">
-        <div class="arrow"></div>
-        <div class="popover-content">
-          <p><%= @pref_name %>は<%= @message %></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="popover-message">
-    <div class="">
-      <div class="popover right">
-        <div class="arrow"></div>
-        <div class="popover-content">
-          <p><%= @pref_name %>のニュース</p>
-          <% if @googlenews["items"] %>
-            <% @googlenews["items"].first(3).each do |news| %>
-              <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <% @hobbys.each do |hobby| %>
-  <div class="popover-message">
-    <div class="">
-      <div class="popover right">
-        <div class="arrow"></div>
-        <div class="popover-content">
-          <p>趣味<%= "（" << hobby[:name] << "）" %>のニュース</p>
-          <% if hobby[:news]["items"] %>
-            <% hobby[:news]["items"].first(3).each do |news| %>
-              <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% end %>
-
+<!--操作ボタン-->
+<div class="container-fluid button-area">
   <div class="row">
     <div class="col-xs-4">
       <div class="text-center">
@@ -99,7 +23,6 @@
         <% end %>
       </div>
     </div>
-
     <div class="col-xs-4">
       <div class="text-center">
 	<button class="btn btn-warning js-push-button">ブラウザ通知を登録する</button>
@@ -111,5 +34,90 @@
           class: "btn btn-info btn-default") %>
       </div>
     </div>
+  </div>
+</div>
+<!--タブ-->
+<ul class="nav nav-tabs">
+<li class="active"><a href="#tab1" data-toggle="tab">イベント</a></li>
+<li><a href="#tab2" data-toggle="tab">ローカル</a></li>
+<li><a href="#tab3" data-toggle="tab">趣味</a></li>
+</ul>
+<!--タブコンテンツ-->
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade in active" id="tab1">
+    <% @topics.each do |topic| %>
+    <div class="popover-message">
+      <div class="">
+        <div class="popover right">
+          <div class="arrow"></div>
+          <h3 class="popover-title"><%= topic[:title] %></h3>
+          <div class="popover-content">
+            <p><%= topic[:comment] %></p>
+            <div class="row">
+              <div class="col-xs-1"></div>
+              <% topic[:items].first(3).each do |item| %>
+                <div class="col-xs-3">
+                  <a href="<%= item['affiliateUrl'] %>" target="_blank">
+                    <img class="img-responsive img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>">
+                  </a>
+                </div>
+              <% end %>
+            </div>
+   
+            <% if topic[:message].present? %>
+              <p>こんな言葉を贈ってはどうですか？</p>
+              <p>「<%= topic[:message] %>」</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="tab-pane fade" id="tab2">
+    <div class="popover-message">
+      <div class="">
+        <div class="popover right">
+          <div class="arrow"></div>
+          <div class="popover-content">
+            <p><%= @pref_name %>は<%= @message %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popover-message">
+      <div class="">
+        <div class="popover right">
+          <div class="arrow"></div>
+          <div class="popover-content">
+            <p><%= @pref_name %>のニュース</p>
+            <% if @googlenews["items"] %>
+              <% @googlenews["items"].first(3).each do |news| %>
+                <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="tab3">
+    <% @hobbys.each do |hobby| %>
+    <div class="popover-message">
+      <div class="">
+        <div class="popover right">
+          <div class="arrow"></div>
+          <div class="popover-content">
+            <p>趣味<%= "（" << hobby[:name] << "）" %>のニュース</p>
+            <% if hobby[:news]["items"] %>
+              <% hobby[:news]["items"].first(3).each do |news| %>
+                <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>
