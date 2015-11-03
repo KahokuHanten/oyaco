@@ -81,11 +81,22 @@ function sendSubscription(mergedEndpoint) {
 */
 }
 
+function clearSubscription() {
+  $.post(
+    "welcome/clear_subscription_id"
+    ,""
+    ,function(res){
+      if(res!='error'){
+        alert("プッシュ通知を解除しました。")
+      }
+  });
+}
+
 function unsubscribe() {
   var pushButton = document.querySelector('.js-push-button');
   pushButton.disabled = true;
 //  curlCommandDiv.textContent = '';
-
+  clearSubscription();
   navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
     // To unsubscribe from push messaging, you need get the
     // subcription object, which you can call unsubscribe() on.

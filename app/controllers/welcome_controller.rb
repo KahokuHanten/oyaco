@@ -42,6 +42,15 @@ class WelcomeController < ApplicationController
     if current_or_guest_user
       current_or_guest_user.update_attribute(:subscription_id, subscription_id)
     end
+    render nothing: true
+  end
+
+  # POST /welcome/clear_subscription_id
+  def clear_subscription_id
+    if current_or_guest_user
+      current_or_guest_user.update_attribute(:subscription_id, nil)
+    end
+    render nothing: true
   end
 
   private
