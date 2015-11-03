@@ -5,37 +5,6 @@
   })
 </script>
 <%= javascript_include_tag "push_messaging/config","push_messaging/demo","push_messaging/main" %>
-<!--操作ボタン-->
-<div class="container-fluid button-area">
-  <div class="row">
-    <div class="col-xs-4">
-      <div class="text-center">
-        <% if @tel.blank? %>
-          <div data-toggle="tooltip" data-title='電話番号が設定されていません'>
-            <%= link_to('電話する', 'tel:' + @tel, id: 'tel', class: "btn btn-danger disabled") %>
-          </div>
-        <% elsif smartphone? %>
-          <%= link_to('電話する', 'tel:' + @tel, id: 'tel', class: "btn btn-danger") %>
-        <% else %>
-          <div data-toggle="tooltip" data-title='スマートフォン以外から電話をかけることはできません'>
-            <%= link_to('電話する', 'tel:' + @tel, id: 'tel', class: "btn btn-danger disabled") %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-xs-4">
-      <div class="text-center">
-	<button class="btn btn-warning js-push-button">ブラウザ通知を登録する</button>
-      </div>
-    </div>
-    <div class="col-xs-4">
-      <div class="text-center">
-        <%= link_to('質問をやり直す', {controller: "welcome", action: "clear"}, method: "delete",
-          class: "btn btn-info btn-default") %>
-      </div>
-    </div>
-  </div>
-</div>
 <!--タブ-->
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">イベント</a></li>
@@ -63,7 +32,7 @@
                 </div>
               <% end %>
             </div>
-   
+
             <% if topic[:message].present? %>
               <p>こんな言葉を贈ってはどうですか？</p>
               <p>「<%= topic[:message] %>」</p>

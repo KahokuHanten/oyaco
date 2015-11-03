@@ -11,7 +11,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
       click_button 'recommend'
     end
 
-    refute page.find('#tel')[:class].include?("disabled")
+    assert page.has_link?('tel')
   end
 
   test "user doesn't input number" do
@@ -23,7 +23,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
       click_button 'recommend'
     end
 
-    assert page.find('#tel')[:class].include?("disabled")
+    refute page.has_link?('tel')
   end
 
   test "user inputs valid number with PC" do
@@ -37,6 +37,6 @@ class InputTelTestTest < Capybara::Rails::TestCase
       click_button 'recommend'
     end
 
-    assert page.find('#tel')[:class].include?("disabled")
+    refute page.has_link?('tel')
   end
 end
