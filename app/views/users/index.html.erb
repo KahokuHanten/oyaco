@@ -13,6 +13,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
+        <td><%= user.email %></td>
         <td><%= user.subscription_id %></td>
         <td><%= link_to 'Push', push_user_path(user), method: :post %></td>
         <td><%= link_to 'Show', user %></td>
