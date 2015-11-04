@@ -30,10 +30,8 @@
             <ul class="dropdown-menu">
               <li class="dropdown-header"><%= current_or_guest_user.email %></li>
               <li role="separator" class="divider"></li>
-              <li role="separator" class="divider"></li>
               <li><%= link_to "プロフィール変更", edit_user_registration_path %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-              <li><a href="#">Action</a></li>
             </ul>
           </li>
         <% else %>
