@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
   helper_method :smartphone?
+  helper_method :chrome?
 
   # GET /welcome
   def show
@@ -149,6 +150,12 @@ class WelcomeController < ApplicationController
     ua = request.user_agent
     return true if ua.match(/iPhone/i)
     return true if ua.match(/Android/i) && ua.match(/Mobile/i)
+    false
+  end
+
+  def chrome?
+    ua = request.user_agent
+    return true if ua.match(/chrome/i)
     false
   end
 end
