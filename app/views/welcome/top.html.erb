@@ -11,82 +11,65 @@
 <li><a href="#tab2" data-toggle="tab">ローカル</a></li>
 <li><a href="#tab3" data-toggle="tab">趣味</a></li>
 </ul>
-<!--タブコンテンツ-->
+<!-- タブコンテンツ -->
 <div id="myTabContent" class="tab-content">
+  <!-- イベント -->
   <div class="tab-pane fade in active" id="tab1">
-    <% @topics.each do |topic| %>
-    <div class="popover-message">
-      <div class="">
-        <div class="popover right">
-          <div class="arrow"></div>
-          <h3 class="popover-title"><%= topic[:title] %></h3>
-          <div class="popover-content">
-            <p><%= topic[:comment] %></p>
-            <div class="row">
-              <div class="col-xs-1"></div>
-              <% topic[:items].first(3).each do |item| %>
-                <div class="col-xs-3">
-                  <a href="<%= item['affiliateUrl'] %>" target="_blank">
-                    <img class="img-responsive img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>">
-                  </a>
-                </div>
-              <% end %>
-            </div>
-
-            <% if topic[:message].present? %>
-              <p>こんな言葉を贈ってはどうですか？</p>
-              <p>「<%= topic[:message] %>」</p>
+    <ul class='list-group'>
+      <% @topics.each do |topic| %>
+        <li class='list-group-item'>
+          <h4 class="list-group-item-heading"><%= topic[:title] %></h4>
+          <p class="list-group-item-text"><%= topic[:comment] %></p>
+<!--
+          <div class="row">
+            <div class="col-xs-1"></div>
+            <% topic[:items].first(3).each do |item| %>
+              <div class="col-xs-3">
+                <a href="<%= item['affiliateUrl'] %>" target="_blank">
+                  <img class="img-responsive img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>">
+                </a>
+              </div>
             <% end %>
           </div>
-        </div>
-      </div>
-    </div>
-    <% end %>
+-->
+          <% if topic[:message].present? %>
+            <p>こんな言葉を贈ってはどうですか？</p>
+            <p>「<%= topic[:message] %>」</p>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
+  <!-- ローカル -->
   <div class="tab-pane fade" id="tab2">
-    <div class="popover-message">
-      <div class="">
-        <div class="popover right">
-          <div class="arrow"></div>
-          <div class="popover-content">
-            <p><%= @pref_name %>は<%= @message %></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="popover-message">
-      <div class="">
-        <div class="popover right">
-          <div class="arrow"></div>
-          <div class="popover-content">
-            <p><%= @pref_name %>のニュース</p>
-            <% if @googlenews["items"] %>
-              <% @googlenews["items"].first(3).each do |news| %>
-                <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ul class='list-group'>
+      <li class='list-group-item'>
+        <h4 class='list-group-item-heading'>お天気情報</h4>
+        <%= @pref_name %>は<%= @message %></p>
+      </li>
+      <li class='list-group-item'>
+        <h4 class='list-group-item-heading'><%= @pref_name %>のニュース</h4>
+        <% if @googlenews["items"] %>
+          <% @googlenews["items"].first(3).each do |news| %>
+            <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
   </div>
+  <!-- 趣味 -->
   <div class="tab-pane fade" id="tab3">
-    <% @hobbys.each do |hobby| %>
-    <div class="popover-message">
-      <div class="">
-        <div class="popover right">
-          <div class="arrow"></div>
-          <div class="popover-content">
-            <p>趣味<%= "（" << hobby[:name] << "）" %>のニュース</p>
-            <% if hobby[:news]["items"] %>
-              <% hobby[:news]["items"].first(3).each do |news| %>
-                <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
-              <% end %>
+    <ul class='list-group'>
+      <% @hobbys.each do |hobby| %>
+        <li class='list-group-item'>
+          <h4 class='list-group-item-heading'><%= hobby[:name] %>のニュース</h4>
+          <% if hobby[:news]["items"] %>
+            <% hobby[:news]["items"].first(3).each do |news| %>
+              <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
             <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

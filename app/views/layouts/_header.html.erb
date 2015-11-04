@@ -1,0 +1,44 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <!--ウィンドウ幅に合わせて可変-->
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!--スマホ用トグルボタンの設置-->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--ロゴ表示の指定-->
+      <%= link_to "OYACO", root_path, class: "navbar-brand" %>
+    </div>
+    <!--スマホ用の画面幅が小さいときの表示を非表示にする-->
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <% if request.path == '/welcome' %>
+          <% if !(@tel.blank?) && smartphone? %>
+            <li><a id='tel' href="tel:<%= @tel %>">電話する</a></li>
+          <% end %>
+          <li><a href="javascript:void(0)" class="js-push-button">ブラウザ通知を登録する</a></li>
+          <li><%= link_to '質問をやり直す', {controller: "welcome", action: "clear"}, method: "delete" %></li>
+        <% end %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">設定 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header"><%= current_or_guest_user.email %></li>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to "プロフィール変更", edit_user_registration_path %></li>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "ユーザー登録", new_user_registration_path %></li>
+          <li><%= link_to "ログイン", new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container-fluid -->
+</nav>
