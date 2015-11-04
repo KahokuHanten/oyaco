@@ -36,7 +36,9 @@
               <% if !(@tel.blank?) && smartphone? %>
                 <li><a id='tel' href="tel:<%= @tel %>">電話する</a></li>
               <% end %>
-              <li><a href="javascript:void(0)" class="js-push-button">ブラウザ通知を登録する</a></li>
+              <% if chrome? %>
+                <li><a href="javascript:void(0)" class="js-push-button">ブラウザ通知を登録する</a></li>
+              <% end %>
               <li><%= link_to '質問をやり直す', {controller: "welcome", action: "clear"}, method: "delete" %></li>
             <% end %>
           </ul>
