@@ -1,6 +1,5 @@
 ActiveAdmin.register User do
   member_action :push, method: :post do
-    binding.pry
     @user = User.find(params[:id])
     uri = URI.parse("https://android.googleapis.com/gcm/send")
     https = Net::HTTP.new(uri.host, uri.port)
