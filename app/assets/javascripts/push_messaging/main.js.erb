@@ -69,7 +69,7 @@ function sendSubscription(mergedEndpoint) {
     ,postData
     ,function(res){
       if(res!='error'){
-        alert("プッシュ通知を登録しました。")
+        alert("イベント通知を登録しました。")
       }
   });
 /* comment out
@@ -87,7 +87,7 @@ function clearSubscription() {
     ,""
     ,function(res){
       if(res!='error'){
-        alert("プッシュ通知を解除しました。")
+        alert("イベント通知を解除しました。")
       }
   });
 }
@@ -108,7 +108,7 @@ function unsubscribe() {
           // to allow the user to subscribe to push
           isPushEnabled = false;
           pushButton.disabled = false;
-          pushButton.textContent = 'プッシュ通知を登録する';
+          pushButton.textContent = 'イベント通知登録';
           return;
         }
 
@@ -119,7 +119,7 @@ function unsubscribe() {
         // We have a subcription, so call unsubscribe on it
         pushSubscription.unsubscribe().then(function(successful) {
           pushButton.disabled = false;
-          pushButton.textContent = 'プッシュ通知を登録する';
+          pushButton.textContent = 'イベント通知登録';
           isPushEnabled = false;
         }).catch(function(e) {
           // We failed to unsubscribe, this can lead to
@@ -150,7 +150,7 @@ function subscribe() {
       .then(function(subscription) {
         // The subscription was successful
         isPushEnabled = true;
-        pushButton.textContent = 'プッシュ通知登録済み';
+        pushButton.textContent = 'イベント通知解除';
         pushButton.disabled = false;
 
         // TODO: Send the subscription subscription.endpoint
@@ -176,7 +176,7 @@ function subscribe() {
           window.Demo.debug.log('Unable to subscribe to push.', e);
 */
           pushButton.disabled = false;
-          pushButton.textContent = 'プッシュ通知を登録する';
+          pushButton.textContent = 'イベント通知登録';
         }
       });
   });
@@ -237,6 +237,11 @@ function initialiseState() {
 }
 window.addEventListener('load', function() {
   var pushButton = document.querySelector('.js-push-button');
+  if (pushButton.textContent === 'イベント通知登録') {
+    isPushEnabled = false;
+  } else {
+    isPushEnabled = true;
+  }
   pushButton.addEventListener('click', function() {
     if (isPushEnabled) {
       unsubscribe();
