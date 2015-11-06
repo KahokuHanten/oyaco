@@ -20,7 +20,11 @@ class WelcomeController < ApplicationController
     @questionnaire.assign_attributes(params[:questionnaire])
 
     # Set cookies
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
+    [:dad, :mom].each do |field|
+      cookies.signed[field] = @questionnaire.send(field).try(:strftime, '%Y-%m-%d')
+    end
+
+    [:pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = params[param]
     end
 
