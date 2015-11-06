@@ -26,7 +26,7 @@ Holiday.find_or_create_by(name: '元日', date: '2016-01-01')
 Holiday.find_or_create_by(name: '春分の日', date: '2016-03-20')
 Holiday.find_or_create_by(name: '秋分の日', date: '2016-09-22')
 
-AdminUser.find_or_create_by(email: 'admin@example.com') do |m|
-  m.password = 'password'
-  m.password_confirmation = 'password'
-end
+# AdminUser.find_or_create_by(email: 'admin@example.com') do |m|
+#   m.password = 'password'
+#   m.password_confirmation = 'password'
+# end
