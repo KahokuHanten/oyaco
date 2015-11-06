@@ -8,6 +8,10 @@
                       html: { class: "form-horizontal center"} do |f| %>
 
         <div class="form-group">
+          <%= f.text_field :name, class: "form-control" ,placeholder: "User Name"%>
+        </div>
+
+        <div class="form-group">
           <%= f.email_field :email, autofocus: true, placeholder: "Email Address", class: "form-control" %>
         </div>
 
