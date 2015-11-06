@@ -8,12 +8,12 @@ module ApplicationHelper
 
   def tel_link
     if !(@tel.blank?) && smartphone?
-      content_tag :li do
-        link_to raw('<i class="fa fa-phone"></i> 電話する'), 'tel:' + @tel, id: 'tel'
+      content_tag :li, id: 'tel' do
+        link_to raw('<i class="fa fa-phone"></i> 電話する'), 'tel:' + @tel
       end
     else
-      content_tag :li, class: 'disabled' do
-        link_to raw('<i class="fa fa-phone"></i> 電話する'), '#', id: 'tel'
+      content_tag :li, id: 'tel', class: 'disabled' do
+        link_to raw('<i class="fa fa-phone"></i> 電話する'), '#'
       end
     end
   end
