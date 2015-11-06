@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
-  helper_method :smartphone?
-
   # GET /welcome
   def show
     return redirect_to question_path unless cookies.signed[:pref_id]
@@ -143,12 +141,5 @@ class WelcomeController < ApplicationController
     when /敬老/
       # "おじいちゃん、おばあちゃん、長生きしてね"
     end
-  end
-
-  def smartphone?
-    ua = request.user_agent
-    return true if ua.match(/iPhone/i)
-    return true if ua.match(/Android/i) && ua.match(/Mobile/i)
-    false
   end
 end
