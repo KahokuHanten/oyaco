@@ -16,9 +16,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <% if request.path == '/welcome' %>
-          <% if !(@tel.blank?) && smartphone? %>
-            <li><a id='tel' href="tel:<%= @tel %>">電話する</a></li>
-          <% end %>
+          <li><%= tel_link %></li>
           <% menu_text = current_or_guest_user.subscription_id.blank? ? 'イベント通知登録' : 'イベント通知解除' %>
           <li><a href="javascript:void(0)" class="js-push-button"><%= menu_text %></a></li>
           <li><%= link_to '質問をやり直す', {controller: "welcome", action: "clear"}, method: "delete" %></li>
@@ -27,7 +25,8 @@
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">設定 <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-cog fa-fw"></i> 設定 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class="dropdown-header"><%= current_or_guest_user.email %></li>
               <li role="separator" class="divider"></li>
