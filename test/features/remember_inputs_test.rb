@@ -8,11 +8,11 @@ class RememberInputsTest < Capybara::Rails::TestCase
     within '#question-form' do
       select '1960', from: 'questionnaire[dad(1i)]'
       select '10', from: 'questionnaire[dad(2i)]'
-      select '10', from: 'questionnaire[dad(3i)]'
+      select '11', from: 'questionnaire[dad(3i)]'
 
       select '1960', from: 'questionnaire[mom(1i)]'
       select '10', from: 'questionnaire[mom(2i)]'
-      select '10', from: 'questionnaire[mom(3i)]'
+      select '11', from: 'questionnaire[mom(3i)]'
 
       select '東京都', from: 'pref_id'
       click_button 'recommend'
@@ -23,11 +23,11 @@ class RememberInputsTest < Capybara::Rails::TestCase
 
     assert_equal find_field('questionnaire[dad(1i)]').value, '1960'
     assert_equal find_field('questionnaire[dad(2i)]').value, '10'
-    assert_equal find_field('questionnaire[dad(3i)]').value, '10'
+    assert_equal find_field('questionnaire[dad(3i)]').value, '11'
 
     assert_equal find_field('questionnaire[mom(1i)]').value, '1960'
     assert_equal find_field('questionnaire[mom(2i)]').value, '10'
-    assert_equal find_field('questionnaire[mom(3i)]').value, '10'
+    assert_equal find_field('questionnaire[mom(3i)]').value, '11'
 
     assert_equal find_field('pref_id').value, PrefName.get_pref_id("東京都")
   end
