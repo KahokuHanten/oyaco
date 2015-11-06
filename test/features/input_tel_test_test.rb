@@ -6,12 +6,13 @@ class InputTelTestTest < Capybara::Rails::TestCase
 
     visit root_path
     click_on '試してみる'
+
     within '#question-form' do
       fill_in 'tel', with: '00-0000-0000'
       click_button 'recommend'
     end
 
-    assert page.has_link?('tel')
+    assert_nil page.find('#tel')[:class]
   end
 
   test "user doesn't input number" do
@@ -23,7 +24,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
       click_button 'recommend'
     end
 
-    refute page.has_link?('tel')
+    assert page.find('#tel')[:class].include?("disabled")
   end
 
   test "user inputs valid number with PC" do
@@ -37,6 +38,6 @@ class InputTelTestTest < Capybara::Rails::TestCase
       click_button 'recommend'
     end
 
-    refute page.has_link?('tel')
+    assert page.find('#tel')[:class].include?("disabled")
   end
 end

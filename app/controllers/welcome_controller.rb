@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
-  helper_method :smartphone?
-
   # GET /welcome
   def show
     return redirect_to question_path unless cookies.signed[:pref_id]
@@ -94,10 +92,9 @@ class WelcomeController < ApplicationController
       @topics.push(
         title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
         comment: get_comment_by_event(holiday),
-        items: RakutenWebService::Ichiba::Item.search(keyword: holiday.name),
+        items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == "元日"),
         message: get_message_by_event(holiday))
     end
-
     @pref_name = PrefName.get_pref_name(@pref_id)
     @warnings = LocalInfo.get_weather_warnings(@pref_id)
     @message = MessageGenerator.new(@warnings).generate
@@ -131,8 +128,8 @@ class WelcomeController < ApplicationController
       'お墓参りに帰省しましょう'
     when /敬老/
       'おじいさん、おばあさんにプレゼントを贈りましょう'
-    else
-      '帰省しましょう。お土産はどうですか'
+    when /元日/
+      '帰省しましょう'
     end
   end
 
@@ -147,12 +144,5 @@ class WelcomeController < ApplicationController
     when /敬老/
       # "おじいちゃん、おばあちゃん、長生きしてね"
     end
-  end
-
-  def smartphone?
-    ua = request.user_agent
-    return true if ua.match(/iPhone/i)
-    return true if ua.match(/Android/i) && ua.match(/Mobile/i)
-    false
   end
 end
