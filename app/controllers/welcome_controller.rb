@@ -19,10 +19,10 @@ class WelcomeController < ApplicationController
 
     # Set cookies
     [:dad, :mom].each do |field|
-      cookies.signed[field] = @questionnaire.send(field).try(:strftime, '%Y-%m-%d')
+      params[field] = @questionnaire.send(field).try(:strftime, '%Y-%m-%d')
     end
 
-    [:pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
+    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = params[param]
     end
 
@@ -63,16 +63,13 @@ class WelcomeController < ApplicationController
     remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
-    # FIXME
-    if @questionnaire
-
     father = Person.new
     father.assign_attributes(relation: 0,
-                             birthday: @questionnaire.dad,
+                             birthday: params[:dad],
                              location: params[:pref_id])
     mother = Person.new
     mother.assign_attributes(relation: 1,
-                             birthday: @questionnaire.mom,
+                             birthday: params[:mom],
                              location: params[:pref_id])
 
     [father, mother].each do |person|
@@ -84,7 +81,6 @@ class WelcomeController < ApplicationController
       end
     end
 
-  end # if @questionnaire
 
     # 祝日関連の話題
     @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')
