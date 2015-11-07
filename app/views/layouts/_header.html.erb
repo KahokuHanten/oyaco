@@ -16,9 +16,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <% if request.path == '/welcome' %>
-          <li><%= tel_link %></li>
-          <% menu_text = current_or_guest_user.subscription_id.blank? ? 'イベント通知登録' : 'イベント通知解除' %>
-          <li><a href="javascript:void(0)" class="js-push-button"><%= menu_text %></a></li>
+          <%= li_link_to_tel %>
           <li><%= link_to '質問をやり直す', {controller: "welcome", action: "clear"}, method: "delete" %></li>
         <% end %>
       </ul>
@@ -30,8 +28,9 @@
             <ul class="dropdown-menu">
               <li class="dropdown-header"><%= current_or_guest_user.email %></li>
               <li role="separator" class="divider"></li>
-              <li><%= link_to "プロフィール変更", edit_user_registration_path %></li>
-              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+              <%= li_link_to_push %>
+              <li><%= link_to raw('<i class="fa fa-user"></i> プロフィール変更'), edit_user_registration_path %></li>
+              <li><%= link_to raw('<i class="fa fa-sign-out"></i> ログアウト'), destroy_user_session_path, method: :delete %></li>
             </ul>
           </li>
         <% else %>
