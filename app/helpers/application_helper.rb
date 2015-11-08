@@ -6,14 +6,37 @@ module ApplicationHelper
     false
   end
 
-  def tel_link
+  def push_support?
+    ua = request.user_agent
+    return true if ua.match(/Chrome/i) # FIXME: これは厳密ではない
+    false
+  end
+
+  def li_link_to_tel
     if !(@tel.blank?) && smartphone?
       content_tag :li, id: 'tel' do
-        link_to raw('<i class="fa fa-phone"></i> 電話する'), 'tel:' + @tel
+        link_to raw('<i class="fa fa-phone"></i>&nbsp; 電話する'), 'tel:' + @tel
+      end
+    elsif @tel.blank?
+      content_tag :li, id: 'tel', class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "電話番号が設定されていません" do
+        link_to raw('<i class="fa fa-phone"></i>&nbsp; 電話する'), 'javascript:void(0)'
+      end
+    elsif !smartphone?
+      content_tag :li, id: 'tel', class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "スマートフォンの場合に有効になります" do
+        link_to raw('<i class="fa fa-phone"></i>&nbsp; 電話する'), 'javascript:void(0)'
+      end
+    end
+  end
+
+  def li_link_to_push
+    if push_support?
+      menu_text = current_user.subscription_id.blank? ? 'イベント通知登録' : 'イベント通知解除'
+      content_tag :li do
+        link_to raw('<i class="fa fa-bell fa-fw"></i>&nbsp; ' + menu_text), 'javascript:void(0)', class: 'js-push-button'
       end
     else
-      content_tag :li, id: 'tel', class: 'disabled' do
-        link_to raw('<i class="fa fa-phone"></i> 電話する'), '#'
+      content_tag :li, class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "お使いのブラウザは対応していません" do
+        link_to raw('<i class="fa fa-bell fa-fw"></i>&nbsp; イベント通知登録'), 'javascript:void(0)'
       end
     end
   end
