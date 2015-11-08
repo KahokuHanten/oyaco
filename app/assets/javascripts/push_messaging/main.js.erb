@@ -108,7 +108,7 @@ function unsubscribe() {
           // to allow the user to subscribe to push
           isPushEnabled = false;
           pushButton.disabled = false;
-          pushButton.textContent = 'イベント通知登録';
+          pushButton.innerHTML = pushButton.innerHTML.replace('解除', '登録');
           return;
         }
 
@@ -119,7 +119,7 @@ function unsubscribe() {
         // We have a subcription, so call unsubscribe on it
         pushSubscription.unsubscribe().then(function(successful) {
           pushButton.disabled = false;
-          pushButton.textContent = 'イベント通知登録';
+          pushButton.innerHTML = pushButton.innerHTML.replace('解除', '登録');
           isPushEnabled = false;
         }).catch(function(e) {
           // We failed to unsubscribe, this can lead to
@@ -150,7 +150,7 @@ function subscribe() {
       .then(function(subscription) {
         // The subscription was successful
         isPushEnabled = true;
-        pushButton.textContent = 'イベント通知解除';
+        pushButton.innerHTML = pushButton.innerHTML.replace('登録', '解除');
         pushButton.disabled = false;
 
         // TODO: Send the subscription subscription.endpoint
@@ -176,7 +176,7 @@ function subscribe() {
           window.Demo.debug.log('Unable to subscribe to push.', e);
 */
           pushButton.disabled = false;
-          pushButton.textContent = 'イベント通知登録';
+          pushButton.innerHTML = pushButton.innerHTML.replace('解除', '登録');
         }
       });
   });
@@ -237,7 +237,7 @@ function initialiseState() {
 }
 window.addEventListener('load', function() {
   var pushButton = document.querySelector('.js-push-button');
-  if (pushButton.textContent === 'イベント通知登録') {
+    if (pushButton.textContent.indexOf('登録') != -1 ) {
     isPushEnabled = false;
   } else {
     isPushEnabled = true;
