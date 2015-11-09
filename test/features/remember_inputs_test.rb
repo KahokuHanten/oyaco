@@ -32,7 +32,7 @@ class RememberInputsTest < Capybara::Rails::TestCase
     assert_equal find_field('pref_id').value, PrefName.get_pref_id("東京都")
   end
 
-  test "remember inputs on welcom" do
+  test "remember inputs after visit home" do
     visit root_path
     click_on '試してみる'
 
@@ -50,7 +50,7 @@ class RememberInputsTest < Capybara::Rails::TestCase
     end
 
     visit root_path
-    visit welcome_path
+    visit home_path
 
     assert_content page, "2月 1日"
     assert_content page, "東京都"
@@ -77,13 +77,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
     click_on '質問をやり直す'
 
     within '#question-form' do
-      assert_equal find_field('questionnaire[dad(1i)]').value, '1960'
-      assert_equal find_field('questionnaire[dad(2i)]').value, '10'
-      assert_equal find_field('questionnaire[dad(3i)]').value, '10'
+      assert_equal find_field('questionnaire[dad(1i)]').value, Oyaco::Application.config.default_birthday.year.to_s
+      assert_equal find_field('questionnaire[dad(2i)]').value, Oyaco::Application.config.default_birthday.month.to_s
+      assert_equal find_field('questionnaire[dad(3i)]').value, Oyaco::Application.config.default_birthday.day.to_s
 
-      assert_equal find_field('questionnaire[mom(1i)]').value, '1960'
-      assert_equal find_field('questionnaire[mom(2i)]').value, '10'
-      assert_equal find_field('questionnaire[mom(3i)]').value, '10'
+      assert_equal find_field('questionnaire[mom(1i)]').value, Oyaco::Application.config.default_birthday.year.to_s
+      assert_equal find_field('questionnaire[mom(2i)]').value, Oyaco::Application.config.default_birthday.month.to_s
+      assert_equal find_field('questionnaire[mom(3i)]').value, Oyaco::Application.config.default_birthday.day.to_s
 
       assert_equal find_field('pref_id').value, PrefName.get_pref_id("北海道")
     end

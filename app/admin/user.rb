@@ -18,7 +18,7 @@ ActiveAdmin.register User do
   end
 
   action_item only: :show do
-    link_to '通知', push_admin_user_path, method: :post if user.subscription_id.present?
+    link_to '通知', push_admin_user_path, method: :post if user.subscription_id?
   end
 
   index do
@@ -30,7 +30,7 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :created_at
     actions defaults: true do |user|
-      link_to '通知', push_admin_user_path(user), method: :post if user.subscription_id.present?
+      link_to '通知', push_admin_user_path(user), method: :post if user.subscription_id?
     end
   end
 

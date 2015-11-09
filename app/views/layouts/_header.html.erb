@@ -15,9 +15,9 @@
     <!--スマホ用の画面幅が小さいときの表示を非表示にする-->
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <% if request.path == '/welcome' %>
+        <% if request.path == '/home' %>
           <%= li_link_to_tel %>
-          <li><%= link_to '質問をやり直す', {controller: "welcome", action: "clear"}, method: "delete" %></li>
+          <li><%= link_to '質問をやり直す', {controller: "question", action: "destroy"}, method: "delete" %></li>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">

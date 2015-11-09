@@ -1,58 +1,18 @@
-# -*- coding: utf-8 -*-
-class WelcomeController < ApplicationController
-  # GET /welcome
+class HomeController < ApplicationController
+#  before_action :authenticate_user!, only: :show
+
+  def index
+    return redirect_to home_path if user_signed_in?
+  end
+
   def show
-    return redirect_to question_path unless cookies.signed[:pref_id]
+    return redirect_to new_question_path unless cookies.signed[:pref_id]
 
     # get params from cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       params[param] = cookies.signed[param]
     end
     build_topics(params)
-    render :top
-  end
-
-  # POST /welcome
-  def top
-    @questionnaire = Questionnaire.new
-    @questionnaire.assign_attributes(params[:questionnaire])
-
-    # Set cookies
-    [:dad, :mom].each do |field|
-      params[field] = @questionnaire.send(field).try(:strftime, '%Y-%m-%d')
-    end
-
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
-      cookies.signed[param] = params[param]
-    end
-
-    build_topics(params)
-    render :top
-  end
-
-  # DELETE /welcome
-  def clear
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
-      cookies.delete(param)
-    end
-    redirect_to question_path
-  end
-
-  # POST /welcome/save_subscription_id
-  def save_subscription_id
-    subscription_id = params[:subscription_id]
-    if current_or_guest_user
-      current_or_guest_user.update_attribute(:subscription_id, subscription_id)
-    end
-    render nothing: true
-  end
-
-  # POST /welcome/clear_subscription_id
-  def clear_subscription_id
-    if current_or_guest_user
-      current_or_guest_user.update_attribute(:subscription_id, nil)
-    end
-    render nothing: true
   end
 
   private
@@ -73,14 +33,15 @@ class WelcomeController < ApplicationController
                              location: params[:pref_id])
 
     [father, mother].each do |person|
-      if person.next_birthday < Date.today.months_since(remind_months_ago)
-        @topics.push(
-          title: "もうすぐ #{person.name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
-          comment: 'こんなプレゼントはいかがですか？',
-          items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
+      if person.birthday?
+        if person.next_birthday < Date.today.months_since(remind_months_ago)
+          @topics.push(
+            title: "もうすぐ #{person.name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
+            comment: 'こんなプレゼントはいかがですか？',
+            items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
+        end
       end
     end
-
 
     # 祝日関連の話題
     @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')

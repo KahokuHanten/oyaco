@@ -27,5 +27,6 @@ module Oyaco
     config.autoload_paths += %W(#{config.root}/lib)
 
     config.remind_months_ago = 3
+    config.default_birthday = Date.new(1960, 2, 3)
   end
 end

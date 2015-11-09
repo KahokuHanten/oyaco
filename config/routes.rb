@@ -1,21 +1,32 @@
 Rails.application.routes.draw do
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  devise_for :users
-  resources :people
-  resources :events
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  # admin
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+  # users
+  devise_for :users
+  resource :users, only: [:show] do
+    resources :people
+    resources :events
+    member do
+      post 'save_subscription_id'
+      post 'clear_subscription_id'
+    end
+  end
+
   # You can have the root of your site routed with "root"
-  root 'top#index'
-  get 'question' => 'question#index'
-  get 'welcome' => 'welcome#show'
-  post 'welcome' => 'welcome#top'
-  delete 'welcome' => 'welcome#clear'
-  post 'welcome/save_subscription_id' => 'welcome#save_subscription_id'
-  post 'welcome/clear_subscription_id' => 'welcome#clear_subscription_id'
+  root 'home#index'
+
+  get 'home', to: 'home#show'
+
+#  resource :question, only: [:create, :edit, :new, :destroy]
+  post 'question', to: 'question#create', as: 'question'
+  get  'question/new', to: 'question#new', as: 'new_question'
+  get  'question/edit', to: 'question#edit', as: 'edit_question'
+  delete 'question', to: 'question#destroy'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

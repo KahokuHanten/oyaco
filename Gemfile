@@ -58,6 +58,10 @@ group :development, :test do
   gem 'meta_request'
 end
 
+group :development do
+  gem 'rails_best_practices'
+end
+
 group :test do
   gem "minitest"
   gem "minitest-rails"

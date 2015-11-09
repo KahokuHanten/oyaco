@@ -65,7 +65,7 @@ function sendSubscription(mergedEndpoint) {
   var postData = {};
   postData['subscription_id'] = subscriptionId;
   $.post(
-    "welcome/save_subscription_id"
+    "/users/save_subscription_id"
     ,postData
     ,function(res){
       if(res!='error'){
@@ -83,7 +83,7 @@ function sendSubscription(mergedEndpoint) {
 
 function clearSubscription() {
   $.post(
-    "welcome/clear_subscription_id"
+    "/users/clear_subscription_id"
     ,""
     ,function(res){
       if(res!='error'){

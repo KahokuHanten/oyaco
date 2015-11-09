@@ -12,7 +12,7 @@ class GetTopicsTest < Capybara::Rails::TestCase
 
     visit root_path
 
-    visit welcome_path
+    visit home_path
 
     assert_content page, "大阪府"
   end
