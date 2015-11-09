@@ -1,0 +1,7 @@
+      <div class="form-group">
+        <%= label_tag(:pref_id, "Q3: あなたのご両親のお住まいは？", class: "col-sm-6 control-label") %>
+        <div class="col-sm-4">
+          <%= select_tag(:pref_id, options_from_collection_for_select(JpPrefecture::Prefecture.all, :code, :name, cookies.signed[:pref_id] ||= "1"),
+         class: "form-control", style: "display: inline-block; width: auto") %>
+        </div>
+      </div>
