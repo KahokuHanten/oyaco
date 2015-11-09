@@ -4,13 +4,15 @@ Rails.application.routes.draw do
   devise_for :users
   resources :people
   resources :events
+  resources :question
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'top#index'
-  get 'question' => 'question#index'
+#  get 'question' => 'question#index'
+
   get 'welcome' => 'welcome#show'
   post 'welcome' => 'welcome#top'
   delete 'welcome' => 'welcome#clear'
