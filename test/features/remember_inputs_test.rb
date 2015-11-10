@@ -74,7 +74,7 @@ class RememberInputsTest < Capybara::Rails::TestCase
       click_button 'recommend'
     end
 
-    click_on '質問をやり直す'
+    click_on 'question-again'
 
     within '#question-form' do
       assert_equal find_field('questionnaire[dad(1i)]').value, Oyaco::Application.config.default_birthday.year.to_s

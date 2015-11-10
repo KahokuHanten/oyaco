@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   post 'question', to: 'question#create', as: 'question'
   get  'question/new', to: 'question#new', as: 'new_question'
   get  'question/edit', to: 'question#edit', as: 'edit_question'
-  delete 'question', to: 'question#destroy'
+  delete 'question', to: 'question#destroy', as: 'destroy_question'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

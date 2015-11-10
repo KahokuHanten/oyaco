@@ -17,7 +17,7 @@ ActiveAdmin.register User do
     render :push
   end
 
-  action_item only: :show do
+  action_item :push, only: :show do
     link_to '通知', push_admin_user_path, method: :post if user.subscription_id?
   end
 
