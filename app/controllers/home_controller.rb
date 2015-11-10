@@ -44,7 +44,7 @@ class HomeController < ApplicationController
     end
 
     # 祝日関連の話題
-    @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')
+    @holidays = Holiday.soon
     @holidays.each do |holiday|
       @topics.push(
         title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
