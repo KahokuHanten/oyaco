@@ -4,6 +4,8 @@ class Person < ActiveRecord::Base
   include JpPrefecture
   jp_prefecture :prefecture_code
 
+  enum relation: %i(father mother)
+
   def location_name
     JpPrefecture::Prefecture.find(location).name
   end
@@ -19,16 +21,16 @@ class Person < ActiveRecord::Base
     age_r
   end
 
-  def name
-    return self[:name] if self[:name] != nil
-    case self.relation
-    when 0
-      "お父さん"
-    when 1
-      "お母さん"
-    else
-      "名無しさん"
-    end
+  def friendly_name
+    return self.name ||
+      case self.relation
+      when "father"
+        "お父さん"
+      when "mother"
+        "お母さん"
+      else
+        "名無しさん"
+      end
   end
 
   def next_birthday
@@ -41,7 +43,13 @@ class Person < ActiveRecord::Base
   end
 
   def gender
-    return 0 if relation == 0
-    return 1 if relation == 1
+    case self.relation
+    when "father"
+      0
+    when "mother"
+      1
+    else
+      0
+    end
   end
 end

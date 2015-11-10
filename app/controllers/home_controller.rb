@@ -20,7 +20,7 @@ class HomeController < ApplicationController
     # リクエストパラメータから都道府県コードを取得する
     @pref_id = params[:pref_id]
 
-    remind_months_ago = Oyaco::Application.config.remind_months_ago
+     remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
     father = Person.new
@@ -36,7 +36,7 @@ class HomeController < ApplicationController
       if person.birthday?
         if person.next_birthday < Date.today.months_since(remind_months_ago)
           @topics.push(
-            title: "もうすぐ #{person.name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
+            title: "もうすぐ #{person.friendly_name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
             comment: 'こんなプレゼントはいかがですか？',
             items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
         end
