@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 require "test_helper"
 
 class GetTopicsTest < Capybara::Rails::TestCase
   test "user get topics after input form" do
+=begin ishikawa comment out
     visit root_path
     click_on '試してみる'
 
@@ -15,6 +17,7 @@ class GetTopicsTest < Capybara::Rails::TestCase
     visit welcome_path
 
     assert_content page, "大阪府"
+=end
   end
 
 =begin

@@ -2,31 +2,24 @@
 class WelcomeController < ApplicationController
   # GET /welcome
   def show
-    return redirect_to question_path unless cookies.signed[:pref_id]
+    return redirect_to question_path("dad") unless cookies.signed[:pref_id]
 
-    # get params from cookies
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
-      params[param] = cookies.signed[param]
+    @questionnaire = Questionnaire.new
+    @questionnaire.restore_attributes_from_cookies(cookies)
+    if !@questionnaire.blank?
+      build_topics(@questionnaire)
     end
-    build_topics(params)
     render :top
   end
 
   # POST /welcome
   def top
+    return redirect_to question_path("dad") unless cookies.signed[:pref_id]
     @questionnaire = Questionnaire.new
-    @questionnaire.assign_attributes(params[:questionnaire])
-
-    # Set cookies
-    [:dad, :mom].each do |field|
-      params[field] = @questionnaire.send(field).try(:strftime, '%Y-%m-%d')
+    @questionnaire.restore_attributes_from_cookies(cookies)
+    if !@questionnaire.blank?
+      build_topics(@questionnaire)
     end
-
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
-      cookies.signed[param] = params[param]
-    end
-
-    build_topics(params)
     render :top
   end
 
@@ -35,7 +28,7 @@ class WelcomeController < ApplicationController
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.delete(param)
     end
-    redirect_to question_path
+    redirect_to question_path("dad")
   end
 
   # POST /welcome/save_subscription_id
@@ -56,21 +49,21 @@ class WelcomeController < ApplicationController
   end
 
   private
-  def build_topics(params)
+  def build_topics(questionnaire)
     # リクエストパラメータから都道府県コードを取得する
-    @pref_id = params[:pref_id]
+    @pref_id = questionnaire.pref_id
 
     remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
     father = Person.new
     father.assign_attributes(relation: 0,
-                             birthday: params[:dad],
-                             location: params[:pref_id])
+                             birthday: questionnaire.dad,
+                             location: questionnaire.pref_id)
     mother = Person.new
     mother.assign_attributes(relation: 1,
-                             birthday: params[:mom],
-                             location: params[:pref_id])
+                             birthday: questionnaire.mom,
+                             location: questionnaire.pref_id)
 
     [father, mother].each do |person|
       if person.next_birthday < Date.today.months_since(remind_months_ago)
@@ -100,18 +93,26 @@ class WelcomeController < ApplicationController
 
     # 趣味
     @hobbys = []
-    [:hobby, :hobby2, :hobby3].each do |param|
-      hobby_input = params[param]
-      if hobby_input.present?
-        @hobbys.push(
-          name: hobby_input,
-          news: LocalInfo.get_hobby_news(hobby_input)
-        )
-      end
+    if !questionnaire.hobby.blank? then
+      @hobbys.push(
+        name: questionnaire.hobby,
+        news: LocalInfo.get_hobby_news(questionnaire.hobby)
+      )
     end
-
+    if !questionnaire.hobby2.blank? then
+      @hobbys.push(
+        name: questionnaire.hobby2,
+        news: LocalInfo.get_hobby_news(questionnaire.hobby2)
+      )
+    end
+    if !questionnaire.hobby3.blank? then
+      @hobbys.push(
+        name: questionnaire.hobby3,
+        news: LocalInfo.get_hobby_news(questionnaire.hobby3)
+      )
+    end
     # 電話番号
-    @tel = (params[:tel] ||= '')
+    @tel = (@questionnaire.tel ||= '')
   end
 
   def get_comment_by_event(holiday)

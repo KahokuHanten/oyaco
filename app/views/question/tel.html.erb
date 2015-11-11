@@ -1,0 +1,11 @@
+      <%= form_for(@questionnaire, url: next_wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
+      <div class="form-group">
+        <%= label_tag(:tel, "あなたのご両親の電話番号は？", class: "col-sm-6 control-label") %>
+        <div class="col-sm-4">
+          <%= telephone_field_tag(:tel, cookies.signed[:tel],
+          placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control") %>
+        </div>
+      </div>
+      <%= submit_tag("次の質問", class: "btn btn-success btn-default") %>
+      <% end %>
+      <%= link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
