@@ -5,12 +5,13 @@ class QuestionController < ApplicationController
 
   def show
     @questionnaire = Questionnaire.new
-    @questionnaire.restore_attributes_from_cookies(cookies)
+    @questionnaire.restore_attributes_from_cookies(cookies) 
     render_wizard
   end
   
   def update
     @questionnaire = Questionnaire.new
+    @questionnaire.restore_attributes_from_cookies(cookies) 
     case step
     when :mom
       @questionnaire.assign_attributes(params[:questionnaire])

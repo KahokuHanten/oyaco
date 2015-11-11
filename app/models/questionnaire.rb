@@ -64,19 +64,19 @@ class Questionnaire
     end
     if cookies.signed[:hobby]
       begin
-        self.tel = cookies.signed[:hobby]
+        self.hobby = cookies.signed[:hobby]
       rescue ArgumentError
       end
     end
     if cookies.signed[:hobby2]
       begin
-        self.tel = cookies.signed[:hobby2]
+        self.hobby2 = cookies.signed[:hobby2]
       rescue ArgumentError
       end
     end
     if cookies.signed[:hobby3]
       begin
-        self.tel = cookies.signed[:hobby3]
+        self.hobby3 = cookies.signed[:hobby3]
       rescue ArgumentError
       end
     end
