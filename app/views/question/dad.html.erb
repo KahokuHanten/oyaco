@@ -1,4 +1,4 @@
-      <%= form_for(@questionnaire, url: wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
+      <%= form_for(@questionnaire, url: next_wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
       <div class="form-group">
         <%= label_tag(:dad, " あなたのお父さんの誕生日は？", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
@@ -7,6 +7,6 @@
           class: "form-control", style: "display: inline-block; width: auto") %>
         </div>
       </div>
-          <%= submit_tag("次の質問", :id => "recommend", class: "btn btn-success btn-default") %>
+      <%= submit_tag("次の質問", class: "btn btn-success btn-default") %>
       <% end %>
       <%= link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>

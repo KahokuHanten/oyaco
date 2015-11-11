@@ -2,7 +2,7 @@
 class WelcomeController < ApplicationController
   # GET /welcome
   def show
-    return redirect_to question_path unless cookies.signed[:pref_id]
+    return redirect_to question_path("dad") unless cookies.signed[:pref_id]
 
     # get params from cookies
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
@@ -14,6 +14,7 @@ class WelcomeController < ApplicationController
 
   # POST /welcome
   def top
+    return redirect_to question_path("dad") unless cookies.signed[:pref_id]
     @questionnaire = Questionnaire.new
     @questionnaire.assign_attributes(params[:questionnaire])
 
