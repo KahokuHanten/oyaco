@@ -12,22 +12,25 @@ class QuestionController < ApplicationController
   def update
     @questionnaire = Questionnaire.new
     case step
-    when :dad
-      @questionnaire.assign_attributes(params[:questionnaire])
     when :mom
+      @questionnaire.assign_attributes(params[:questionnaire])
+    when :pref
       @questionnaire.assign_attributes(params[:questionnaire])
     end
     # Set cookies
-    [:dad, :mom].each do |field|
-      params[field] = @questionnaire.send(field).try(:strftime, '%Y-%m-%d')
+    if !@questionnaire.dad.blank? then
+      params[:dad] = @questionnaire.send(:dad).try(:strftime, '%Y-%m-%d')
     end
-logger.debug("hello")
-logger.debug(params)
+    if !@questionnaire.mom.blank? then
+      params[:mom] = @questionnaire.send(:mom).try(:strftime, '%Y-%m-%d')
+    end
 
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
-      cookies.signed[param] = params[param]
+      if params.has_key?(param) then
+        cookies.signed[param] = params[param]
+      end
     end
-    if step==:hobby && (!params[:hobby].blank?||!params[:hobby2].blank?||!params[:hobby3].blank?)
+    if !params[:hobby].blank?||!params[:hobby2].blank?||!params[:hobby3].blank?
       return redirect_to welcome_path 
     end
     render_wizard
@@ -46,6 +49,4 @@ logger.debug(params)
   def default_url_options(options = {})
     {locale: I18n.locale}
   end
-
-
 end
