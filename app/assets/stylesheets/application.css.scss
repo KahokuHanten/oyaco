@@ -30,8 +30,8 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-@import "top";
-@import "welcome";
+@import "home";
+@import "question";
 
 html,
 body {
@@ -42,6 +42,10 @@ body {
 /* for nvabar */
 body {
   padding-top: 60px;
+}
+
+.dropdown-header {
+  font-size: 1.2em;
 }
 
 /* Footer */

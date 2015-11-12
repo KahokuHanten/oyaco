@@ -1,11 +1,36 @@
-      <%= form_for(@questionnaire, url: wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
-      <div class="form-group">
-        <%= label_tag(:hobby, "あなたのご両親の趣味は？", class: "col-sm-6 control-label") %>
-        <div class="col-sm-4">
-          <%= text_field_tag(:hobby, cookies.signed[:hobby] || "温泉旅行", class: "form-control") %>
-          <%= text_field_tag(:hobby2, cookies.signed[:hobby2] || "ゴルフ", class: "form-control") %>
+<section class="question container-fluid" id="question">
+  <div class="jumbotron">
+    <%= form_for(@questionnaire, url: wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
+    <div class="form-group">
+      <h1><%= label_tag(:hobby, "あなたのご両親の趣味は？", class: "control-label") %></h1>
+      <p>
+        <div class="row">
+          <div class="col-xs-offset-4 col-xs-4">
+            <%= text_field_tag(:hobby, cookies.signed[:hobby] || "温泉旅行", class: "form-control") %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-offset-4 col-xs-4">
+            <%= text_field_tag(:hobby2, cookies.signed[:hobby2] || "ゴルフ", class: "form-control") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-4 col-xs-4">
           <%= text_field_tag(:hobby3, cookies.signed[:hobby3] || "落語", class: "form-control") %>
         </div>
       </div>
-      <%= submit_tag("相談する", class: "btn btn-success btn-default") %>
-      <% end %>
+      </p>
+      <p>
+        <%= submit_tag("相談する", id: "go-home", class: "btn btn-success btn-default") %>
+      </p>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="progress progress-striped active">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="progress-bar progress-bar-success" role="progressbar" style="width: 100%;">
+      <span class="sr-only">100% Complete</span>
+    </div>
+  </div>
+</div>
+</section>

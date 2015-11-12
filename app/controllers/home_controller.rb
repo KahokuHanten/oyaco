@@ -1,51 +1,18 @@
-# -*- coding: utf-8 -*-
-class WelcomeController < ApplicationController
-  # GET /welcome
+class HomeController < ApplicationController
+#  before_action :authenticate_user!, only: :show
+
+  def index
+    return redirect_to home_path if user_signed_in?
+  end
+
   def show
-    return redirect_to question_path("dad") unless cookies.signed[:pref_id]
+    return redirect_to root_path unless cookies.signed[:pref_id]
 
     @questionnaire = Questionnaire.new
     @questionnaire.restore_attributes_from_cookies(cookies)
     if !@questionnaire.blank?
       build_topics(@questionnaire)
     end
-    render :top
-  end
-
-  # POST /welcome
-  def top
-    return redirect_to question_path("dad") unless cookies.signed[:pref_id]
-    @questionnaire = Questionnaire.new
-    @questionnaire.restore_attributes_from_cookies(cookies)
-    if !@questionnaire.blank?
-      build_topics(@questionnaire)
-    end
-    render :top
-  end
-
-  # DELETE /welcome
-  def clear
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
-      cookies.delete(param)
-    end
-    redirect_to question_path("dad")
-  end
-
-  # POST /welcome/save_subscription_id
-  def save_subscription_id
-    subscription_id = params[:subscription_id]
-    if current_or_guest_user
-      current_or_guest_user.update_attribute(:subscription_id, subscription_id)
-    end
-    render nothing: true
-  end
-
-  # POST /welcome/clear_subscription_id
-  def clear_subscription_id
-    if current_or_guest_user
-      current_or_guest_user.update_attribute(:subscription_id, nil)
-    end
-    render nothing: true
   end
 
   private
@@ -53,7 +20,7 @@ class WelcomeController < ApplicationController
     # リクエストパラメータから都道府県コードを取得する
     @pref_id = questionnaire.pref_id
 
-    remind_months_ago = Oyaco::Application.config.remind_months_ago
+     remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
     father = Person.new
@@ -66,17 +33,18 @@ class WelcomeController < ApplicationController
                              location: questionnaire.pref_id)
 
     [father, mother].each do |person|
-      if person.next_birthday < Date.today.months_since(remind_months_ago)
-        @topics.push(
-          title: "もうすぐ #{person.name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
-          comment: 'こんなプレゼントはいかがですか？',
-          items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
+      if person.birthday?
+        if person.next_birthday < Date.today.months_since(remind_months_ago)
+          @topics.push(
+            title: "もうすぐ #{person.friendly_name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
+            comment: 'こんなプレゼントはいかがですか？',
+            items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
+        end
       end
     end
 
-
     # 祝日関連の話題
-    @holidays = Holiday.where(date: Date.today..Date.today.months_since(remind_months_ago)).order('date')
+    @holidays = Holiday.soon
     @holidays.each do |holiday|
       @topics.push(
         title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,

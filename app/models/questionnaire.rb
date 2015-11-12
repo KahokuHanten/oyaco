@@ -4,7 +4,6 @@ class Questionnaire
 
   attr_accessor :dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3
 
-  DEFAULT_BIRTHDAY = Date.new(1960, 10, 10)
   #年月日
   def assign_attributes(params)
     begin
@@ -15,7 +14,7 @@ class Questionnaire
         self.dad = Date.new(dad_year, dad_month, dad_day)
       end
     rescue ArgumentError
-      self.dad = DEFAULT_BIRTHDAY
+      self.dad = Oyaco::Application.config.default_birthday
     end
 
     begin
@@ -26,7 +25,7 @@ class Questionnaire
       self.mom = Date.new(mom_year, mom_month, mom_day)
       end
     rescue ArgumentError
-      self.mom = DEFAULT_BIRTHDAY
+      self.mom = Oyaco::Application.config.default_birthday
     end
   end
 
@@ -36,19 +35,20 @@ class Questionnaire
       begin
         self.dad = Date.parse(cookies.signed[:dad])
       rescue ArgumentError
-        self.dad = DEFAULT_BIRTHDAY
+        self.dad = Oyaco::Application.config.default_birthday
       end
     else
-      self.dad = DEFAULT_BIRTHDAY
+      self.dad = Oyaco::Application.config.default_birthday
     end
+
     if cookies.signed[:mom]
       begin
         self.mom = Date.parse(cookies.signed[:mom])
       rescue ArgumentError
-        self.mom = DEFAULT_BIRTHDAY
+        self.mom = Oyaco::Application.config.default_birthday
       end
     else
-      self.mom = DEFAULT_BIRTHDAY
+      self.mom = Oyaco::Application.config.default_birthday
     end
     if cookies.signed[:pref_id]
       begin
