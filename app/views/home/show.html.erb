@@ -43,6 +43,7 @@
   <!-- ローカル -->
   <div class="tab-pane fade" id="tab2">
     <ul class='list-group'>
+      <% if @pref_name.present? %>
       <li class='list-group-item'>
         <h4 class='list-group-item-heading'>お天気情報</h4>
         <%= @pref_name %>は<%= @message %></p>
@@ -56,6 +57,7 @@
         <% end %>
       </li>
     </ul>
+    <% end %>
   </div>
   <!-- 趣味 -->
   <div class="tab-pane fade" id="tab3">
