@@ -22,11 +22,8 @@ Rails.application.routes.draw do
 
   get 'home', to: 'home#show'
 
-#  resource :question, only: [:create, :edit, :new, :destroy]
-  post 'question', to: 'question#create', as: 'question'
-  get  'question/new', to: 'question#new', as: 'new_question'
-  get  'question/edit', to: 'question#edit', as: 'edit_question'
-  delete 'question', to: 'question#destroy', as: 'destroy_question'
+  resources :question, only: [:show, :update]
+  delete :question, to: 'question#destroy_all', as: 'destroy_question'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

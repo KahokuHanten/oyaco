@@ -1,0 +1,11 @@
+<%= form_for(@questionnaire, url: wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
+<div class="form-group">
+  <%= label_tag(:hobby, "あなたのご両親の趣味は？", class: "col-sm-6 control-label") %>
+  <div class="col-sm-4">
+    <%= text_field_tag(:hobby, cookies.signed[:hobby] || "温泉旅行", class: "form-control") %>
+    <%= text_field_tag(:hobby2, cookies.signed[:hobby2] || "ゴルフ", class: "form-control") %>
+    <%= text_field_tag(:hobby3, cookies.signed[:hobby3] || "落語", class: "form-control") %>
+  </div>
+</div>
+<%= submit_tag("相談する", id: "go-home", class: "btn btn-success btn-default") %>
+<% end %>

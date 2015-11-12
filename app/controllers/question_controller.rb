@@ -1,35 +1,62 @@
 class QuestionController < ApplicationController
-  def new
-    current_or_guest_user
-    @questionnaire = Questionnaire.new
-    render :index
-  end
+  include Wicked::Wizard
+  steps :dad, :mom, :pref, :tel, :hobby
+  before_filter :set_locale
 
-  def edit
+  def show
     @questionnaire = Questionnaire.new
     @questionnaire.restore_attributes_from_cookies(cookies)
-    render :index
+    render_wizard
   end
 
-  def destroy
+  def update
+    @questionnaire = Questionnaire.new
+    @questionnaire.restore_attributes_from_cookies(cookies)
+
+    case step
+    when :mom
+      @questionnaire.assign_attributes(params[:questionnaire])
+    when :pref
+      @questionnaire.assign_attributes(params[:questionnaire])
+    end
+
+    # Set cookies
+    unless @questionnaire.dad.blank?
+      params[:dad] = @questionnaire.send(:dad).try(:strftime, '%Y-%m-%d')
+    end
+
+    unless @questionnaire.mom.blank?
+      params[:mom] = @questionnaire.send(:mom).try(:strftime, '%Y-%m-%d')
+    end
+
+    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
+      cookies.signed[param] = params[param] if params.key?(param)
+    end
+
+    if !params[:hobby].blank? || !params[:hobby2].blank? || !params[:hobby3].blank?
+      return redirect_to home_path
+    end
+    render_wizard
+  end
+
+  def destroy_all
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.delete(param)
     end
-    redirect_to new_question_path
+    redirect_to question_path(:dad)
   end
 
-  def create
-    @questionnaire = Questionnaire.new
-    @questionnaire.assign_attributes(params[:questionnaire])
+  def finish_wizard_path
+    home_path
+  end
 
-    # Set cookies
-    [:dad, :mom].each do |field|
-      params[field] = @questionnaire.send(field).try(:strftime, '%Y-%m-%d')
-    end
+  private
 
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
-      cookies.signed[param] = params[param]
-    end
-    redirect_to home_path
+  def set_locale
+    I18n.locale = params[:locale] if params[:locale].present?
+  end
+
+  def default_url_options(_options = {})
+    { locale: I18n.locale }
   end
 end

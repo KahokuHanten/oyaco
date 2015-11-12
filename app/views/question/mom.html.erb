@@ -1,0 +1,12 @@
+<%= form_for(@questionnaire, url: next_wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
+<div class="form-group">
+  <%= label_tag(:mom, "あなたのお母さんの誕生日は？", class: "col-sm-6 control-label") %>
+  <div class="col-sm-4">
+    <%= f.date_select(:mom, { start_year: 1900, end_year: Time.now.year, include_blank: true, selected: selected_birthday(:mom),
+          use_month_numbers: true, date_separator: '/' },
+          class: "form-control", style: "display: inline-block; width: auto") %>
+  </div>
+</div>
+<%= submit_tag("次の質問", id: "next", class: "btn btn-success btn-default") %>
+<% end %>
+<%= link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>

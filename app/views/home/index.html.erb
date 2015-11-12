@@ -4,7 +4,7 @@
     <h1>OYACO</h1>
     <h4>親子の会話を促す、話題レコメンドサービス</h4>
     <a class="btn btn-success btn-default" href="#about">主な機能</a>
-    <%= button_to '試してみる', new_question_path, method: 'get', class: "btn btn-success btn-default" %>
+    <%= link_to '試してみる', question_path(:dad) ,method: :get, class: "btn btn-success btn-default" %>
   </div>
 </section>
 
