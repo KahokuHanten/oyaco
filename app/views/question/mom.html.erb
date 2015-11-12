@@ -1,12 +1,26 @@
-<%= form_for(@questionnaire, url: next_wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
-<div class="form-group">
-  <%= label_tag(:mom, "あなたのお母さんの誕生日は？", class: "col-sm-6 control-label") %>
-  <div class="col-sm-4">
-    <%= f.date_select(:mom, { start_year: 1900, end_year: Time.now.year, include_blank: true, selected: selected_birthday(:mom),
+<section class="question container-fluid" id="question">
+  <div class="jumbotron">
+
+    <%= form_for(@questionnaire, url: next_wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
+    <div class="form-group">
+      <h1><%= label_tag(:mom, " あなたのお母さんの誕生日は？", class: "control-label") %></h1>
+      <p>
+        <%= f.date_select(:mom, { start_year: 1900, end_year: Time.now.year, include_blank: true, selected: selected_birthday(:mom),
           use_month_numbers: true, date_separator: '/' },
           class: "form-control", style: "display: inline-block; width: auto") %>
+      </p>
+      <p>
+        <%= link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
+        <%= submit_tag("次の質問", id: "next", class: "btn btn-success btn-default") %>
+      </p>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="progress progress-striped active">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" class="progress-bar progress-bar-success" role="progressbar" style="width: 40%;">
+      <span class="sr-only">40% Complete</span>
+    </div>
   </div>
 </div>
-<%= submit_tag("次の質問", id: "next", class: "btn btn-success btn-default") %>
-<% end %>
-<%= link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
+</section>

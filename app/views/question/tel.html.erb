@@ -1,11 +1,28 @@
-<%= form_for(@questionnaire, url: next_wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
-<div class="form-group">
-  <%= label_tag(:tel, "あなたのご両親の電話番号は？", class: "col-sm-6 control-label") %>
-  <div class="col-sm-4">
-    <%= telephone_field_tag(:tel, cookies.signed[:tel],
-          placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control") %>
+<section class="question container-fluid" id="question">
+  <div class="jumbotron">
+    <%= form_for(@questionnaire, url: next_wizard_path, method: "put", :html => {:id => "question-form"}) do |f| %>
+    <div class="form-group">
+      <h1><%= label_tag(:tel, "あなたのご両親の電話番号は？", class: "control-label") %></h1>
+      <p>
+        <div class="row">
+          <div class="col-xs-offset-4 col-xs-4">
+            <%= telephone_field_tag(:tel, cookies.signed[:tel],
+                placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control") %>
+          </div>
+        </div>
+      </p>
+      <p>
+        <%= link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
+        <%= submit_tag("次の質問", id: "next", class: "btn btn-success btn-default") %>
+      </p>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="progress progress-striped active">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" class="progress-bar progress-bar-success" role="progressbar" style="width: 80%;">
+      <span class="sr-only">80% Complete</span>
+    </div>
   </div>
 </div>
-<%= submit_tag("次の質問", id: "next", class: "btn btn-success btn-default") %>
-<% end %>
-<%= link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
+</section>
