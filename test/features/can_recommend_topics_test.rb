@@ -30,7 +30,8 @@ class CanRecommendTopicsTest < Capybara::Rails::TestCase
     end
     click_on 'next'
 
-    click_on 'スキップ'
+    click_on 'next'
+
     click_on 'go-home'
 
     assert_content page, "2月 1日"

@@ -6,15 +6,17 @@ class GetTopicsTest < Capybara::Rails::TestCase
     visit root_path
     click_on '試してみる'
 
-    click_on 'スキップ'
-    click_on 'スキップ'
+    click_on 'next'
+
+    click_on 'next'
 
     within '#question-form' do
       select '大阪府', from: 'pref_id'
     end
     click_on 'next'
 
-    click_on 'スキップ'
+    click_on 'next'
+
     click_on 'go-home'
 
     assert_content page, "大阪府"
