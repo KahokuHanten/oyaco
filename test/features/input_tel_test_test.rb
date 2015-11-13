@@ -7,52 +7,46 @@ class InputTelTestTest < Capybara::Rails::TestCase
 
     visit root_path
     click_on '試してみる'
-
     click_on 'next'
-
     click_on 'next'
-
     within '#question-form' do
       select '東京都', from: 'pref_id'
     end
-
     click_on 'next'
-
     within '#question-form' do
       fill_in 'tel', with: '00-0000-0000'
     end
     click_on 'next'
     click_on 'go-home'
-    assert_nil page.find('#tel',visible:false)[:class]
+    assert_nil page.find('#tel')[:class]
   end
 
   test "user doesn't input number" do
-=begin ishikawa comment out
     visit root_path
     click_on '試してみる'
-
+    click_on 'next'
+    click_on 'next'
+    click_on 'next'
     within '#question-form' do
       fill_in 'tel', with: ''
-      click_button 'recommend'
+      click_on 'next'
     end
-
+    click_on 'go-home'
     assert page.find('#tel')[:class].include?("disabled")
-=end
   end
 
   test "user inputs valid number with PC" do
     page.driver.browser.header('User-Agent', "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)")
-
-=begin ishikawa comment out
     visit root_path
     click_on '試してみる'
-
+    click_on 'next'
+    click_on 'next'
+    click_on 'next'
     within '#question-form' do
       fill_in 'tel', with: '00-0000-0000'
-      click_button 'recommend'
+      click_on 'next'
     end
-
+    click_on 'go-home'
     assert page.find('#tel')[:class].include?("disabled")
-=end
   end
 end

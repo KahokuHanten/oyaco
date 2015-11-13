@@ -29,11 +29,8 @@ class CanRecommendTopicsTest < Capybara::Rails::TestCase
       select '東京都', from: 'pref_id'
     end
     click_on 'next'
-
     click_on 'next'
-
     click_on 'go-home'
-
     assert_content page, "2月 1日"
     refute_content page, "9月10日"
     assert_content page, "東京都"
