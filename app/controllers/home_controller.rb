@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   end
 
   def show
-    return redirect_to root_path unless cookies.signed[:pref_id]
+    return redirect_to root_path if !user_signed_in? && !cookies.signed[:pref_id]
 
     @questionnaire = Questionnaire.new
     @questionnaire.restore_attributes_from_cookies(cookies)
@@ -52,12 +52,14 @@ class HomeController < ApplicationController
         items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == "元日"),
         message: get_message_by_event(holiday))
     end
-    @pref_name = PrefName.get_pref_name(@pref_id)
-    @warnings = LocalInfo.get_weather_warnings(@pref_id)
-    @message = MessageGenerator.new(@warnings).generate
 
-    # Google search
-    @googlenews = LocalInfo.get_local_news(@pref_name)
+    # Local
+    if @pref_id.present?
+      @pref_name = PrefName.get_pref_name(@pref_id)
+      @warnings = LocalInfo.get_weather_warnings(@pref_id)
+      @message = MessageGenerator.new(@warnings).generate
+      @googlenews = LocalInfo.get_local_news(@pref_name)
+    end
 
     # 趣味
     @hobbys = []
