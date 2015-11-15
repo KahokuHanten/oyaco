@@ -1,4 +1,6 @@
 class Person < ActiveRecord::Base
+  RELATION_FATHER = 0
+  RELATION_MOTHER = 1
   belongs_to :user
 
   include JpPrefecture
@@ -50,6 +52,19 @@ class Person < ActiveRecord::Base
       1
     else
       0
+    end
+  end
+
+  def save_current_user_birthday (user_id,dad,mom)
+    save_datas = [{'relation'=>RELATION_FATHER,'birthday'=>dad},{'relation'=>RELATION_MOTHER,'birthday'=>mom}]
+    if Person.exists?(user_id: user_id) then
+      save_datas.each do |r|
+        Person.where(user_id:user_id,relation:r['relation']).update_all(birthday: r['birthday'])
+      end
+    else
+      save_datas.each do |r|
+        Person.create({user_id:user_id,relation: r['relation'], birthday: r['birthday']})
+      end
     end
   end
 end

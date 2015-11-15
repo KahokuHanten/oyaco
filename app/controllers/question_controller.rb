@@ -34,6 +34,7 @@ class QuestionController < ApplicationController
     end
 
     if !params[:hobby].blank? || !params[:hobby2].blank? || !params[:hobby3].blank?
+      save_birthday()
       return redirect_to home_path
     end
     render_wizard
@@ -58,5 +59,12 @@ class QuestionController < ApplicationController
 
   def default_url_options(_options = {})
     { locale: I18n.locale }
+  end
+
+  def save_birthday
+    if user_signed_in? then
+      p = Person.new
+      p.save_current_user_birthday(current_user.id,cookies.signed[:dad],cookies.signed[:mom])
+    end
   end
 end
