@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: MyString
   date: 2015-09-29
 
 two:
+  id: 2
   name: MyString
   date: 2015-09-30
