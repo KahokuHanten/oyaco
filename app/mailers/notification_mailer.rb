@@ -1,8 +1,7 @@
 class NotificationMailer < ApplicationMailer
-  default from: "info@oyaco.herokuapp.com"
-
-  def sendmail(user)
-    mail to: user.email,
-      subject: "OYACOからのお知らせです"
+  def event_mail(user, events)
+    @user = user
+    @events = events
+    mail to: @user.email, subject: "OYACOからのお知らせ"
   end
 end
