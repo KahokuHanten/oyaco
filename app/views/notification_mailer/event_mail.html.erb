@@ -1,0 +1,6 @@
+<h1><%= @user.name %>さん、OYACOからお知らせです。</h1>
+ <p>
+  <% @events.each do |event| %>
+  <%= event.date.strftime('%Y年%-m月%e日') %>は<b>「<%= event.name %>」</b>です。
+  <% end %>
+</p>
