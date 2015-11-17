@@ -48,9 +48,11 @@ class HomeController < ApplicationController
     @holidays.each do |holiday|
       @topics.push(
         title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
-        comment: get_comment_by_event(holiday),
+        name: holiday.name,
+        comment: EventData.find_by_name(holiday.name).try(:comment),
+        wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
         items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == "元日"),
-        message: get_message_by_event(holiday))
+        message: EventData.find_by_name(holiday.name).try(:message))
     end
 
     # Local
@@ -83,33 +85,5 @@ class HomeController < ApplicationController
     end
     # 電話番号
     @tel = (@questionnaire.tel ||= '')
-  end
-
-  def get_comment_by_event(holiday)
-    case holiday.name
-    when /母/
-      'カーネーションと一緒にプレゼントを贈りましょう'
-    when /父/
-      '父の日に贈り物はどうでしょう'
-    when /春|秋/
-      'お墓参りに帰省しましょう'
-    when /敬老/
-      'おじいさん、おばあさんにプレゼントを贈りましょう'
-    when /元日/
-      '帰省しましょう'
-    end
-  end
-
-  def get_message_by_event(holiday)
-    case holiday.name
-    when /母/
-      'お母さん。いつもありがとう。いつまでも元気で長生きしてください。'
-    when /父/
-      'お父さん。いつもありがとう。いつまでも元気で長生きしてください。'
-    when /春|秋/
-      'ご先祖様ありがとう'
-    when /敬老/
-      # "おじいちゃん、おばあちゃん、長生きしてね"
-    end
   end
 end
