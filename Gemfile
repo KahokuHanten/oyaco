@@ -12,6 +12,7 @@ gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
 gem 'font-awesome-sass'
 gem 'wicked'
+gem 'active_hash'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
