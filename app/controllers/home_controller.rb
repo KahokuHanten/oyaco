@@ -34,7 +34,7 @@ class HomeController < ApplicationController
 
     [father, mother].each do |person|
       if person.birthday?
-        if person.next_birthday < Date.today.months_since(remind_months_ago)
+        if person.next_birthday < Date.current.months_since(remind_months_ago)
           @topics.push(
             title: "もうすぐ #{person.friendly_name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
             comment: ("こんなプレゼントはいかがですか？<br>" + get_comment_by_age(person.age + 1)).html_safe,
