@@ -1,7 +1,6 @@
 class QuestionController < ApplicationController
   include Wicked::Wizard
   steps :dad, :mom, :pref, :tel, :hobby
-  before_filter :set_locale
 
   def show
     @questionnaire = Questionnaire.new
@@ -10,6 +9,7 @@ class QuestionController < ApplicationController
   end
 
   def update
+#    binding.pry
     @questionnaire = Questionnaire.new
     @questionnaire.restore_attributes_from_cookies(cookies)
 
@@ -22,19 +22,20 @@ class QuestionController < ApplicationController
 
     # Set cookies
     unless @questionnaire.dad.blank?
-      params[:dad] = @questionnaire.send(:dad).try(:strftime, '%Y-%m-%d')
+      params[:dad] = @questionnaire.dad.try(:strftime, '%Y-%m-%d')
     end
 
     unless @questionnaire.mom.blank?
-      params[:mom] = @questionnaire.send(:mom).try(:strftime, '%Y-%m-%d')
+      params[:mom] = @questionnaire.mom.try(:strftime, '%Y-%m-%d')
     end
 
     [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = params[param] if params.key?(param)
     end
 
+    # last question
     if !params[:hobby].blank? || !params[:hobby2].blank? || !params[:hobby3].blank?
-      save_birthday()
+      save_birthday
       return redirect_to home_path
     end
     render_wizard
@@ -53,18 +54,20 @@ class QuestionController < ApplicationController
 
   private
 
-  def set_locale
-    I18n.locale = params[:locale] if params[:locale].present?
-  end
-
-  def default_url_options(_options = {})
-    { locale: I18n.locale }
-  end
-
   def save_birthday
-    if user_signed_in? then
-      p = Person.new
-      p.save_current_user_birthday(current_user.id,cookies.signed[:dad],cookies.signed[:mom])
+    if user_signed_in?
+      father = current_user.people.father.first || Person.new
+      father.user = current_user
+      father.assign_attributes(relation: 0,
+                               birthday: @questionnaire.dad,
+                               location: @questionnaire.pref_id)
+      father.save
+      mother = current_user.people.mother.first || Person.new
+      mother.user = current_user
+      mother.assign_attributes(relation: 1,
+                               birthday: @questionnaire.mom,
+                               location: @questionnaire.pref_id)
+      mother.save
     end
   end
 end

@@ -23,16 +23,22 @@ class HomeController < ApplicationController
      remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
-    father = Person.new
-    father.assign_attributes(relation: 0,
-                             birthday: questionnaire.dad,
-                             location: questionnaire.pref_id)
-    mother = Person.new
-    mother.assign_attributes(relation: 1,
-                             birthday: questionnaire.mom,
-                             location: questionnaire.pref_id)
+    if user_signed_in?
+      father = current_user.people.father.first
+      mother = current_user.people.mother.first
+    else
+      father = Person.new
+      father.assign_attributes(relation: 0,
+                               birthday: questionnaire.dad,
+                               location: questionnaire.pref_id)
+      mother = Person.new
+      mother.assign_attributes(relation: 1,
+                               birthday: questionnaire.mom,
+                               location: questionnaire.pref_id)
+    end
 
     [father, mother].each do |person|
+      next unless person.present?
       if person.birthday?
         if person.next_birthday < Date.today.months_since(remind_months_ago)
           @topics.push(
