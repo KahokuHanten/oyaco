@@ -48,7 +48,9 @@ class HomeController < ApplicationController
     @holidays.each do |holiday|
       @topics.push(
         title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
+        name: holiday.name,
         comment: EventData.find_by_name(holiday.name).try(:comment),
+        wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
         items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == "元日"),
         message: EventData.find_by_name(holiday.name).try(:message))
     end
