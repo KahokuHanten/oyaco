@@ -11,7 +11,7 @@ class Person < ActiveRecord::Base
   end
 
   def age
-    (Date.today.strftime('%Y%m%d').to_i - birthday.strftime('%Y%m%d').to_i) / 10_000
+    (Date.current.strftime('%Y%m%d').to_i - birthday.strftime('%Y%m%d').to_i) / 10_000
   end
 
   def rakuten_age # 10, 20, 30, 40, 50
@@ -35,9 +35,9 @@ class Person < ActiveRecord::Base
 
   def next_birthday
     # FIXME: うるう年を考慮していない
-    next_birthday = Date.new(Date.today.year, birthday.month, birthday.day)
+    next_birthday = Date.new(Date.current.year, birthday.month, birthday.day)
     if next_birthday < Date.today # including today
-      next_birthday = Date.new(Date.today.year + 1, birthday.month, birthday.day)
+      next_birthday = Date.new(Date.current.year + 1, birthday.month, birthday.day)
     end
     next_birthday
   end
