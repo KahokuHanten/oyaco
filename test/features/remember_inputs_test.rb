@@ -8,13 +8,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
     click_on '試してみる'
 
     within '#question-form' do
-      select '1960', from: 'questionnaire[dad(1i)]'
-      select '10', from: 'questionnaire[dad(2i)]'
-      select '11', from: 'questionnaire[dad(3i)]'
+      select '1960', from: 'q[dad(1i)]'
+      select '10', from: 'q[dad(2i)]'
+      select '11', from: 'q[dad(3i)]'
 
-      select '1960', from: 'questionnaire[mom(1i)]'
-      select '10', from: 'questionnaire[mom(2i)]'
-      select '11', from: 'questionnaire[mom(3i)]'
+      select '1960', from: 'q[mom(1i)]'
+      select '10', from: 'q[mom(2i)]'
+      select '11', from: 'q[mom(3i)]'
 
       select '東京都', from: 'pref_id'
       click_button 'recommend'
@@ -23,13 +23,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
     visit root_path
     click_on '試してみる'
 
-    assert_equal find_field('questionnaire[dad(1i)]').value, '1960'
-    assert_equal find_field('questionnaire[dad(2i)]').value, '10'
-    assert_equal find_field('questionnaire[dad(3i)]').value, '11'
+    assert_equal find_field('q[dad(1i)]').value, '1960'
+    assert_equal find_field('q[dad(2i)]').value, '10'
+    assert_equal find_field('q[dad(3i)]').value, '11'
 
-    assert_equal find_field('questionnaire[mom(1i)]').value, '1960'
-    assert_equal find_field('questionnaire[mom(2i)]').value, '10'
-    assert_equal find_field('questionnaire[mom(3i)]').value, '11'
+    assert_equal find_field('q[mom(1i)]').value, '1960'
+    assert_equal find_field('q[mom(2i)]').value, '10'
+    assert_equal find_field('q[mom(3i)]').value, '11'
 
     assert_equal find_field('pref_id').value, PrefName.get_pref_id("東京都")
 =end
@@ -41,13 +41,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
     click_on '試してみる'
 
     within '#question-form' do
-      select '1960', from: 'questionnaire[dad(1i)]'
-      select '2', from: 'questionnaire[dad(2i)]'
-      select '1', from: 'questionnaire[dad(3i)]'
+      select '1960', from: 'q[dad(1i)]'
+      select '2', from: 'q[dad(2i)]'
+      select '1', from: 'q[dad(3i)]'
 
-      select '1960', from: 'questionnaire[mom(1i)]'
-      select '10', from: 'questionnaire[mom(2i)]'
-      select '11', from: 'questionnaire[mom(3i)]'
+      select '1960', from: 'q[mom(1i)]'
+      select '10', from: 'q[mom(2i)]'
+      select '11', from: 'q[mom(3i)]'
 
       select '東京都', from: 'pref_id'
       click_button 'recommend'
@@ -68,13 +68,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
     click_on '試してみる'
 
     within '#question-form' do
-      select '1960', from: 'questionnaire[dad(1i)]'
-      select '10', from: 'questionnaire[dad(2i)]'
-      select '10', from: 'questionnaire[dad(3i)]'
+      select '1960', from: 'q[dad(1i)]'
+      select '10', from: 'q[dad(2i)]'
+      select '10', from: 'q[dad(3i)]'
 
-      select '1960', from: 'questionnaire[mom(1i)]'
-      select '10', from: 'questionnaire[mom(2i)]'
-      select '10', from: 'questionnaire[mom(3i)]'
+      select '1960', from: 'q[mom(1i)]'
+      select '10', from: 'q[mom(2i)]'
+      select '10', from: 'q[mom(3i)]'
 
       select '東京都', from: 'pref_id'
       click_button 'recommend'
@@ -83,13 +83,13 @@ class RememberInputsTest < Capybara::Rails::TestCase
     click_on 'question-again'
 
     within '#question-form' do
-      assert_equal find_field('questionnaire[dad(1i)]').value, Oyaco::Application.config.default_birthday.year.to_s
-      assert_equal find_field('questionnaire[dad(2i)]').value, Oyaco::Application.config.default_birthday.month.to_s
-      assert_equal find_field('questionnaire[dad(3i)]').value, Oyaco::Application.config.default_birthday.day.to_s
+      assert_equal find_field('q[dad(1i)]').value, Oyaco::Application.config.default_birthday.year.to_s
+      assert_equal find_field('q[dad(2i)]').value, Oyaco::Application.config.default_birthday.month.to_s
+      assert_equal find_field('q[dad(3i)]').value, Oyaco::Application.config.default_birthday.day.to_s
 
-      assert_equal find_field('questionnaire[mom(1i)]').value, Oyaco::Application.config.default_birthday.year.to_s
-      assert_equal find_field('questionnaire[mom(2i)]').value, Oyaco::Application.config.default_birthday.month.to_s
-      assert_equal find_field('questionnaire[mom(3i)]').value, Oyaco::Application.config.default_birthday.day.to_s
+      assert_equal find_field('q[mom(1i)]').value, Oyaco::Application.config.default_birthday.year.to_s
+      assert_equal find_field('q[mom(2i)]').value, Oyaco::Application.config.default_birthday.month.to_s
+      assert_equal find_field('q[mom(3i)]').value, Oyaco::Application.config.default_birthday.day.to_s
 
       assert_equal find_field('pref_id').value, PrefName.get_pref_id("北海道")
     end

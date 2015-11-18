@@ -10,11 +10,11 @@ class InputTelTestTest < Capybara::Rails::TestCase
     click_on 'next'
     click_on 'next'
     within '#question-form' do
-      select '東京都', from: 'pref_id'
+      select '東京都', from: 'questionnaire_pref_id'
     end
     click_on 'next'
     within '#question-form' do
-      fill_in 'tel', with: '00-0000-0000'
+      fill_in 'questionnaire_tel', with: '00-0000-0000'
     end
     click_on 'next'
     click_on 'go-home'
@@ -28,7 +28,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
     click_on 'next'
     click_on 'next'
     within '#question-form' do
-      fill_in 'tel', with: ''
+      fill_in 'questionnaire_tel', with: ''
       click_on 'next'
     end
     click_on 'go-home'
@@ -43,7 +43,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
     click_on 'next'
     click_on 'next'
     within '#question-form' do
-      fill_in 'tel', with: '00-0000-0000'
+      fill_in 'questionnaire_tel', with: '00-0000-0000'
       click_on 'next'
     end
     click_on 'go-home'

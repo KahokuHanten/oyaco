@@ -20,10 +20,12 @@
           <div class="row">
           <div class="col-xs-9">
             <h4 class="list-group-item-heading"><%= topic[:title] %></h4>
+            <% if topic[:wikipedia].present? %>
             <p class="list-group-item-text wikipedia">
               <%= topic[:wikipedia] %>
               <%= link_to "(Wikipediaより)", "http://ja.wikipedia.org/wiki/#{topic[:name]}" %>
             </p>
+            <% end %>
             <p class="list-group-item-text"><%= topic[:comment] %></p>
           </div>
           <div class="col-xs-3">
