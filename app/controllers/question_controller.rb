@@ -22,7 +22,7 @@ class QuestionController < ApplicationController
       if user_signed_in?
         father = current_user.people.father.first || Person.new
         father.user = current_user
-        father.assign_attributes(relation: 0,
+        father.assign_attributes(relation: Person.relations[:father],
                                  birthday: @q.dad,
                                  location: @q.pref_id)
         father.save
@@ -31,7 +31,7 @@ class QuestionController < ApplicationController
       if user_signed_in?
         mother = current_user.people.mother.first || Person.new
         mother.user = current_user
-        mother.assign_attributes(relation: 1,
+        mother.assign_attributes(relation: Person.relations[:mother],
                                  birthday: @q.mom,
                                  location: @q.pref_id)
         mother.save

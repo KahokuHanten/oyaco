@@ -26,11 +26,11 @@ class HomeController < ApplicationController
       mother = current_user.people.mother.first
     else
       father = Person.new
-      father.assign_attributes(relation: 0,
+      father.assign_attributes(relation: Person.relations[:father],
                                birthday: questionnaire.dad,
                                location: questionnaire.pref_id)
       mother = Person.new
-      mother.assign_attributes(relation: 1,
+      mother.assign_attributes(relation: Person.relations[:mother],
                                birthday: questionnaire.mom,
                                location: questionnaire.pref_id)
     end
