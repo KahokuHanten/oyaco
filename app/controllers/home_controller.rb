@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-#  before_action :authenticate_user!, only: :show
+  #  before_action :authenticate_user!, only: :show
 
   def index
     return redirect_to home_path if user_signed_in?
@@ -8,19 +8,17 @@ class HomeController < ApplicationController
   def show
     return redirect_to root_path if !user_signed_in? && !cookies.signed[:pref_id]
 
-    @questionnaire = Questionnaire.new
-    @questionnaire.restore_attributes_from_cookies(cookies)
-    if !@questionnaire.blank?
-      build_topics(@questionnaire)
-    end
+    questionnaire = Questionnaire.new
+    questionnaire.restore_attributes_from_cookies(cookies)
+    build_topics(questionnaire) if questionnaire.present?
   end
 
   private
+
   def build_topics(questionnaire)
-    # リクエストパラメータから都道府県コードを取得する
     @pref_id = questionnaire.pref_id
 
-     remind_months_ago = Oyaco::Application.config.remind_months_ago
+    remind_months_ago = Oyaco::Application.config.remind_months_ago
     @topics = []
 
     if user_signed_in?
@@ -57,7 +55,7 @@ class HomeController < ApplicationController
         name: holiday.name,
         comment: EventData.find_by_name(holiday.name).try(:comment),
         wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
-        items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == "元日"),
+        items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == '元日'),
         message: EventData.find_by_name(holiday.name).try(:message))
     end
 
@@ -71,25 +69,25 @@ class HomeController < ApplicationController
 
     # 趣味
     @hobbys = []
-    if !questionnaire.hobby.blank? then
+    if questionnaire.hobby.present?
       @hobbys.push(
         name: questionnaire.hobby,
         news: LocalInfo.get_hobby_news(questionnaire.hobby)
       )
     end
-    if !questionnaire.hobby2.blank? then
+    if questionnaire.hobby2.present?
       @hobbys.push(
         name: questionnaire.hobby2,
         news: LocalInfo.get_hobby_news(questionnaire.hobby2)
       )
     end
-    if !questionnaire.hobby3.blank? then
+    if questionnaire.hobby3.present?
       @hobbys.push(
         name: questionnaire.hobby3,
         news: LocalInfo.get_hobby_news(questionnaire.hobby3)
       )
     end
     # 電話番号
-    @tel = (@questionnaire.tel ||= '')
+    @tel = questionnaire.tel || ''
   end
 end

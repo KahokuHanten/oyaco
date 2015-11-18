@@ -4,82 +4,54 @@ class Questionnaire
 
   attr_accessor :dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3
 
-  #年月日
-  def assign_attributes(params)
-    unless params.blank? then
-      begin
-        if params.has_key?("dad(1i)") && params.has_key?("dad(2i)") && params.has_key?("dad(3i)") then
-          dad_year = params["dad(1i)"].to_i
-          dad_month = params["dad(2i)"].to_i
-          dad_day = params["dad(3i)"].to_i
-          self.dad = Date.new(dad_year, dad_month, dad_day)
-        end
-      rescue ArgumentError
-        self.dad = Oyaco::Application.config.default_birthday
-      end
-      begin
-        if params.has_key?("mom(1i)") && params.has_key?("mom(2i)") && params.has_key?("mom(3i)") then
-          mom_year = params["mom(1i)"].to_i
-          mom_month = params["mom(2i)"].to_i
-          mom_day = params["mom(3i)"].to_i
-          self.mom = Date.new(mom_year, mom_month, mom_day)
-        end
-      rescue ArgumentError
-        self.mom = Oyaco::Application.config.default_birthday
-      end
-    end
+  def save # to pass render_wizard @questionnaire
+    true
   end
 
-  #クッキー　きれいでない
-  def restore_attributes_from_cookies(cookies)
-    if cookies.signed[:dad]
-      begin
-        self.dad = Date.parse(cookies.signed[:dad])
-      rescue ArgumentError
-        self.dad = Oyaco::Application.config.default_birthday
+  def assign_attributes(params)
+    return if params.blank?
+    begin
+      if params.key?('dad(1i)') && params.key?('dad(2i)') && params.key?('dad(3i)')
+        dad_year = params['dad(1i)'].to_i
+        dad_month = params['dad(2i)'].to_i
+        dad_day = params['dad(3i)'].to_i
+        self.dad = Date.new(dad_year, dad_month, dad_day)
       end
-    else
+    rescue ArgumentError
       self.dad = Oyaco::Application.config.default_birthday
     end
 
-    if cookies.signed[:mom]
-      begin
-        self.mom = Date.parse(cookies.signed[:mom])
-      rescue ArgumentError
-        self.mom = Oyaco::Application.config.default_birthday
+    begin
+      if params.key?('mom(1i)') && params.key?('mom(2i)') && params.key?('mom(3i)')
+        mom_year = params['mom(1i)'].to_i
+        mom_month = params['mom(2i)'].to_i
+        mom_day = params['mom(3i)'].to_i
+        self.mom = Date.new(mom_year, mom_month, mom_day)
       end
-    else
+    rescue ArgumentError
       self.mom = Oyaco::Application.config.default_birthday
     end
-    if cookies.signed[:pref_id]
-      begin
-        self.pref_id = cookies.signed[:pref_id]
-      rescue ArgumentError
-      end
+
+    self.pref_id = params[:pref_id] if params[:pref_id]
+    self.tel = params[:tel] if params[:tel]
+    self.hobby = params[:hobby] if params[:hobby]
+    self.hobby2 = params[:hobby2] if params[:hobby2]
+    self.hobby3 = params[:hobby3] if params[:hobby3]
+  end
+
+  def restore_attributes_from_cookies(cookies)
+    if cookies.signed[:dad]
+      self.dad = Date.parse(cookies.signed[:dad])
     end
-    if cookies.signed[:tel]
-      begin
-        self.tel = cookies.signed[:tel]
-      rescue ArgumentError
-      end
+
+    if cookies.signed[:mom]
+      self.mom = Date.parse(cookies.signed[:mom])
     end
-    if cookies.signed[:hobby]
-      begin
-        self.hobby = cookies.signed[:hobby]
-      rescue ArgumentError
-      end
-    end
-    if cookies.signed[:hobby2]
-      begin
-        self.hobby2 = cookies.signed[:hobby2]
-      rescue ArgumentError
-      end
-    end
-    if cookies.signed[:hobby3]
-      begin
-        self.hobby3 = cookies.signed[:hobby3]
-      rescue ArgumentError
-      end
-    end
+
+    self.pref_id = cookies.signed[:pref_id] || '1'
+    self.tel = cookies.signed[:tel] || ''
+    self.hobby = cookies.signed[:hobby] || '温泉旅行'
+    self.hobby2 = cookies.signed[:hobby2] || 'ゴルフ'
+    self.hobby3 = cookies.signed[:hobby3] || '落語'
   end
 end
