@@ -35,4 +35,18 @@ class GetTopicsTest < Capybara::Rails::TestCase
 
     assert_equal "/", page.current_path
   end
+
+  test "user back word and next" do
+    visit root_path
+    click_on '試してみる'
+    click_on 'next'
+    page.assert_selector("#backword")
+    click_on 'next'
+    page.assert_selector("#backword")
+    click_on 'next'
+    page.assert_selector("#backword")
+    click_on 'next'
+    page.assert_selector("#backword")
+  end
+
 end
