@@ -12,6 +12,7 @@
       </p>
       <p>
         <%#link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
+        <%=link_to 'ひとつ戻る', previous_wizard_path, class:"btn btn-success btn-default" %>
         <%= f.submit("次へ", id: "next", class: "btn btn-success btn-default") %>
       </p>
     <% end %>
