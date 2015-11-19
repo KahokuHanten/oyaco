@@ -36,7 +36,7 @@ class Person < ActiveRecord::Base
   def next_birthday
     # FIXME: うるう年を考慮していない
     next_birthday = Date.new(Date.current.year, birthday.month, birthday.day)
-    if next_birthday < Date.today # including today
+    if next_birthday < Date.current # including today
       next_birthday = Date.new(Date.current.year + 1, birthday.month, birthday.day)
     end
     next_birthday

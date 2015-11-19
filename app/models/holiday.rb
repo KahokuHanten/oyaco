@@ -1,7 +1,7 @@
 class Holiday < ActiveRecord::Base
   alias_attribute :start_date, :date
 
-  scope :soon, -> { where(date: Date.today..Date.today.months_since(Oyaco::Application.config.remind_months_ago)).order('date') }
+  scope :soon, -> { where(date: Date.current..Date.current.months_since(Oyaco::Application.config.remind_months_ago)).order('date') }
 
   notice_dates = []
   (0..4).each do |i|
