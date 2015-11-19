@@ -4,7 +4,7 @@
     <div class="form-group">
       <h1><%= f.label(:mom, " あなたのお母さんの誕生日は？", class: "control-label") %></h1>
       <p>
-        <%= f.date_select(:mom, { start_year: 1900, end_year: Time.now.year, include_blank: true, selected: selected_birthday(:mom),
+        <%= f.date_select(:mom, { start_year: 1900, end_year: Time.current.year, include_blank: true, selected: selected_birthday(:mom),
           use_month_numbers: true, date_separator: '/' },
           class: "form-control", style: "display: inline-block; width: auto") %>
       </p>

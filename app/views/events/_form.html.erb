@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :event_date, "年月日" %>
-    <%= f.date_select(:event_date, start_year: 1950, end_year: (Time.now.year)) %>
+    <%= f.date_select(:event_date, start_year: 1950, end_year: (Time.current.year)) %>
   </div>
   <div class="field">
     <%= f.label :event_name, "イベント" %>
