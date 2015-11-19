@@ -55,7 +55,7 @@ class Person < ActiveRecord::Base
 
   notice_dates = []
   (0..4).each do |i|
-    notice_dates.push(Date.current.days_since(i * 7))
+    notice_dates.push(Date.current.days_since(i * 7).strftime('%m%d'))
   end
-  scope :notice, -> { where("birthday IN (?)", notice_dates) }
+  scope :notice, -> { where("to_char(birthday, 'mmdd') IN (?)", notice_dates).order('user_id') }
 end

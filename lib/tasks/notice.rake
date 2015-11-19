@@ -9,10 +9,14 @@ namespace :chrome_notice do
         puts 'holiday', user.name, user.email, user.subscription_id, res.code, res.msg, res.body
       end
     else
+      prev_user_id = -1
       Person.notice.each do |person|
         if person.user.subscription_id.present?
-          res = BrowserNotice.chrome_notice(person.user.subscription_id)
-          puts 'birthday', person.user.name, person.user.email, person.user.subscription_id, res.code, res.msg, res.body
+          if prev_user_id != person.user.id
+            prev_user_id = person.user.id
+            res = BrowserNotice.chrome_notice(person.user.subscription_id)
+            puts 'birthday', person.user.name, person.user.email, person.user.subscription_id, res.code, res.msg, res.body
+          end
         end
       end
     end
