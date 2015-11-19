@@ -32,7 +32,7 @@
               <li role="separator" class="divider"></li>
               <%= li_link_to_push %>
               <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
-              <li><%= link_to raw('<i class="fa fa-user fa-fw"></i>&nbsp; プロフィール変更'), edit_user_registration_path %></li>
+              <li><%= link_to raw('<i class="fa fa-user fa-fw"></i>&nbsp; ログイン情報更新'), edit_user_registration_path %></li>
               <li><%= link_to raw('<i class="fa fa-sign-out fa-fw"></i>&nbsp; ログアウト'), destroy_user_session_path, method: :delete %></li>
             </ul>
           </li>
