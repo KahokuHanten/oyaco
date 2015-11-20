@@ -37,7 +37,6 @@ class QuestionController < ApplicationController
         mother.save
       end
     end
-
     render_wizard @q
   end
 

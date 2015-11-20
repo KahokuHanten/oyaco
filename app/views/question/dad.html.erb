@@ -1,26 +1,8 @@
-<section class="question container-fluid" id="question">
-  <div class="jumbotron">
-
-    <%= form_for(@q, url: wizard_path, html: {method: :put, id: "question-form"}) do |f| %>
-    <div class="form-group">
-      <h1><%= f.label(:dad, " あなたのお父さんの誕生日は？", class: "control-label") %></h1>
-      <p>
-        <%= f.date_select(:dad, { start_year: 1900, end_year: Time.current.year, include_blank: true, selected: selected_birthday(:dad),
-          use_month_numbers: true, date_separator: '/' },
-          class: "form-control", style: "display: inline-block; width: auto") %>
-      </p>
-      <p>
-        <%#link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
-        <%= f.submit("次へ", id: "next", class: "btn btn-success btn-default") %>
-      </p>
-    <% end %>
-    </div>
-  </div>
-
-  <div class="progress progress-striped active">
-    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar progress-bar-success" role="progressbar" style="width: 0%;">
-      <span class="sr-only">0% Complete</span>
-    </div>
-  </div>
-</div>
-</section>
+<%= render layout: 'form' do |f| %>
+  <h1><%= f.label(:dad, "お父さんの誕生日は？", class: "control-label") %></h1>
+  <p>
+    <%= f.date_select(:dad, { start_year: 1900, end_year: Time.current.year, include_blank: true, selected: selected_birthday(:dad),
+      use_month_numbers: true, date_separator: '/' },
+      class: "form-control", style: "display: inline-block; width: auto") %>
+  </p>
+<% end %>

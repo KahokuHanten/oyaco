@@ -9,7 +9,7 @@ class CanRecommendTopicsTest < Capybara::Rails::TestCase
 
   test "user enters valid input" do
     visit root_path
-    click_on '試してみる'
+    click_on 'try'
 
     within '#question-form' do
       select '1960', from: 'questionnaire[dad(1i)]'

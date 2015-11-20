@@ -1,10 +1,28 @@
 <!-- Top -->
-<section class="landing_top" id="top">
+<!--
+<section class="top" id="top">
   <div class="inside">
     <h1>OYACO</h1>
     <h4>親子のコミュニケーションを促す、親孝行サービス</h4>
     <a class="btn btn-success btn-default" href="#about">主な機能</a>
     <%= link_to '試してみる', question_path(:dad) ,method: :get, class: "btn btn-success btn-default" %>
+  </div>
+</section>
+-->
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<section class="intro-header" style="background-image: url(<%= asset_path "gahag-0002156290a.jpg" %>)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="site-heading">
+          <h1>OYACO</h1>
+          <span class="subheading">親子のコミュニケーションを促す、親孝行サービス</span><br>
+          <%= link_to '試してみる', question_path(:dad) ,method: :get, class: "btn btn-success btn-default" %>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -16,7 +34,7 @@
         <img alt="Generic placeholder image" class="img-circle" height="150" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150">
         <h3>イベントの通知</h3>
         <p>
-          誕生日や敬老の日などのイベントを事前にお知らせします。もううっかり忘れてしまうことはありません。
+          誕生日や敬老の日など、親孝行イベントをメールやブラウザ(※)で事前にお知らせします。もううっかり忘れてしまうことはありません。
           <div class="note">※ 対応ブラウザ: Chrome</div>
         </p>
       </div>
@@ -36,4 +54,9 @@
         </p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="try" id="try">
+  <%= link_to '試してみる', question_path(:dad) ,method: :get, id: "try", class: "btn-lg btn-success btn-default" %>
+</section>
