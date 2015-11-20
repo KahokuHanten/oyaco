@@ -4,7 +4,7 @@ require "test_helper"
 class GetTopicsTest < Capybara::Rails::TestCase
   test "user get topics after input form" do
     visit root_path
-    click_on '試してみる'
+    click_on 'try'
 
     click_on 'next'
 
@@ -38,7 +38,7 @@ class GetTopicsTest < Capybara::Rails::TestCase
 
   test "user back word and next" do
     visit root_path
-    click_on '試してみる'
+    click_on 'try'
     click_on 'next'
     page.assert_selector("#backword")
     click_on 'next'

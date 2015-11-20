@@ -5,7 +5,7 @@ class AgeCommentTestTest < Capybara::Rails::TestCase
     test_datas = {"還暦" => 61, "喜寿" => 77}
     test_datas.keys.each do |test_comment|
       visit root_path
-      click_on '試してみる'
+      click_on 'try'
 
       test_date = Date.current.years_ago(test_datas[test_comment] - 1)
       within '#question-form' do

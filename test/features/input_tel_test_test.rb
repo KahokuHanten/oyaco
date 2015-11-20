@@ -6,7 +6,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
     page.driver.browser.header('User-Agent', "Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1")
 
     visit root_path
-    click_on '試してみる'
+    click_on 'try'
     click_on 'next'
     click_on 'next'
     within '#question-form' do
@@ -23,7 +23,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
 
   test "user doesn't input number" do
     visit root_path
-    click_on '試してみる'
+    click_on 'try'
     click_on 'next'
     click_on 'next'
     click_on 'next'
@@ -38,7 +38,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
   test "user inputs valid number with PC" do
     page.driver.browser.header('User-Agent', "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)")
     visit root_path
-    click_on '試してみる'
+    click_on 'try'
     click_on 'next'
     click_on 'next'
     click_on 'next'

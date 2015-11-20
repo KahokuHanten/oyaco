@@ -13,7 +13,7 @@
               <% unless wizard_steps.find_index(step) == wizard_steps.length-1 %>
                 <%= f.submit("次へ", id: "next", class: "btn btn-success btn-default") %>
               <% else %>
-                <%= f.submit("相談する", id: "next", class: "btn btn-success btn-default") %>
+                <%= f.submit("相談する", id: "go-home", class: "btn btn-success btn-default") %>
               <% end %>
             </div>
           </div>
