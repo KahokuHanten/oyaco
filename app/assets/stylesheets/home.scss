@@ -5,7 +5,7 @@
 /* Top */
 .intro-header {
   background-color: #33bb9c;
-  background: image-url("gahag-0002156290a.jpg") no-repeat center center;
+  background: no-repeat center center;
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -16,7 +16,7 @@
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 100px 0 50px;
+  padding: 80px 0 50px;
   color: #33bb9c;
 }
 @media only screen and (min-width: 768px) {
@@ -102,6 +102,11 @@
   .note {
     font-size: 0.8em;
   }
+}
+.try {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 /* Services */

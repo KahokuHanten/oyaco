@@ -12,7 +12,7 @@
 
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<section class="intro-header">
+<section class="intro-header" style="background-image: url(<%= asset_path "gahag-0002156290a.jpg" %>)">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -57,6 +57,6 @@
   </div>
 </section>
 
-<center>
+<section class="try" id="try">
   <%= link_to '試してみる', question_path(:dad) ,method: :get, class: "btn-lg btn-success btn-default" %>
-</center>
+</section>

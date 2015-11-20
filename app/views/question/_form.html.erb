@@ -1,29 +1,31 @@
-<section class="question container-fluid" id="question">
-  <div class="jumbotron">
-    <%= form_for(@q, url: wizard_path, html: {method: :put, id: "question-form"}) do |f| %>
-    <div class="form-group">
-      <%= yield f %>
-      <p>
-        <% unless wizard_steps.find_index(step) == 0 %>
-          <%= link_to "戻る", previous_wizard_path, id: "backword", class: "btn btn-success btn-default" %>
+<section class="intro-header" id="question" style="background-image: url(<%= asset_path "803b339e3fe0b4a16d5cdee2bcf25e9f_s.jpg" %>)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <%= form_for(@q, url: wizard_path, html: {method: :put, id: "question-form"}) do |f| %>
+          <div class="post-heading text-center">
+            <%= yield f %>
+            <div class="btns">
+              <% unless wizard_steps.find_index(step) == 0 %>
+                <%= link_to "戻る", previous_wizard_path, id: "backword", class: "btn btn-success btn-default" %>
+              <% end %>
+                <%#link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
+              <% unless wizard_steps.find_index(step) == wizard_steps.length-1 %>
+                <%= f.submit("次へ", id: "next", class: "btn btn-success btn-default") %>
+              <% else %>
+                <%= f.submit("相談する", id: "next", class: "btn btn-success btn-default") %>
+              <% end %>
+            </div>
+          </div>
         <% end %>
-        <%#link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
-        <% unless wizard_steps.find_index(step) == wizard_steps.length-1 %>
-          <%= f.submit("次へ", id: "next", class: "btn btn-success btn-default") %>
-        <% else %>
-          <%= f.submit("相談する", id: "next", class: "btn btn-success btn-default") %>
-        <% end %>
-      </p>
-      <% end %>
+      </div>
+    </div>
+    <div class="progress progress-striped active">
+      <% done = wizard_steps.find_index(step)*100/wizard_steps.length %>
+      <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="<%= done %>",
+        class="progress-bar progress-bar-success" role="progressbar" style="width: <%= done %>%;">
+        <span><%= done %>% 完了</span>
+      </div>
     </div>
   </div>
-
-  <div class="progress progress-striped active">
-    <% done = wizard_steps.find_index(step)*100/wizard_steps.length %>
-    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="<%= done %>",
-      class="progress-bar progress-bar-success" role="progressbar" style="width: <%= done %>%;">
-      <span class="sr-only"><%= done %>% Complete</span>
-    </div>
-  </div>
-</div>
 </section>
