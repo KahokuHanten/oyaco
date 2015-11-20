@@ -39,8 +39,9 @@ class HomeController < ApplicationController
 
 
     [father, mother].each do |person|
+      next unless person.present?
       if person.birthday?
-        if person.next_birthday < Date.today.months_since(remind_months_ago)
+        if person.next_birthday < Date.current.months_since(remind_months_ago)
           if person.friendly_name == 'お父さん'
             average_life_span = male_average_life_span
             sex = '日本人男性'
