@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-gem 'rails_12factor', group: :production
+group :production, :staging do
+  gem 'rails_12factor'
+end
 ruby '2.2.2'
 gem 'rakuten_web_service'
 gem 'autoprefixer-rails'

@@ -83,3 +83,9 @@ production:
   database: oyako_production
   username: oyako
   password: <%= ENV['OYAKO_DATABASE_PASSWORD'] %>
+
+staging:
+  <<: *default
+  database: oyako_staging
+  username: oyako
+  password: <%= ENV['OYAKO_DATABASE_PASSWORD'] %>
