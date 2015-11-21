@@ -13,6 +13,8 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'font-awesome-sass'
 gem 'wicked'
 gem 'active_hash'
+gem 'dalli'
+gem 'newrelic_rpm'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
