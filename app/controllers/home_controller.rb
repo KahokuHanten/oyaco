@@ -37,7 +37,6 @@ class HomeController < ApplicationController
                                location: questionnaire.pref_id)
     end
 
-
     [father, mother].each do |person|
       next unless person.present?
       if person.birthday?
@@ -62,23 +61,24 @@ class HomeController < ApplicationController
             comment1: "#{birthday_comment}",
             comment2: (get_comment_by_age(person.age + 1)).html_safe,
             comment3: 'こんなプレゼントはいかがですか？',
-            items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
+            item:  Present.cached_request(person))
         end
       end
     end
 
     # 祝日関連の話題
-    @holidays = Holiday.soon
-    @holidays.each do |holiday|
-      @topics.push(
-        title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
-        name: holiday.name,
-        comment: EventData.find_by_name(holiday.name).try(:comment),
-        wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
-        items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == '元日'),
-        message: EventData.find_by_name(holiday.name).try(:message))
-    end
-    
+
+      holidays = Holiday.soon
+      holidays.each do |holiday|
+        @topics.push(
+          title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
+          name: holiday.name,
+          comment: EventData.find_by_name(holiday.name).try(:comment),
+          wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
+          item: Present.cached_request(holiday),
+          message: EventData.find_by_name(holiday.name).try(:message))
+      end
+
     # 誕生日と祝日のソート
     @topics.sort! do |a, b|
       a[:title] <=> b[:title]

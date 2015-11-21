@@ -29,21 +29,19 @@
             <p class="list-group-item-text"><%= topic[:comment1] %></p>
             <p class="list-group-item-text"><%= topic[:comment2] %></p>
             <p class="list-group-item-text"><%= topic[:comment3] %></p>
+            <% if topic[:message].present? %>
+              <p>こんな言葉を贈ってはどうですか？</p>
+              <p>「<%= topic[:message] %>」</p>
+            <% end %>
           </div>
           <div class="col-xs-3">
-            <% if topic[:items] %>
-              <% topic[:items].first(1).each do |item| %>
-                <a href="<%= item['affiliateUrl'] %>" target="_blank">
-                  <img class="gift img-rounded" src="<%= item['mediumImageUrls'][0]['imageUrl'] %>">
-                </a>
-              <% end %>
+            <% if topic[:item] %>
+              <a href="<%= topic[:item][:url] %>" target="_blank">
+                <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
+              </a>
             <% end %>
           </div>
           </div>
-          <% if topic[:message].present? %>
-            <p>こんな言葉を贈ってはどうですか？</p>
-            <p>「<%= topic[:message] %>」</p>
-          <% end %>
         </li>
       <% end %>
     </ul>
