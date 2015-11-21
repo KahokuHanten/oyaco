@@ -29,6 +29,7 @@ class AgeCommentTestTest < Capybara::Rails::TestCase
       click_on 'next'
       click_on 'go-home'
       assert_content page, test_comment
+    assert_content page, "平均寿命"
     end
   end
 end

@@ -26,7 +26,10 @@ module Oyaco
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.autoload_paths += %W(#{config.root}/lib)
 
-    config.remind_months_ago = 3
+    config.remind_months_ago = 12
     config.default_birthday = Date.new(1960, 2, 3)
+
+    config.male_average_life_span = 80.50
+    config.female_average_life_span = 86.83
   end
 end

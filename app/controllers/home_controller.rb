@@ -19,6 +19,8 @@ class HomeController < ApplicationController
     @pref_id = questionnaire.pref_id
 
     remind_months_ago = Oyaco::Application.config.remind_months_ago
+    male_average_life_span = Oyaco::Application.config.male_average_life_span
+    female_average_life_span = Oyaco::Application.config.female_average_life_span
     @topics = []
 
     if user_signed_in?
@@ -35,13 +37,31 @@ class HomeController < ApplicationController
                                location: questionnaire.pref_id)
     end
 
+
     [father, mother].each do |person|
       next unless person.present?
       if person.birthday?
         if person.next_birthday < Date.current.months_since(remind_months_ago)
+          if person.friendly_name == 'お父さん'
+            average_life_span = male_average_life_span
+            sex = '日本人男性'
+          elsif  person.friendly_name == 'お母さん'
+            average_life_span = female_average_life_span
+            sex = '日本人女性'
+          end
+          remaining_time_to_life_span = (average_life_span - (person.age + 1)).floor
+          if remaining_time_to_life_span == 0
+            birthday_comment = "今回で、 #{person.friendly_name}  は #{sex} の平均寿命（ #{average_life_span} 歳）になります。"
+          elsif remaining_time_to_life_span < 0
+            birthday_comment = "#{sex} の平均寿命は#{average_life_span} 歳です。#{person.friendly_name}  はご長寿ですね。 "
+          elsif remaining_time_to_life_span > 0
+            birthday_comment = "あと #{remaining_time_to_life_span} 年で、  #{person.friendly_name}  は #{sex} の平均寿命（ #{average_life_span} 歳）になります。"
+          end
           @topics.push(
-            title: "もうすぐ #{person.friendly_name} の #{person.age + 1} 歳の誕生日（#{person.next_birthday.strftime('%-m月%e日')})",
-            comment: ("こんなプレゼントはいかがですか？<br>" + get_comment_by_age(person.age + 1)).html_safe,
+            title: "#{person.next_birthday.strftime('%Y年%-m月%e日')} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
+            comment1: "#{birthday_comment}",
+            comment2: (get_comment_by_age(person.age + 1)).html_safe,
+            comment3: 'こんなプレゼントはいかがですか？',
             items: RakutenWebService::Ichiba::Item.ranking(age: person.rakuten_age, sex: person.gender))
         end
       end
@@ -57,6 +77,11 @@ class HomeController < ApplicationController
         wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
         items: (RakutenWebService::Ichiba::Item.search(keyword: holiday.name) unless holiday.name == '元日'),
         message: EventData.find_by_name(holiday.name).try(:message))
+    end
+    
+    # 誕生日と祝日のソート
+    @topics.sort! do |a, b|
+      a[:title] <=> b[:title]
     end
 
     # Local
@@ -101,7 +126,7 @@ def get_comment_by_age(age)
   when 77
     '77歳は喜寿です。【出典・由来】「喜」の草体が七十七のように見えるため。'
   when 80
-    '80歳は傘寿です。【出典・由来】「傘」の略字（仐）が八十と分解できるため。'
+    '80歳は傘寿です。【出典・由来】「傘」の字を略すと八十に見えるため。'
   when 88
     '88歳は米寿です。【出典・由来】「米」の字が八十八と分解できるため。'
   when 90
