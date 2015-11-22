@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   end
 
   def show
-    return redirect_to root_path if !user_signed_in? && !cookies.signed[:pref_id]
+    return redirect_to root_path if !user_signed_in? && !cookies.signed[:pref_code]
 
     questionnaire = Questionnaire.new
     questionnaire.restore_attributes_from_cookies(cookies)
@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   private
 
   def build_topics(questionnaire)
-    @pref_id = questionnaire.pref_id
+    pref_code = questionnaire.pref_code
 
     remind_months_ago = Oyaco::Application.config.remind_months_ago
     male_average_life_span = Oyaco::Application.config.male_average_life_span
@@ -30,11 +30,11 @@ class HomeController < ApplicationController
       father = Person.new
       father.assign_attributes(relation: Person.relations[:father],
                                birthday: questionnaire.dad,
-                               location: questionnaire.pref_id)
+                               location: questionnaire.pref_code)
       mother = Person.new
       mother.assign_attributes(relation: Person.relations[:mother],
                                birthday: questionnaire.mom,
-                               location: questionnaire.pref_id)
+                               location: questionnaire.pref_code)
     end
 
     [father, mother].each do |person|
@@ -84,9 +84,9 @@ class HomeController < ApplicationController
     end
 
     # Local
-    if @pref_id.present?
-      @pref_name = PrefName.get_pref_name(@pref_id)
-      @warnings = News.weather_warnings(@pref_id)
+    if pref_code.present?
+      @pref_name = view_context.pref_code2name(pref_code)
+      @warnings = News.weather_warnings(pref_code)
       @message = MessageGenerator.new(@warnings).generate
       @googlenews = News.local(@pref_name)
     end

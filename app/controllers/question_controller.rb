@@ -13,7 +13,7 @@ class QuestionController < ApplicationController
     @q.restore_attributes_from_cookies(cookies)
     @q.assign_attributes(params[:questionnaire])
 
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
+    [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = @q.send(param)
     end
 
@@ -24,7 +24,7 @@ class QuestionController < ApplicationController
         father.user = current_user
         father.assign_attributes(relation: Person.relations[:father],
                                  birthday: @q.dad,
-                                 location: @q.pref_id)
+                                 location: @q.pref_code)
         father.save
       end
     when :mom
@@ -33,7 +33,7 @@ class QuestionController < ApplicationController
         mother.user = current_user
         mother.assign_attributes(relation: Person.relations[:mother],
                                  birthday: @q.mom,
-                                 location: @q.pref_id)
+                                 location: @q.pref_code)
         mother.save
       end
     end
@@ -45,7 +45,7 @@ class QuestionController < ApplicationController
   end
 
   def destroy_all
-    [:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3].each do |param|
+    [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.delete(param)
     end
     redirect_to question_path(:dad)
@@ -53,6 +53,6 @@ class QuestionController < ApplicationController
 
   private
   def questionnaire_params
-    params.require(:questionnaire).permit(:dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3)
+    params.require(:questionnaire).permit(:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3)
   end
 end

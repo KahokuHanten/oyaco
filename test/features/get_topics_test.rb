@@ -5,18 +5,15 @@ class GetTopicsTest < Capybara::Rails::TestCase
   test "user get topics after input form" do
     visit root_path
     click_on 'try'
-
     click_on 'next'
-
     click_on 'next'
 
     within '#question-form' do
-      select '大阪府', from: 'questionnaire_pref_id'
+      select '大阪府', from: 'questionnaire_pref_code'
     end
     click_on 'next'
 
     click_on 'next'
-
     click_on 'go-home'
 
     assert_content page, "大阪府"
