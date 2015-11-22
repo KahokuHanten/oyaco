@@ -67,17 +67,16 @@ class HomeController < ApplicationController
     end
 
     # 祝日関連の話題
-
-      holidays = Holiday.soon
-      holidays.each do |holiday|
-        @topics.push(
-          title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
-          name: holiday.name,
-          comment: EventData.find_by_name(holiday.name).try(:comment),
-          wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
-          item: Present.cached_request(holiday),
-          message: EventData.find_by_name(holiday.name).try(:message))
-      end
+    holidays = Holiday.soon
+    holidays.each do |holiday|
+      @topics.push(
+        title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
+        name: holiday.name,
+        comment: EventData.find_by_name(holiday.name).try(:comment),
+        wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
+        item: Present.cached_request(holiday),
+        message: EventData.find_by_name(holiday.name).try(:message))
+    end
 
     # 誕生日と祝日のソート
     @topics.sort! do |a, b|
@@ -87,31 +86,20 @@ class HomeController < ApplicationController
     # Local
     if @pref_id.present?
       @pref_name = PrefName.get_pref_name(@pref_id)
-      @warnings = LocalInfo.get_weather_warnings(@pref_id)
+      @warnings = News.weather_warnings(@pref_id)
       @message = MessageGenerator.new(@warnings).generate
-      @googlenews = LocalInfo.get_local_news(@pref_name)
+      @googlenews = News.local(@pref_name)
     end
 
     # 趣味
     @hobbys = []
-    if questionnaire.hobby.present?
-      @hobbys.push(
-        name: questionnaire.hobby,
-        news: LocalInfo.get_hobby_news(questionnaire.hobby)
-      )
+    [:hobby, :hobby2, :hobby3].each do |hobby|
+      hobby_name = questionnaire.send(hobby)
+      if hobby_name.present?
+        @hobbys.push(name: hobby_name, news: News.hobby(hobby_name))
+      end
     end
-    if questionnaire.hobby2.present?
-      @hobbys.push(
-        name: questionnaire.hobby2,
-        news: LocalInfo.get_hobby_news(questionnaire.hobby2)
-      )
-    end
-    if questionnaire.hobby3.present?
-      @hobbys.push(
-        name: questionnaire.hobby3,
-        news: LocalInfo.get_hobby_news(questionnaire.hobby3)
-      )
-    end
+
     # 電話番号
     @tel = questionnaire.tel || ''
   end
