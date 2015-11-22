@@ -9,22 +9,27 @@ class News
 
   class << self
     def weather_warnings(id)
-      doc = ''
-      messages = []
-      pref = '%02d' % id
-      if pref == '01'
-        pref = '01b' # FIXME
-      end
-
-      begin
-        doc = Nokogiri::XML(open(WW_URL + pref + '.xml').read)
-        doc.xpath('//item/description').each do|node|
-          messages.push(node.text) unless /livedoor/.match(node.text)
+      Rails.cache.fetch "w_#{id}", :expires_in => 2.hours do
+        messages = []
+        prefs = []
+        pref = '%02d' % id
+        if pref == '01'
+          prefs = ['01a', '01b', '01c', '01d']
+        else
+          prefs = [pref]
         end
-      rescue
-        messages = nil
+
+        prefs.each do |p|
+          begin
+            doc = Nokogiri::XML(open(WW_URL + p + '.xml').read)
+            doc.xpath('//item/description').each do|node|
+              messages.push(node.text) unless /livedoor|いません/.match(node.text)
+            end
+          rescue
+          end
+        end
+        messages
       end
-      messages
     end
 
     def local(pref_name)
