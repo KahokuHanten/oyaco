@@ -26,6 +26,7 @@ class News
               messages.push(node.text) unless /livedoor|いません/.match(node.text)
             end
           rescue
+            return nil
           end
         end
         messages

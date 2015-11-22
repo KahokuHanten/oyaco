@@ -61,7 +61,7 @@ class HomeController < ApplicationController
             comment1: "#{birthday_comment}",
             comment2: (get_comment_by_age(person.age + 1)).html_safe,
             comment3: 'こんなプレゼントはいかがですか？',
-            item:  Present.cached_request(person))
+            item:  Present.item(person))
         end
       end
     end
@@ -74,7 +74,7 @@ class HomeController < ApplicationController
         name: holiday.name,
         comment: EventData.find_by_name(holiday.name).try(:comment),
         wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
-        item: Present.cached_request(holiday),
+        item: Present.item(holiday),
         message: EventData.find_by_name(holiday.name).try(:message))
     end
 

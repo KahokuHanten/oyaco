@@ -1,5 +1,5 @@
 class Present
-  def self.cached_request(param)
+  def self.item(param)
     needed = "affiliateUrl,mediumImageUrls"
     case param
     when Holiday
