@@ -19,9 +19,9 @@
         </div>
       </div>
       <div class="form-group">
-        <%= f.label(:pref_id, "ご両親のお住まい", class: "col-sm-6 control-label") %>
+        <%= f.label(:pref_code, "ご両親のお住まい", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= f.collection_select(:pref_id, JpPrefecture::Prefecture.all, :code, :name, {},
+          <%= f.collection_select(:pref_code, JpPrefecture::Prefecture.all, :code, :name, {},
          class: "form-control", style: "display: inline-block; width: auto") %>
         </div>
       </div>
