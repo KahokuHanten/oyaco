@@ -15,10 +15,12 @@
   <!-- イベント -->
   <div class="tab-pane fade in active" id="tab1">
     <ul class='list-group'>
+      <div class="row">
+        <div class="col-xs-7">
       <% @topics.each do |topic| %>
         <li class='list-group-item'>
           <div class="row">
-          <div class="col-xs-9">
+          <div class="col-xs-8">
             <h4 class="list-group-item-heading"><%= topic[:title] %></h4>
             <% if topic[:wikipedia].present? %>
             <p class="list-group-item-text wikipedia">
@@ -44,7 +46,13 @@
           </div>
         </li>
       <% end %>
-    </ul>
+        </div>
+        <div class="col-xs-5">
+          <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">#親孝行 min_faves:1に関するツイート</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+      </ul>
   </div>
   <!-- ローカル -->
   <div class="tab-pane fade" id="tab2">
