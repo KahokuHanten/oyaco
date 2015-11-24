@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-gem 'rails_12factor', group: :production
+group :production, :staging do
+  gem 'rails_12factor'
+end
 ruby '2.2.2'
 gem 'rakuten_web_service'
 gem 'autoprefixer-rails'
@@ -13,6 +15,9 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'font-awesome-sass'
 gem 'wicked'
 gem 'active_hash'
+gem 'newrelic_rpm'
+gem 'redis'
+gem 'redis-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
