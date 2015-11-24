@@ -40,4 +40,14 @@ module ApplicationHelper
       end
     end
   end
+
+  def pref_code2name(code)
+    pref = JpPrefecture::Prefecture.find code
+    pref.name
+  end
+
+  def pref_name2code(name)
+    pref = JpPrefecture::Prefecture.find(name: name)
+    pref.code.to_s
+  end
 end

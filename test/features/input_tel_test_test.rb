@@ -10,7 +10,7 @@ class InputTelTestTest < Capybara::Rails::TestCase
     click_on 'next'
     click_on 'next'
     within '#question-form' do
-      select '東京都', from: 'questionnaire_pref_id'
+      select '東京都', from: 'questionnaire_pref_code'
     end
     click_on 'next'
     within '#question-form' do

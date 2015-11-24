@@ -2,7 +2,7 @@
 class Questionnaire
   include ActiveModel::Model
 
-  attr_accessor :dad, :mom, :pref_id, :tel, :hobby, :hobby2, :hobby3
+  attr_accessor :dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3
 
   def save # to pass render_wizard @questionnaire
     true
@@ -32,7 +32,7 @@ class Questionnaire
       self.mom = Oyaco::Application.config.default_birthday
     end
 
-    self.pref_id = params[:pref_id] if params[:pref_id]
+    self.pref_code = params[:pref_code] if params[:pref_code]
     self.tel = params[:tel] if params[:tel]
     self.hobby = params[:hobby] if params[:hobby]
     self.hobby2 = params[:hobby2] if params[:hobby2]
@@ -48,7 +48,7 @@ class Questionnaire
       self.mom = Date.parse(cookies.signed[:mom])
     end
 
-    self.pref_id = cookies.signed[:pref_id] || '1'
+    self.pref_code = cookies.signed[:pref_code] || '1'
     self.tel = cookies.signed[:tel] || ''
     self.hobby = cookies.signed[:hobby] || '温泉旅行'
     self.hobby2 = cookies.signed[:hobby2] || 'ゴルフ'

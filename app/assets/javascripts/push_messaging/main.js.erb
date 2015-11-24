@@ -237,7 +237,8 @@ function initialiseState() {
 }
 window.addEventListener('load', function() {
   var pushButton = document.querySelector('.js-push-button');
-    if (pushButton.textContent.indexOf('登録') != -1 ) {
+  if (!pushButton) return;
+  if (pushButton.textContent.indexOf('登録') != -1 ) {
     isPushEnabled = false;
   } else {
     isPushEnabled = true;
