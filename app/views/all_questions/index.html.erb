@@ -4,14 +4,14 @@
     <div class="form-horizontal" role="form">
       <%= form_for(@q, url: '/all_questions', :html => {:method => "post", :id => "question-form"}) do |f| %>
       <div class="form-group">
-        <%= label_tag(:dad, "お父さんの誕生日", class: "col-sm-6 control-label") %>
+        <%= f.label(:dad, "お父さんの誕生日", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
           <%= f.date_select(:dad, { start_year: 1900, end_year: Time.current.year, include_blank: true, selected: selected_birthday(:dad),
             use_month_numbers: true, date_separator: '/' },  class: "form-control", style: "display: inline-block; width: auto") %>
         </div>
       </div>
       <div class="form-group">
-        <%= label_tag(:mom, "お母さんの誕生日", class: "col-sm-6 control-label") %>
+        <%= f.label(:mom, "お母さんの誕生日", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
           <% default_date = cookies.signed[:mom] ? Date.parse(cookies.signed[:mom]) : nil %>
           <%= f.date_select(:mom, { start_year: 1900, end_year: Time.current.year, include_blank: true, selected: selected_birthday(:mom),
@@ -19,31 +19,30 @@
         </div>
       </div>
       <div class="form-group">
-        <%= label_tag(:pref_id, "ご両親のお住まい", class: "col-sm-6 control-label") %>
+        <%= f.label(:pref_id, "ご両親のお住まい", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= select_tag(:pref_id, options_from_collection_for_select(JpPrefecture::Prefecture.all, :code, :name, cookies.signed[:pref_id] || "1"),
+          <%= f.collection_select(:pref_id, JpPrefecture::Prefecture.all, :code, :name, {},
          class: "form-control", style: "display: inline-block; width: auto") %>
         </div>
       </div>
       <div class="form-group">
-        <%= label_tag(:tel, "ご両親の電話番号", class: "col-sm-6 control-label") %>
+        <%= f.label(:tel, "ご両親の電話番号", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= telephone_field_tag(:tel, cookies.signed[:tel],
-          placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control") %>
+          <%= f.telephone_field(:tel, placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
-        <%= label_tag(:hobby, "ご両親の趣味", class: "col-sm-6 control-label") %>
+        <%= f.label(:hobby, "ご両親の趣味", class: "col-sm-6 control-label") %>
         <div class="col-sm-4">
-          <%= text_field_tag(:hobby, cookies.signed[:hobby] || "温泉旅行", class: "form-control") %>
-          <%= text_field_tag(:hobby2, cookies.signed[:hobby2] || "ゴルフ", class: "form-control") %>
-          <%= text_field_tag(:hobby3, cookies.signed[:hobby3] || "落語", class: "form-control") %>
+          <%= f.text_field(:hobby, class: "form-control") %>
+          <%= f.text_field(:hobby2, class: "form-control") %>
+          <%= f.text_field(:hobby3, class: "form-control") %>
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-4 col-sm-offset-6">
           <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-          <%= submit_tag("更新", :id => "recommend", class: "btn btn-success btn-default") %>
+          <%= f.submit("更新", :id => "recommend", class: "btn btn-success btn-default") %>
         </div>
       </div>
       <% end %>
