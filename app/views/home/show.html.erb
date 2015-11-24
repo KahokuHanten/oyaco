@@ -9,13 +9,14 @@
   <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">イベント</a></li>
   <li role="presentation"><a href="#tab2" data-toggle="tab">ローカル</a></li>
   <li role="presentation"><a href="#tab3" data-toggle="tab">趣味</a></li>
-  <li role="presentation"><a href="#tab4" data-toggle="tab">つぶやき</a></li>
 </ul>
 <!-- タブコンテンツ -->
 <div id="myTabContent" class="tab-content">
   <!-- イベント -->
   <div class="tab-pane fade in active" id="tab1">
     <ul class='list-group'>
+      <div class="row">
+        <div class="col-xs-8">
       <% @topics.each do |topic| %>
         <li class='list-group-item'>
           <div class="row">
@@ -47,6 +48,12 @@
           <% end %>
         </li>
       <% end %>
+        </div>
+        <div class="col-xs-4">
+          <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">#親孝行 min_faves:1に関するツイート</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
       </ul>
   </div>
   <!-- ローカル -->
@@ -83,9 +90,4 @@
       <% end %>
     </ul>
   </div>
-  <!-- イベント -->
-  <div class="tab-pane fade in active" id="tab4">
-    <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">#親孝行 min_faves:1に関するツイート</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    </div>
 </div>
