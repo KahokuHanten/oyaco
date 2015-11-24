@@ -12,20 +12,9 @@
  *
  */
 
-//Import bootstrap-sprockets
 @import "bootstrap-sprockets";
-
-// Import cerulean variables
-@import "bootswatch/flatly/variables";
-
-// Then bootstrap itself
 @import "bootstrap";
-
-// Bootstrap body padding for fixed navbar
-//body { padding-top: 60px; }
-
-// And finally bootswatch style itself
-@import "bootswatch/flatly/bootswatch";
+@import "bootflat";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
@@ -39,16 +28,10 @@ body {
     height: 100%;
 }
 
-/* for nvabar */
 body {
-  padding-top: 60px;
+  padding-top: 51px;
 }
 
-.dropdown-header {
-  font-size: 1.2em;
-}
-
-/* Footer */
 footer {
   text-align: center;
   padding-bottom: 30px;

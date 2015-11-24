@@ -7,13 +7,13 @@
             <%= yield f %>
             <div class="btns">
               <% unless wizard_steps.find_index(step) == 0 %>
-                <%= link_to "戻る", previous_wizard_path, id: "backword", class: "btn btn-success btn-default" %>
+                <%= link_to "戻る", previous_wizard_path, id: "backword", class: "btn btn-success" %>
               <% end %>
                 <%#link_to 'スキップ', next_wizard_path, class:"btn btn-success btn-default" %>
               <% unless wizard_steps.find_index(step) == wizard_steps.length-1 %>
-                <%= f.submit("次へ", id: "next", class: "btn btn-success btn-default") %>
+                <%= f.submit("次へ", id: "next", class: "btn btn-success") %>
               <% else %>
-                <%= f.submit("相談する", id: "go-home", class: "btn btn-success btn-default") %>
+                <%= f.submit("相談する", id: "go-home", class: "btn btn-success") %>
               <% end %>
             </div>
           </div>
