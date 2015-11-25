@@ -57,6 +57,7 @@ class HomeController < ApplicationController
             birthday_comment = "あと #{remaining_time_to_life_span} 年で、  #{person.friendly_name}  は #{sex} の平均寿命（ #{average_life_span} 歳）になります。"
           end
           @topics.push(
+            date: person.next_birthday,
             title: "#{person.next_birthday.strftime('%Y年%-m月%e日')} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
             comment1: "#{birthday_comment}",
             comment2: (get_comment_by_age(person.age + 1)).html_safe,
@@ -70,6 +71,7 @@ class HomeController < ApplicationController
     holidays = Holiday.soon
     holidays.each do |holiday|
       @topics.push(
+        date: holiday.date,
         title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
         name: holiday.name,
         comment: EventData.find_by_name(holiday.name).try(:comment),
@@ -85,6 +87,7 @@ class HomeController < ApplicationController
 
     # Local
     if pref_code.present?
+      @pref_code = pref_code
       @pref_name = view_context.pref_code2name(pref_code)
       @warnings = News.weather_warnings(pref_code)
       @message = MessageGenerator.new(@warnings).generate

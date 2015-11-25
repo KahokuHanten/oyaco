@@ -13,29 +13,29 @@
   <![endif]-->
 <link rel="manifest" href="/manifest.json">
 </head>
-<body>
+<body style="background-color: #f1f2f6;">
   <header>
     <%= render 'layouts/header' %>
   </header>
 
-  <%= yield %>
-
   <% if notice.present? %>
-    <div class="alert alert-dismissable alert-success">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <p><%= notice %></p>
+    <div class="alert alert-success alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= notice %>
+    </div>
+  <% end %>
+  <% if alert.present? %>
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= alert %>
     </div>
   <% end %>
 
-  <% if alert.present? %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <p><%= alert %></p>
-    </div>
-  <% end %>
+  <%= yield %>
 
   <footer>
     <%= render 'layouts/footer' %>
   </footer>
+
 </body>
 </html>

@@ -4,6 +4,8 @@
   })
 </script>
 
+<div class="container-fluid">
+
 <!--タブ-->
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">イベント</a></li>
@@ -14,53 +16,61 @@
 <div id="myTabContent" class="tab-content">
   <!-- イベント -->
   <div class="tab-pane fade in active" id="tab1">
-    <ul class='list-group'>
-      <div class="row">
-        <div class="col-xs-7">
-      <% @topics.each do |topic| %>
-        <li class='list-group-item'>
-          <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading"><%= topic[:title] %></h4>
-            <% if topic[:wikipedia].present? %>
-            <p class="list-group-item-text wikipedia">
-              <%= topic[:wikipedia] %>
-              <%= link_to "(Wikipediaより)", "http://ja.wikipedia.org/wiki/#{topic[:name]}" %>
-            </p>
-            <% end %>
-            <p class="list-group-item-text"><%= topic[:comment1] %></p>
-            <p class="list-group-item-text"><%= topic[:comment2] %></p>
-            <p class="list-group-item-text"><%= topic[:comment3] %></p>
-            <% if topic[:message].present? %>
-              <p>こんな言葉を贈ってはどうですか？</p>
-              <p>「<%= topic[:message] %>」</p>
-            <% end %>
-          </div>
-          <div class="col-xs-3">
-            <% if topic[:item] %>
-              <a href="<%= topic[:item][:url] %>" target="_blank">
-                <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
-              </a>
-            <% end %>
-          </div>
-          </div>
-        </li>
-      <% end %>
-        </div>
-        <div class="col-xs-5">
-          <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">#親孝行 min_faves:1に関するツイート</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-        </div>
-      </div>
-      </ul>
+    <div class="row">
+    <div class="col-xs-8">
+    <div class='timeline'>
+      <dl>
+        <% m = Month(Date.current) %>
+        <% m.upto(m + 12 ) do |m| %>
+          <dt><%= "#{m.year}年#{m.number}月" %></dt>
+          <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
+          <% m_topics.each_with_index do |topic, i| %>
+            <dd class="<%= timeline_pos(i) %> clearfix">
+              <div class="circ"></div>
+              <div class="time"><%= "#{topic[:date].day}日" %></div>
+              <div class="events">
+                <div class="pull-left">
+                  <%= image_tag "s64_f_object_67_0bg.png", class: "events-object img-rounded" %>
+                </div>
+                <div class="events-body">
+                  <h4 class="events-heading"><%= topic[:title] %></h4>
+                  <% if topic[:wikipedia].present? %>
+                    <p class="wikipedia"><%= topic[:wikipedia] %><%= link_to "(Wikipediaより)", "http://ja.wikipedia.org/wiki/#{topic[:name]}" %></p>
+                  <% end %>
+                  <p><%= topic[:comment1] %></p>
+                  <p><%= topic[:comment2] %></p>
+                  <p><%= topic[:comment3] %></p>
+                  <% if topic[:message].present? %>
+                  <p>こんな言葉を贈ってはどうですか？</p>
+                  <p>「<%= topic[:message] %>」</p>
+                  <% end %>
+                  <% if topic[:item] %>
+                  <a href="<%= topic[:item][:url] %>" target="_blank">
+                    <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
+                  </a>
+                  <% end %>
+                </div>
+              </div>
+            </dd>
+          <% end %> <!-- m_topics.each_with_index -->
+        <% end %> <!-- m.upto() -->
+      </dl>
+    </div>
+    </div>
+    <div class="col-xs-4">
+      <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">#親孝行 min_faves:1に関するツイート</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    </div>
   </div>
+
   <!-- ローカル -->
   <div class="tab-pane fade" id="tab2">
     <ul class='list-group'>
       <% if @pref_name.present? %>
       <li class='list-group-item'>
         <h4 class='list-group-item-heading'>お天気情報</h4>
-        <%= @pref_name %>は<%= @message %></p>
+        <p><%= @pref_name %>は<%= @message %></p>
       </li>
       <li class='list-group-item'>
         <h4 class='list-group-item-heading'><%= @pref_name %>のニュース</h4>
@@ -88,4 +98,5 @@
       <% end %>
     </ul>
   </div>
+</div>
 </div>

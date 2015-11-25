@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
       <div class="light-well">
-        <h3 class="page-header text-center">ユーザー登録</h3>
+        <h3 class="page-header text-center">新規登録</h3>
 
         <%= form_for resource, as: resource_name, url: registration_path(resource_name),
                       html: { class: "form-horizontal center"} do |f| %>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="actions">
-          <%= f.submit "ユーザー登録", class: "btn btn-success btn-default btn-block" %>
+          <%= f.submit "登録", class: "btn btn-success btn-default btn-block" %>
         </div>
         <%= devise_error_messages! %>
         <% end %>
