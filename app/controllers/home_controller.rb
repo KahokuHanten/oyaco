@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   #  before_action :authenticate_user!, only: :show
 
+  def disclaimer
+
+  end
+
   def index
     return redirect_to home_path if user_signed_in?
   end
