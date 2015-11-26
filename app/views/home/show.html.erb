@@ -5,7 +5,6 @@
 </script>
 
 <div class="container-fluid">
-
 <!--タブ-->
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">イベント</a></li>
@@ -19,12 +18,18 @@
     <% if user_signed_in? %>
     <div class="">
       <%= form_for [:users, @event], html: {class: "form-inline"} do |f| %>
-        <%= f.date_field :date, class: "form-control" %>
+        <div class='input-group date  datetimepicker'>
+          <%= f.text_field :date, data: { date_format: 'YYYY/MM/DD' }, class: 'form-control',
+            placeholder: 'YYYY/MM/DD' %>
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
         <%= f.text_field :name, placeholder: "Name", class: "form-control" %>
         <%= f.submit '記念日を登録', class: "btn btn-default" %>
       <% end %>
+      </div>
     <% end %>
-    </div>
 
     <div class="row">
     <div class="col-xs-8">
