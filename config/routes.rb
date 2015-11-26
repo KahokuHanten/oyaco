@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   devise_for :users
   resource :users, only: [:show] do
     resources :people
-    resources :events
+    resources :events, only: [:create, :destroy]
     member do
       post 'save_subscription_id'
       post 'clear_subscription_id'

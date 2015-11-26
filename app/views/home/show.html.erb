@@ -16,6 +16,16 @@
 <div id="myTabContent" class="tab-content">
   <!-- イベント -->
   <div class="tab-pane fade in active" id="tab1">
+    <% if user_signed_in? %>
+    <div class="">
+      <%= form_for [:users, @event], html: {class: "form-inline"} do |f| %>
+        <%= f.date_field :date, class: "form-control" %>
+        <%= f.text_field :name, placeholder: "Name", class: "form-control" %>
+        <%= f.submit '記念日を登録', class: "btn btn-default" %>
+      <% end %>
+    <% end %>
+    </div>
+
     <div class="row">
     <div class="col-xs-8">
     <div class='timeline'>
@@ -48,6 +58,9 @@
                   <a href="<%= topic[:item][:url] %>" target="_blank">
                     <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
                   </a>
+                  <% end %>
+                  <% if topic[:event] %>
+                    <%= link_to raw('<i class="fa fa-trash"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right" %>
                   <% end %>
                 </div>
               </div>

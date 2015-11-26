@@ -8,6 +8,8 @@ class HomeController < ApplicationController
   def show
     return redirect_to root_path if !user_signed_in? && !cookies.signed[:pref_code]
 
+    @user = current_user
+    @event = Event.new
     questionnaire = Questionnaire.new
     questionnaire.restore_attributes_from_cookies(cookies)
     build_topics(questionnaire) if questionnaire.present?
@@ -80,7 +82,18 @@ class HomeController < ApplicationController
         message: EventData.find_by_name(holiday.name).try(:message))
     end
 
-    # 誕生日と祝日のソート
+    # ユーザーイベント
+    if user_signed_in?
+      current_user.events.each do |event|
+        @topics.push(
+          event: event,
+          date: event.date,
+          title: event.date.strftime('%Y年%-m月%e日') + 'は' + event.name,
+          name: event.name)
+      end
+    end
+
+    # 日付でソート
     @topics.sort! do |a, b|
       a[:title] <=> b[:title]
     end
