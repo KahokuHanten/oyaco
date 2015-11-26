@@ -64,6 +64,7 @@ class HomeController < ApplicationController
             comment1: "#{birthday_comment}",
             comment2: (get_comment_by_age(person.age + 1)).html_safe,
             comment3: 'こんなプレゼントはいかがですか？',
+            image: EventData.find_by_name("誕生日").try(:image),
             item:  Present.item(person))
         end
       end
@@ -79,7 +80,8 @@ class HomeController < ApplicationController
         comment: EventData.find_by_name(holiday.name).try(:comment),
         wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
         item: Present.item(holiday),
-        message: EventData.find_by_name(holiday.name).try(:message))
+        message: EventData.find_by_name(holiday.name).try(:message),
+        image: EventData.find_by_name(holiday.name).try(:image))
     end
 
     # ユーザーイベント
@@ -89,7 +91,8 @@ class HomeController < ApplicationController
           event: event,
           date: event.date,
           title: event.date.strftime('%Y年%-m月%e日') + 'は' + event.name,
-          name: event.name)
+          name: event.name,
+          image: EventData.find_by_name(event.name).try(:image))
       end
     end
 

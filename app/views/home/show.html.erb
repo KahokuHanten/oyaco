@@ -45,12 +45,18 @@
               <div class="time"><%= "#{topic[:date].day}日" %></div>
               <div class="events">
                 <div class="pull-left">
-                  <%= image_tag "s64_f_object_67_0bg.png", class: "events-object img-rounded" %>
+                  <% if topic[:image].present? %>
+                    <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
+                  <% else %>
+                    <%= image_tag "s64_f_event_13_0bg.png", class: "events-object img-rounded" %>
+                  <% end %>
                 </div>
                 <div class="events-body">
                   <h4 class="events-heading"><%= topic[:title] %></h4>
                   <% if topic[:wikipedia].present? %>
-                    <p class="wikipedia"><%= topic[:wikipedia] %><%= link_to "(Wikipediaより)", "http://ja.wikipedia.org/wiki/#{topic[:name]}" %></p>
+                    <p class="wikipedia"><%= truncate(topic[:wikipedia], length: 100) %>
+                      <%= link_to "[Wikipedia]", "http://ja.wikipedia.org/wiki/#{topic[:name]}" %>
+                    </p>
                   <% end %>
                   <p><%= topic[:comment1] %></p>
                   <p><%= topic[:comment2] %></p>
@@ -65,7 +71,7 @@
                   </a>
                   <% end %>
                   <% if topic[:event] %>
-                    <%= link_to raw('<i class="fa fa-trash"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right" %>
+                    <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
                   <% end %>
                 </div>
               </div>
@@ -76,7 +82,7 @@
     </div>
     </div>
     <div class="col-xs-4">
-      <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">#親孝行 min_faves:1に関するツイート</a>
+      <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">みんなの親孝行</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
     </div>
