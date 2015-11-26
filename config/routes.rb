@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'home', to: 'home#show'
+  get 'disclaimer' => 'home#disclaimer', as: "disclaimer"
 
   resources :question, only: [:show, :update]
   delete :question, to: 'question#destroy_all', as: 'destroy_question'
