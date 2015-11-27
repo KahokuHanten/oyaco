@@ -12,9 +12,17 @@
  *
  */
 
+$dropdown-background-color: #FFF;
+$dropdown-background-color-hover: #CCD1D9;
+$dropdown-normal: #000;
+$dropdown-default: #000;
+$dropdown-font-color-dark:  #FFF;
+$dropdown-font-color-light: #434A54;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootflat";
+@import 'bootstrap-datetimepicker';
 
 @import "font-awesome-sprockets";
 @import "font-awesome";

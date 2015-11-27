@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116072954) do
+ActiveRecord::Schema.define(version: 20151126001219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,12 +50,14 @@ ActiveRecord::Schema.define(version: 20151116072954) do
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.string   "event_name"
-    t.date     "event_date"
-    t.string   "user_id"
+    t.string   "name",       null: false
+    t.date     "date",       null: false
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "holidays", force: :cascade do |t|
     t.string   "name",       null: false
@@ -66,6 +68,15 @@ ActiveRecord::Schema.define(version: 20151116072954) do
   end
 
   add_index "holidays", ["date"], name: "index_holidays_on_date", unique: true, using: :btree
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "event_id"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notes", ["event_id"], name: "index_notes_on_event_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.integer  "user_id"
@@ -99,5 +110,7 @@ ActiveRecord::Schema.define(version: 20151116072954) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "events", "users"
+  add_foreign_key "notes", "events"
   add_foreign_key "people", "users"
 end

@@ -80,7 +80,8 @@ $timeline-radius:                         4px !default;
 			  & .events {
 				  position: relative;
 				  margin-top: 31px;
-				  padding: 10px 10px 0;
+				  //padding: 10px 10px 0;
+          padding: 8px;
 				  @include radius($type: border-radius, $value: $timeline-radius);
 				  background-color: $white;
 				  width: 47%;
@@ -141,7 +142,8 @@ $timeline-radius:                         4px !default;
 		  }
 	  }
   }
-  @media screen and (max-width: 767px) {
+//  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 9999px) {
 		.timeline dl {
 			&:before {
 				left: 60px;

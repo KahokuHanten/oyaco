@@ -12,6 +12,8 @@ class HomeController < ApplicationController
   def show
     return redirect_to root_path if !user_signed_in? && !cookies.signed[:pref_code]
 
+    @user = current_user
+    @event = Event.new
     questionnaire = Questionnaire.new
     questionnaire.restore_attributes_from_cookies(cookies)
     build_topics(questionnaire) if questionnaire.present?
@@ -61,11 +63,13 @@ class HomeController < ApplicationController
             birthday_comment = "あと #{remaining_time_to_life_span} 年で、  #{person.friendly_name}  は #{sex} の平均寿命（ #{average_life_span} 歳）になります。"
           end
           @topics.push(
+            type: :birthday,
             date: person.next_birthday,
             title: "#{person.next_birthday.strftime('%Y年%-m月%e日')} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
             comment1: "#{birthday_comment}",
             comment2: (get_comment_by_age(person.age + 1)).html_safe,
             comment3: 'こんなプレゼントはいかがですか？',
+            image: EventData.find_by_name("誕生日").try(:image),
             item:  Present.item(person))
         end
       end
@@ -75,16 +79,31 @@ class HomeController < ApplicationController
     holidays = Holiday.soon
     holidays.each do |holiday|
       @topics.push(
+        type: :holiday,
         date: holiday.date,
         title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
         name: holiday.name,
-        comment: EventData.find_by_name(holiday.name).try(:comment),
+        comment1: EventData.find_by_name(holiday.name).try(:comment),
         wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
         item: Present.item(holiday),
-        message: EventData.find_by_name(holiday.name).try(:message))
+        message: EventData.find_by_name(holiday.name).try(:message),
+        image: EventData.find_by_name(holiday.name).try(:image))
     end
 
-    # 誕生日と祝日のソート
+    # ユーザーイベント
+    if user_signed_in?
+      current_user.events.each do |event|
+        @topics.push(
+          type: :user,
+          event: event,
+          date: event.date,
+          title: event.date.strftime('%Y年%-m月%e日') + 'は' + event.name,
+          name: event.name,
+          image: EventData.find_by_name(event.name).try(:image))
+      end
+    end
+
+    # 日付でソート
     @topics.sort! do |a, b|
       a[:title] <=> b[:title]
     end

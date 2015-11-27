@@ -18,6 +18,8 @@ gem 'newrelic_rpm'
 gem 'redis'
 gem 'redis-rails'
 gem 'month'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
