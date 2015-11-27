@@ -1,7 +1,7 @@
 <section class="intro-header question" id="question" style="background-image: url(<%= asset_path "803b339e3fe0b4a16d5cdee2bcf25e9f_s.jpg" %>)">
   <div class="container">
     <%= form_for(@q, url: wizard_path, html: {class: "form-holizontal", method: :put, id: "question-form"}) do |f| %>
-      <div class="post-heading text-center">
+      <div class="post-heading text-center form-group">
         <%= yield f %>
         <div class="btns">
           <% unless wizard_steps.find_index(step) == 0 %>

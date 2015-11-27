@@ -5,7 +5,6 @@
 </script>
 
 <div class="container-fluid">
-
 <!--タブ-->
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">イベント</a></li>
@@ -16,6 +15,22 @@
 <div id="myTabContent" class="tab-content">
   <!-- イベント -->
   <div class="tab-pane fade in active" id="tab1">
+    <% if user_signed_in? %>
+    <div class="">
+      <%= form_for [:users, @event], html: {class: "form-inline"} do |f| %>
+        <div class='input-group date  datetimepicker'>
+          <%= f.text_field :date, data: { date_format: 'YYYY/MM/DD' }, class: 'form-control',
+            placeholder: 'YYYY/MM/DD' %>
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+        <%= f.text_field :name, placeholder: "Name", class: "form-control" %>
+        <%= f.submit '記念日を登録', class: "btn btn-default" %>
+      <% end %>
+      </div>
+    <% end %>
+
     <div class="row">
     <div class="col-xs-8">
     <div class='timeline'>
@@ -25,17 +40,23 @@
           <dt><%= "#{m.year}年#{m.number}月" %></dt>
           <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
           <% m_topics.each_with_index do |topic, i| %>
-            <dd class="<%= timeline_pos(i) %> clearfix">
+            <dd class="<%= timeline_pos(i) %> <%= "#{topic[:type]}" %> clearfix">
               <div class="circ"></div>
               <div class="time"><%= "#{topic[:date].day}日" %></div>
               <div class="events">
                 <div class="pull-left">
-                  <%= image_tag "s64_f_object_67_0bg.png", class: "events-object img-rounded" %>
+                  <% if topic[:image].present? %>
+                    <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
+                  <% else %>
+                    <%= image_tag "s64_f_event_13_0bg.png", class: "events-object img-rounded" %>
+                  <% end %>
                 </div>
                 <div class="events-body">
                   <h4 class="events-heading"><%= topic[:title] %></h4>
                   <% if topic[:wikipedia].present? %>
-                    <p class="wikipedia"><%= topic[:wikipedia] %><%= link_to "(Wikipediaより)", "http://ja.wikipedia.org/wiki/#{topic[:name]}" %></p>
+                    <p class="wikipedia"><%= truncate(topic[:wikipedia], length: 100) %>
+                      <%= link_to "[Wikipedia]", "http://ja.wikipedia.org/wiki/#{topic[:name]}", target: "_new" %>
+                    </p>
                   <% end %>
                   <p><%= topic[:comment1] %></p>
                   <p><%= topic[:comment2] %></p>
@@ -45,9 +66,12 @@
                   <p>「<%= topic[:message] %>」</p>
                   <% end %>
                   <% if topic[:item] %>
-                  <a href="<%= topic[:item][:url] %>" target="_blank">
+                  <a href="<%= topic[:item][:url] %>" target="_new">
                     <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
                   </a>
+                  <% end %>
+                  <% if topic[:event] %>
+                    <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
                   <% end %>
                 </div>
               </div>
@@ -58,7 +82,7 @@
     </div>
     </div>
     <div class="col-xs-4">
-      <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640">#親孝行 min_faves:1に関するツイート</a>
+      <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640" target="_new">みんなの親孝行</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
     </div>

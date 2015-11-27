@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :people, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 50 }
 end

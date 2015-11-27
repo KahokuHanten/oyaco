@@ -124,6 +124,30 @@
 }
 
 /* Topics */
+.timeline dl dd .events {
+  -webkit-box-shadow: 8px 8px 6px -6px #777;
+   -moz-box-shadow: 8px 8px 6px -6px #777;
+        box-shadow: 8px 8px 6px -6px #777;
+}
+
+.timeline dl dd.birthday {
+  .circ {
+    left: 42pt;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+  }
+}
+
+.timeline dl dd.user {
+  .circ {
+    left: 42pt;
+    width: 30px;
+    height: 30px;
+    background-color: green;
+  }
+}
+
 .wikipedia {
   font-size: 0.8em;
   padding-left: 10pt;
