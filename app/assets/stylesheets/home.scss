@@ -124,6 +124,10 @@
 }
 
 /* Topics */
+.topics .input-event {
+  margin: 20px;
+}
+
 .timeline dl dd .events {
   -webkit-box-shadow: 8px 8px 6px -6px #777;
    -moz-box-shadow: 8px 8px 6px -6px #777;
@@ -147,6 +151,13 @@
     background-color: green;
   }
 }
+.timeline div.time {
+  font-size: 1.5em;
+}
+
+.timeline dl dd .events .events-body .events-heading {
+  font-size: 1.4em;
+}
 
 .wikipedia {
   font-size: 0.8em;
@@ -157,4 +168,12 @@
 img.gift {
   width: auto;
   max-height: 192px;
+}
+
+ul, ol {
+    padding-left: 15pt;
+}
+
+.panel-heading, .panel-body {
+    padding: 8px;
 }
