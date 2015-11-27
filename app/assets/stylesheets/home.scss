@@ -11,19 +11,20 @@
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+  min-height: 460px;
 }
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 80px 0 50px;
+  padding: 60px 0 50px;
   color: #33bb9c;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading,
   .intro-header .post-heading,
   .intro-header .page-heading {
-    padding: 80px 0;
+    padding: 60px 0;
   }
 }
 .intro-header .site-heading,
@@ -33,7 +34,7 @@
 .intro-header .site-heading h1,
 .intro-header .page-heading h1 {
   margin-top: 0;
-  font-size: 80px;
+  font-size: 60px;
   font-weight: 600;
 }
 .intro-header .site-heading .subheading,
@@ -86,6 +87,7 @@
 
 /* About */
 .about {
+  margin-top: 20px;
   .feature .col-sm-4 {
     margin-top: 0px;
     margin-bottom: 20px;
@@ -109,14 +111,23 @@
   padding-bottom: 20px;
 }
 
-/* Services */
 .question {
+  position: relative;
   h3 {
     padding: 10px;
+  }
+  .progress {
+    position: absolute;
+    width: 80%;
+    bottom: 0;
   }
 }
 
 /* Topics */
+.topics .input-event {
+  margin: 20px;
+}
+
 .timeline dl dd .events {
   -webkit-box-shadow: 8px 8px 6px -6px #777;
    -moz-box-shadow: 8px 8px 6px -6px #777;
@@ -140,6 +151,13 @@
     background-color: green;
   }
 }
+.timeline div.time {
+  font-size: 1.5em;
+}
+
+.timeline dl dd .events .events-body .events-heading {
+  font-size: 1.4em;
+}
 
 .wikipedia {
   font-size: 0.8em;
@@ -150,4 +168,12 @@
 img.gift {
   width: auto;
   max-height: 192px;
+}
+
+ul, ol {
+    padding-left: 15pt;
+}
+
+.panel-heading, .panel-body {
+    padding: 8px;
 }

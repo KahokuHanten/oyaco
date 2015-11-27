@@ -4,123 +4,129 @@
   })
 </script>
 
-<div class="container-fluid">
-<!--タブ-->
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">イベント</a></li>
-  <li role="presentation"><a href="#tab2" data-toggle="tab">ローカル</a></li>
-  <li role="presentation"><a href="#tab3" data-toggle="tab">趣味</a></li>
-</ul>
-<!-- タブコンテンツ -->
-<div id="myTabContent" class="tab-content">
-  <!-- イベント -->
-  <div class="tab-pane fade in active" id="tab1">
-    <% if user_signed_in? %>
-    <div class="">
+<section class="topics">
+  <div class="container-fluid">
+    <div class="row input-event">
       <%= form_for [:users, @event], html: {class: "form-inline"} do |f| %>
+      <% unless user_signed_in? %>
+        <fieldset disabled>
+      <% end %>
         <div class='input-group date  datetimepicker'>
-          <%= f.text_field :date, data: { date_format: 'YYYY/MM/DD' }, class: 'form-control',
-            placeholder: 'YYYY/MM/DD' %>
-          <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-          </span>
+          <%= f.text_field :date, data: { date_format: 'YYYY/MM/DD' }, class: 'form-control', placeholder: 'YYYY/MM/DD' %>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
         <%= f.text_field :name, placeholder: "Name", class: "form-control" %>
         <%= f.submit '記念日を登録', class: "btn btn-default" %>
+        <% unless user_signed_in? %>
+          </fieldset>
+        <% end %>
       <% end %>
-      </div>
-    <% end %>
-
-    <div class="row">
-    <div class="col-xs-8">
-    <div class='timeline'>
-      <dl>
-        <% m = Month(Date.current) %>
-        <% m.upto(m + 12 ) do |m| %>
-          <dt><%= "#{m.year}年#{m.number}月" %></dt>
-          <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
-          <% m_topics.each_with_index do |topic, i| %>
-            <dd class="<%= timeline_pos(i) %> <%= "#{topic[:type]}" %> clearfix">
-              <div class="circ"></div>
-              <div class="time"><%= "#{topic[:date].day}日" %></div>
-              <div class="events">
-                <div class="pull-left">
-                  <% if topic[:image].present? %>
-                    <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
-                  <% else %>
-                    <%= image_tag "s64_f_event_13_0bg.png", class: "events-object img-rounded" %>
-                  <% end %>
-                </div>
-                <div class="events-body">
-                  <h4 class="events-heading"><%= topic[:title] %></h4>
-                  <% if topic[:wikipedia].present? %>
-                    <p class="wikipedia"><%= truncate(topic[:wikipedia], length: 100) %>
-                      <%= link_to "[Wikipedia]", "http://ja.wikipedia.org/wiki/#{topic[:name]}", target: "_new" %>
-                    </p>
-                  <% end %>
-                  <p><%= topic[:comment1] %></p>
-                  <p><%= topic[:comment2] %></p>
-                  <p><%= topic[:comment3] %></p>
-                  <% if topic[:message].present? %>
-                  <p>こんな言葉を贈ってはどうですか？</p>
-                  <p>「<%= topic[:message] %>」</p>
-                  <% end %>
-                  <% if topic[:item] %>
-                  <a href="<%= topic[:item][:url] %>" target="_new">
-                    <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
-                  </a>
-                  <% end %>
-                  <% if topic[:event] %>
-                    <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
-                  <% end %>
-                </div>
-              </div>
-            </dd>
-          <% end %> <!-- m_topics.each_with_index -->
-        <% end %> <!-- m.upto() -->
-      </dl>
-    </div>
-    </div>
-    <div class="col-xs-4">
-      <a class="twitter-timeline" href="https://twitter.com/search?q=%23%E8%A6%AA%E5%AD%9D%E8%A1%8C%20min_faves%3A1" data-widget-id="668742111487856640" target="_new">みんなの親孝行</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    </div>
-    </div>
   </div>
 
-  <!-- ローカル -->
-  <div class="tab-pane fade" id="tab2">
-    <ul class='list-group'>
-      <% if @pref_name.present? %>
-      <li class='list-group-item'>
-        <h4 class='list-group-item-heading'>お天気情報</h4>
+  <div class="row">
+  <div class="col-sm-8">
+  <div class='timeline'>
+    <dl>
+      <% m = Month(Date.current) %>
+      <% m.upto(m + 12 ) do |m| %>
+        <dt><%= "#{m.year}年#{m.number}月" %></dt>
+        <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
+        <% m_topics.each_with_index do |topic, i| %>
+          <dd class="<%= timeline_pos(i) %> <%= "#{topic[:type]}" %> clearfix">
+            <div class="circ"></div>
+            <div class="time"><%= "#{topic[:date].day}日" %></div>
+            <div class="events">
+              <div class="pull-left">
+                <% if topic[:image].present? %>
+                  <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
+                <% else %>
+                  <%= image_tag "s64_f_event_13_0bg.png", class: "events-object img-rounded" %>
+                <% end %>
+              </div>
+              <div class="events-body">
+                <h4 class="events-heading"><%= topic[:title] %></h4>
+                <% if topic[:wikipedia].present? %>
+                  <p class="wikipedia"><%= truncate(topic[:wikipedia], length: 100) %>
+                    <%= link_to "[Wikipedia]", "http://ja.wikipedia.org/wiki/#{topic[:name]}", target: "_new" %>
+                  </p>
+                <% end %>
+                <p><%= topic[:comment1] %></p>
+                <p><%= topic[:comment2] %></p>
+                <p><%= topic[:comment3] %></p>
+                <% if topic[:message].present? %>
+                <p>こんな言葉を贈ってはどうですか？</p>
+                <p>「<%= topic[:message] %>」</p>
+                <% end %>
+                <% if topic[:item] %>
+                  <a href="<%= topic[:item][:url] %>" target="_new">
+                  <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
+                </a>
+                <% end %>
+                <% if topic[:event] %>
+                  <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
+                <% end %>
+              </div>
+            </div>
+          </dd>
+        <% end %>
+      <% end %>
+    </dl>
+  </div>
+  </div>
+  <div class="col-sm-4">
+
+  <% if @pref_name.present? %>
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <h4 class="panel-title"><%= @pref_name %>情報</h4>
+      </div>
+      <div class="panel-body">
         <p><%= @pref_name %>は<%= @message %></p>
-      </li>
-      <li class='list-group-item'>
-        <h4 class='list-group-item-heading'><%= @pref_name %>のニュース</h4>
         <% if @googlenews["items"] %>
           <% @googlenews["items"].first(3).each do |news| %>
-            <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
+            <%= link_to news["title"], news["link"], target: "_new" %><br>
           <% end %>
         <% end %>
-      </li>
-    </ul>
-    <% end %>
-  </div>
-  <!-- 趣味 -->
-  <div class="tab-pane fade" id="tab3">
-    <ul class='list-group'>
-      <% @hobbys.each do |hobby| %>
-        <li class='list-group-item'>
-          <h4 class='list-group-item-heading'><%= hobby[:name] %>のニュース</h4>
+      </div>
+    </div>
+  <% end %>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">みんなの親孝行</h4>
+      </div>
+      <div class="panel-body">
+        <div class="pull-left">
+          <a href="https://twitter.com/intent/tweet?button_hashtag=%E8%A6%AA%E5%AD%9D%E8%A1%8C" class="twitter-hashtag-button" data-size="large" data-url="http://oyaco.herokuapp.com">Tweet #%E8%A6%AA%E5%AD%9D%E8%A1%8C</a>
+        </div>
+        <a class="twitter-timeline"
+          data-widget-id="670199121928523778"
+          href="https://twitter.com/TwitterDev"
+          height="600"
+          data-chrome="noborders noheader nofooter"
+        ></a>
+      </div>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h4 class="panel-title">趣味</h4>
+      </div>
+      <div class="panel-body">
+        <% @hobbys.each do |hobby| %>
+          <b><%= hobby[:name] %>のニュース</b>
           <% if hobby[:news]["items"] %>
+            <ul>
             <% hobby[:news]["items"].first(3).each do |news| %>
-              <a href="<%= news["link"] %>"><%= news["title"] %><br></a>
+              <li><%= link_to news["title"], news["link"], target: "_new" %></li>
             <% end %>
+            </ul>
           <% end %>
-        </li>
-      <% end %>
-    </ul>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 </div>
+</section>
