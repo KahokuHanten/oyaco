@@ -28,7 +28,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-cog fa-fw"></i>&nbsp; 設定 <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class="dropdown-header"><%= current_or_guest_user.name %></li>
+              <li class="dropdown-header"><%= current_or_guest_user.name %>&nbsp;<i class="fa fa-heart"></i>&nbsp;<%= current_user.sign_in_count*10 %>ポイント</li>
               <li role="separator" class="divider"></li>
               <%= li_link_to_push %>
               <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
