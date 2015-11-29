@@ -6,6 +6,9 @@ class Person < ActiveRecord::Base
 
   enum relation: %i(father mother)
 
+  MALE_AVERAGE_LIFE_SPAN = 80.50
+  FEMALE_AVERAGE_LIFE_SPAN = 86.83
+
   def location_name
     JpPrefecture::Prefecture.find(location).name
   end
@@ -19,6 +22,22 @@ class Person < ActiveRecord::Base
     age_r = 50 if age_r > 50
     age_r = 10 if age_r == 0
     age_r
+  end
+
+  def average_life_span
+    if self.relation == "father"
+      MALE_AVERAGE_LIFE_SPAN
+    else
+      FEMALE_AVERAGE_LIFE_SPAN
+    end
+  end
+
+  def remaining_time_to_life_span
+    if self.relation == "father"
+      (MALE_AVERAGE_LIFE_SPAN - (self.age + 1)).floor
+    else
+      (FEMALE_AVERAGE_LIFE_SPAN - (self.age + 1)).floor
+    end
   end
 
   def friendly_name

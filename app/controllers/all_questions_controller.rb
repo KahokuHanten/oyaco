@@ -23,6 +23,11 @@ class AllQuestionsController < ApplicationController
                              birthday: @q.dad,
                              location: @q.pref_code)
     father.save
+    if (e = current_user.events.find_by(person_id: father.id))
+      e.update(name: "お父さんの誕生日", date: @q.dad, kind: :birth, person_id: father.id)
+    else
+      current_user.events.create(name: "お父さんの誕生日", date: @q.dad, kind: :birth, person_id: father.id)
+    end
 
     mother = current_user.people.mother.first || Person.new
     mother.user = current_user
@@ -30,7 +35,12 @@ class AllQuestionsController < ApplicationController
                              birthday: @q.mom,
                              location: @q.pref_code)
     mother.save
-
+    if (e = current_user.events.find_by(person_id: mother.id))
+      e.update(name: "お母さんの誕生日", date: @q.mom, kind: :birth, person_id: mother.id)
+    else
+      current_user.events.create(name: "お母さんの誕生日", date: @q.mom, kind: :birth, person_id: mother.id)
+    end
+    
     redirect_to home_path
   end
 
