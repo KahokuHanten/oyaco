@@ -6,22 +6,25 @@
 
 <section class="topics">
   <div class="container-fluid">
-    <div class="row input-event">
-      <%= form_for [:users, @event], html: {class: "form-inline"} do |f| %>
-      <% unless user_signed_in? %>
-        <fieldset disabled>
-      <% end %>
-        <div class='input-group date  datetimepicker'>
-          <%= f.text_field :date, data: { date_format: 'YYYY/MM/DD' }, class: 'form-control', placeholder: 'YYYY/MM/DD' %>
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-        <%= f.text_field :name, placeholder: "Name", class: "form-control" %>
-        <%= f.submit '記念日を登録', class: "btn btn-default" %>
-        <% unless user_signed_in? %>
-          </fieldset>
-        <% end %>
-      <% end %>
-  </div>
+
+    <a href="#input-event" data-toggle="modal" class="btn btn-primary">記念日を追加</a></li>
+      <div id="input-event" class="modal">  <!-- Modal本体 -->
+        <div class="modal-dialog-lg"> <!-- Modalダイアログ部分 -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
+              <h4 class="modal-title">記念日を追加</h4>
+            </div>
+            <div class="modal-body">
+              <%= simple_form_for [:users, @event] do |f| %>
+                <%= f.input :date, as: :date_picker %>
+                <%= f.input :name %>
+                <%= f.button :submit %>
+              <% end %>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
 
   <div class="row">
   <div class="col-sm-8">

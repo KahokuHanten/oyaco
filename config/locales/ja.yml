@@ -10,7 +10,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -36,7 +36,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -193,3 +193,10 @@ ja:
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
     pm: 午後
+  datepicker:
+    dformat: '%Y/%m/%d'
+    pformat: 'YYYY/MM/DD'
+    weekstart: 0
+  timepicker:
+    pformat: '%R'
+    pformat: 'HH:mm'

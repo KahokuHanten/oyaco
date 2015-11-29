@@ -12,6 +12,7 @@
       <!--ロゴ表示の指定-->
       <%= link_to "OYACO", root_path, class: "navbar-brand" %>
     </div>
+
     <!--スマホ用の画面幅が小さいときの表示を非表示にする-->
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -20,6 +21,7 @@
           <% unless user_signed_in? %>
             <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
           <% end %>
+
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
