@@ -45,7 +45,7 @@
                   <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
                 </a>
                 <% end %>
-                <% if topic[:event] %>
+                <% if topic[:type] == :user %>
                   <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
                 <% end %>
               </div>
