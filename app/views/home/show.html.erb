@@ -28,7 +28,11 @@
   <div class='timeline'>
     <dl>
       <% m = Month(Date.current) %>
-      <% m.upto(m + 12 ) do |m| %>
+      <%
+         display_month = 12
+         display_month = user_signed_in? || 6
+         m.upto(m + display_month ) do |m|
+      %>
         <dt><%= "#{m.year}年#{m.number}月" %></dt>
         <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
         <% m_topics.each_with_index do |topic, i| %>
@@ -71,6 +75,17 @@
         <% end %>
       <% end %>
     </dl>
+    <% unless user_signed_in? %>
+    <button class="btn btn-primary btn-block regist-recommend" data-toggle="collapse"  href="#collapseExample"><i class="fa fa-user-plus fa-lg"></i>OYACOにユーザ登録にしてみませんか？</button>
+    <div class="collapse" id="collapseExample">
+      <div class="well">
+        <p>OYACOにユーザ登録すると便利な機能がご利用いただけます。</p>
+        <p><h5><i class="fa fa-paper-plane"></i>イベントのお知らせ機能</h5>親孝行イベントの1ヶ月前からご登録メールアドレスにお知らせメールを送付します。</p>
+        <p><h5><i class="fa fa-calendar"></i>記念日の登録機能</h5>独自の記念日を登録することが出来ます。(例)実家に帰省:8月10日,結婚記念日:11月22日</p>
+        <a class="btn btn-primary" href="<%= new_user_registration_path %>"><i class="fa fa-plus"></i>ユーザ登録する</a>
+      </div>
+    </div>
+    <% end %>
   </div>
   </div>
   <div class="col-sm-4">
