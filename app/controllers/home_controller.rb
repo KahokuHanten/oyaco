@@ -72,6 +72,7 @@ class HomeController < ApplicationController
       current_user.events.each do |event|
         if event.birth?
           type = :birthday
+          date = event.next_date
           title = "#{event.next_date.strftime('%Y年%-m月%e日')} は #{event.person.friendly_name} の #{event.person.age + 1} 歳の誕生日"
           comment1 = (get_comment_by_age(event.person.age + 1)).html_safe
           comment2 = birthday_comment(event.person)
@@ -80,12 +81,13 @@ class HomeController < ApplicationController
           item =  Present.item(event.person)
         else
           type = :user
+          date = event.date
           title = event.next_date.strftime('%Y年%-m月%e日') + 'は' + event.name
           image = EventData.find_by_name(event.name).try(:image)
         end
 
         @topics.push(
-          type: type, event: event, date: event.date, title: title, name: event.name,
+          type: type, event: event, date: date, title: title, name: event.name,
           image: image, item: item,
           comment1: comment1,
           comment2: comment2,
