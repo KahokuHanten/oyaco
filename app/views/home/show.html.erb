@@ -6,29 +6,8 @@
 
 <section class="topics">
   <div class="container-fluid">
-
-    <a href="#input-event" data-toggle="modal" class="btn btn-primary">記念日を追加</a></li>
-      <div id="input-event" class="modal">  <!-- Modal本体 -->
-        <div class="modal-dialog-lg"> <!-- Modalダイアログ部分 -->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
-              <h4 class="modal-title">記念日を追加</h4>
-            </div>
-            <div class="modal-body">
-              <%= simple_form_for [:users, @event] do |f| %>
-                <%= f.input :date, as: :date_picker %>
-                <%= f.input :name %>
-                <%= f.button :submit %>
-              <% end %>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-
   <div class="row">
-  <div class="col-sm-8">
-  <div class='timeline'>
+  <div class="timeline col-sm-8">
     <dl>
       <% m = Month(Date.current) %>
       <% m.upto(m + 12 ) do |m| %>
@@ -38,7 +17,8 @@
           <dd class="<%= timeline_pos(i) %> <%= "#{topic[:type]}" %> clearfix">
             <div class="circ"></div>
             <div class="time"><%= "#{topic[:date].day}日" %></div>
-            <div class="events">
+
+            <div class="events" <%= "id=event#{topic[:id]}" if topic[:id].present? %> >
               <div class="pull-left">
                 <% if topic[:image].present? %>
                   <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
@@ -74,7 +54,6 @@
         <% end %>
       <% end %>
     </dl>
-  </div>
   </div>
   <div class="col-sm-4">
 
@@ -133,3 +112,21 @@
 </div>
 </div>
 </section>
+
+<div id="input-event" class="modal fade">  <!-- Modal本体 -->
+  <div class="modal-dialog"> <!-- Modalダイアログ部分 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
+        <h4 class="modal-title">記念日を追加</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for [:users, @event] do |f| %>
+          <%= f.input :date, as: :date_picker %>
+          <%= f.input :name %>
+          <%= f.button :submit %>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

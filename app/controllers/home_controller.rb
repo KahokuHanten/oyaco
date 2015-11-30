@@ -95,6 +95,7 @@ class HomeController < ApplicationController
       current_user.events.each do |event|
         @topics.push(
           type: :user,
+          id: event.id,
           event: event,
           date: event.date,
           title: event.date.strftime('%Y年%-m月%e日') + 'は' + event.name,

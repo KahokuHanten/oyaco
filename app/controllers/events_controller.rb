@@ -4,10 +4,11 @@ class EventsController < ApplicationController
     @event = @user.events.create(event_params)
     if @event.errors.present?
       flash[:alert] = "登録できませんでした #{@event.errors.full_messages.join(" ")}"
+      redirect_to home_path
     else
       flash[:notice] = "登録しました"
+      redirect_to home_path anchor: "event#{@event.id}"
     end
-    redirect_to home_path
   end
 
   def destroy

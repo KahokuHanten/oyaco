@@ -200,3 +200,13 @@ ja:
   timepicker:
     pformat: '%R'
     pformat: 'HH:mm'
+  activerecord:
+    attributes:
+      event:
+        name: '名前'
+        date: '日付'
+      user:
+       name: 名前
+       password: パスワード
+       password_confirmation: パスワード確認
+       email: メールアドレス
