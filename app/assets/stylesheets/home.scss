@@ -141,6 +141,12 @@
 .topics .input-event {
   margin: 20px;
 }
+.anchor{
+  display: block;
+  height: 51px; /*same height as header*/
+  margin-top: -51px; /*same height as header*/
+  visibility: hidden;
+}
 
 .timeline {
   margin-bottom: 10px;
