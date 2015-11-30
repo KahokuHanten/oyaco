@@ -26,7 +26,11 @@ class QuestionController < ApplicationController
                                  birthday: @q.dad,
                                  location: @q.pref_code)
         father.save
-        current_user.events.create(name: "お父さんの誕生日", date: @q.dad, kind: :birth, person_id: father.id)
+        if (e = current_user.events.find_by(person_id: father.id))
+          e.update(name: "お父さんの誕生日", date: @q.dad, kind: :birth, person_id: father.id)
+        else
+          current_user.events.create(name: "お父さんの誕生日", date: @q.dad, kind: :birth, person_id: father.id)
+        end
       end
     when :mom
       if user_signed_in?
@@ -36,7 +40,11 @@ class QuestionController < ApplicationController
                                  birthday: @q.mom,
                                  location: @q.pref_code)
         mother.save
-        current_user.events.create(name: "お母さんの誕生日", date: @q.dad, kind: :birth, person_id: mother.id)
+        if (e = current_user.events.find_by(person_id: mother.id))
+          e.update(name: "お母さんの誕生日", date: @q.mom, kind: :birth, person_id: mother.id)
+        else
+          current_user.events.create(name: "お母さんの誕生日", date: @q.mom, kind: :birth, person_id: mother.id)
+        end
       end
     end
     render_wizard @q
