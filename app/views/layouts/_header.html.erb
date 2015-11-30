@@ -17,7 +17,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <% if request.path == '/home' %>
-          <li><a href="#input-event" data-toggle="modal"><i class="fa fa-calendar-plus-o fa-lg"></i> 記念日を追加</a></li>
+          <%= li_link_to_input_event %>
           <%= li_link_to_tel %>
           <% unless user_signed_in? %>
             <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
