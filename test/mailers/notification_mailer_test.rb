@@ -3,9 +3,10 @@ require 'test_helper'
 class NotificationMailerTest < ActionMailer::TestCase
   test "event_email" do
     # メールを送信後キューに追加されるかどうかをテスト
-    user = User.find(1)
-    events = [Holiday.find(1), Holiday.find(2) ]
-    email = NotificationMailer.event_mail(user, events).deliver_now
+    user = User.find(2)
+    holidays = Holiday.all
+    events = [Event.find(3)]
+    email = NotificationMailer.event_mail(user, events, holidays).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
     # 送信されたメールの本文が期待どおりの内容であるかどうかをテスト

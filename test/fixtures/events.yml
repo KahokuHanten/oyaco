@@ -1,11 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: MyString
   date: 2015-11-25
   user_id: 2
 
 two:
+  id: 2
   name: MyString
   date: 2015-11-25
   user_id: 2
+
+three:
+  id: 3
+  name: お父さんの誕生日
+  kind: 0
+  date: 1950-02-22
+  user_id: 2
+  person_id: 2

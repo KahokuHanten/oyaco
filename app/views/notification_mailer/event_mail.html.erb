@@ -1,8 +1,16 @@
 <h1><%= @user.name %>さん、<a href="https://oyaco.herokuapp.com">OYACO</a>からお知らせです。</h1>
 <p>
 <% @events.each do |event| %>
-<%= event.date.strftime('%Y年%-m月%e日') %>は<b>「<%= event.name %>」</b>です。
-<%= EventData.find_by_name(event.name).try(:comment) %>
+<% remaining_day = (event.next_date - Date.current).to_i %>
+<%= "<b>「#{event.name}」（#{event.next_date.strftime('%Y年%-m月%e日')}）</b>まで、あと<b>#{remaining_day}日</b>です。".html_safe %>
+<%= birthday_comment(event.person) if event.birth? %>
+<br>
+<% end %>
+</p>
+<p>
+<% @holidays.each do |holiday| %>
+<%= "#{holiday.date.strftime('%Y年%-m月%e日')}は<b>「#{holiday.name}」</b>です。".html_safe %>
+<%= EventData.find_by_name(holiday.name).try(:comment) %>
 <br>
 <% end %>
 </p>

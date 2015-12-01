@@ -10,10 +10,10 @@ one:
 
 two:
   id: 2
-  user_id:
-  name: MyString
+  user_id: 2
+  name: お父さん
   relation: 1
-  birthday: 2015-10-15
+  birthday: 1950-02-22
   location: 1
 
 three:

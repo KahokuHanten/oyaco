@@ -1,12 +1,8 @@
-class MessageGenerator
-  def initialize(warnings)
-    @warnings = warnings
-  end
-
-  def generate
+module NewsHelper
+  def warning_comment(warnings)
     messages = []
     warning = false
-    @warnings.each do |w|
+    warnings.each do |w|
       case w
       when /発表されていません。/
       when /波浪/
