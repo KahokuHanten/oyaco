@@ -9,13 +9,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!--ロゴ表示の指定-->
+      </ul>
       <%= link_to "OYACO", root_path, class: "navbar-brand" %>
     </div>
+
     <!--スマホ用の画面幅が小さいときの表示を非表示にする-->
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <% if request.path == '/home' %>
+          <%= li_link_to_input_event %>
           <%= li_link_to_tel %>
           <% unless user_signed_in? %>
             <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
@@ -24,12 +26,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
+          <li><a href="#"><b><%= current_or_guest_user.name %>&nbsp;<i class="fa fa-heart"></i>&nbsp;<%= current_user.sign_in_count*10 %>pt</b></a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-cog fa-fw"></i>&nbsp; 設定 <span class="caret"></span></a>
+              <i class="fa fa-cog fa-lg"></i>&nbsp; 設定 <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class="dropdown-header"><%= current_or_guest_user.name %>&nbsp;<i class="fa fa-heart"></i>&nbsp;<%= current_user.sign_in_count*10 %>ポイント</li>
-              <li role="separator" class="divider"></li>
               <%= li_link_to_push %>
               <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
               <li><%= link_to raw('<i class="fa fa-user fa-fw"></i>&nbsp; ログイン情報更新'), edit_user_registration_path %></li>

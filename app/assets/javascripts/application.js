@@ -16,4 +16,10 @@
 //= require_tree .
 //= require bootstrap-sprockets
 //= require moment
+//= require moment/ja
 //= require bootstrap-datetimepicker
+//= require pickers
+//= require twitter/bootstrap/rails/confirm
+
+$.fn.twitter_bootstrap_confirmbox.defaults.title = "記念日を削除";
+$.fn.twitter_bootstrap_confirmbox.defaults.fade = true;
