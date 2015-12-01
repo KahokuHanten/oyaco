@@ -16,9 +16,9 @@ class Event < ActiveRecord::Base
     next_date
   end
 
-  def next_times
+  def next_times # 初めてが0、その次が1=1回目の記念日
     next_date = Date.new(Date.current.year, self.date.month, self.date.day)
-    next_times = Date.current.year - self.date.year + 1
+    next_times = Date.current.year - self.date.year
     if next_date < Date.current # including today
       next_times += 1
     end

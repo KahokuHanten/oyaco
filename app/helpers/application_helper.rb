@@ -50,4 +50,10 @@ module ApplicationHelper
     pref = JpPrefecture::Prefecture.find(name: name)
     pref.code.to_s
   end
+
+  def format_date(date)
+    return '' unless date
+    format = '%Y年%-m月%e日'
+    date.strftime(format)
+  end
 end

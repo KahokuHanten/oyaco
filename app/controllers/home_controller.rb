@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   #  before_action :authenticate_user!, only: :show
   include PeopleHelper
   include NewsHelper
+  include ApplicationHelper
 
   def disclaimer
   end
@@ -44,7 +45,7 @@ class HomeController < ApplicationController
           @topics.push(
             type: :birthday,
             date: person.next_birthday,
-            title: "#{person.next_birthday.strftime('%Y年%-m月%e日')} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
+            title: "#{format_date(person.next_birthday)} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
             comment1: (get_comment_by_age(person.age + 1)).html_safe,
             comment2: birthday_comment(person),
             comment3: 'こんなプレゼントはいかがですか？',
@@ -60,7 +61,7 @@ class HomeController < ApplicationController
       @topics.push(
         type: :holiday,
         date: holiday.date,
-        title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
+        title: format_date(holiday.date) + 'は' + holiday.name,
         name: holiday.name,
         comment1: EventData.find_by_name(holiday.name).try(:comment),
         wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
@@ -74,8 +75,7 @@ class HomeController < ApplicationController
       current_user.events.each do |event|
         if event.birth?
           type = :birthday
-          date = event.next_date
-          title = "#{event.next_date.strftime('%Y年%-m月%e日')} は #{event.person.friendly_name} の #{event.person.age + 1} 歳の誕生日"
+          title = "#{format_date(event.next_date)} は #{event.person.friendly_name} の #{event.person.age + 1} 歳の誕生日"
           comment1 = (get_comment_by_age(event.person.age + 1)).html_safe
           comment2 = birthday_comment(event.person)
           comment3 = 'こんなプレゼントはいかがですか？'
@@ -83,17 +83,15 @@ class HomeController < ApplicationController
           item =  Present.item(event.person)
         else
           type = :user
-          date = event.date
-          title = event.next_date.strftime('%Y年%-m月%e日') + 'は' + event.name
+          comment1 = event.next_times.to_s + '回目の記念日です。' unless event.next_times == 0
+          title = "#{format_date(event.next_date)}は #{event.name}"
           image = EventData.find_by_name(event.name).try(:image)
         end
 
         @topics.push(
-          type: type, event: event, date: date, title: title, name: event.name,
+          type: type, event: event, date: event.next_date, title: title, name: event.name,
           image: image, item: item,
-          comment1: comment1,
-          comment2: comment2,
-          comment3: comment3)
+          comment1: comment1, comment2: comment2, comment3: comment3)
       end
     end
 
