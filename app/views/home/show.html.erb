@@ -6,32 +6,15 @@
 
 <section class="topics">
   <div class="container-fluid">
-    <div class="row input-event">
-      <%= form_for [:users, @event], html: {class: "form-inline"} do |f| %>
-      <% unless user_signed_in? %>
-        <fieldset disabled>
-      <% end %>
-        <div class='input-group date  datetimepicker'>
-          <%= f.text_field :date, data: { date_format: 'YYYY/MM/DD' }, class: 'form-control', placeholder: 'YYYY/MM/DD' %>
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-        <%= f.text_field :name, placeholder: "Name", class: "form-control" %>
-        <%= f.submit '記念日を登録', class: "btn btn-default" %>
-        <% unless user_signed_in? %>
-          </fieldset>
-        <% end %>
-      <% end %>
-  </div>
-
   <div class="row">
-  <div class="col-sm-8">
-  <div class='timeline'>
+  <div class="timeline col-sm-8">
     <dl>
       <% m = Month(Date.current) %>
       <% m.upto(m + 12 ) do |m| %>
         <dt><%= "#{m.year}年#{m.number}月" %></dt>
         <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
         <% m_topics.each_with_index do |topic, i| %>
+          <span class="anchor" <%= "id=event#{topic[:id]}" if topic[:id].present? %> ></span>
           <dd class="<%= timeline_pos(i) %> <%= "#{topic[:type]}" %> clearfix">
             <div class="circ"></div>
             <div class="time"><%= "#{topic[:date].day}日" %></div>
@@ -71,7 +54,6 @@
         <% end %>
       <% end %>
     </dl>
-  </div>
   </div>
   <div class="col-sm-4">
 
@@ -129,3 +111,21 @@
 </div>
 </div>
 </section>
+
+<div id="input-event" class="modal fade">  <!-- Modal本体 -->
+  <div class="modal-dialog"> <!-- Modalダイアログ部分 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
+        <h4 class="modal-title">記念日を追加</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for [:users, @event] do |f| %>
+          <%= f.input :date, as: :date_picker %>
+          <%= f.input :name %>
+          <%= f.button :submit %>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

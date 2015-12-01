@@ -87,6 +87,7 @@ class HomeController < ApplicationController
         end
 
         @topics.push(
+          id: event.id,
           type: type, event: event, date: date, title: title, name: event.name,
           image: image, item: item,
           comment1: comment1,

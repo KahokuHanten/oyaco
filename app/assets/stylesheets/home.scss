@@ -85,6 +85,17 @@
   }
 }
 
+/* Navigation */
+.navbar-toggle {
+  margin-left: 15pt;
+}
+
+#input-event {
+  .modal-body {
+    min-height: 320px;
+  }
+}
+
 /* About */
 .about {
   margin-top: 20px;
@@ -124,10 +135,22 @@
 }
 
 /* Topics */
+.topics {
+  margin-top: 15px;
+}
 .topics .input-event {
   margin: 20px;
 }
+.anchor{
+  display: block;
+  height: 51px; /*same height as header*/
+  margin-top: -51px; /*same height as header*/
+  visibility: hidden;
+}
 
+.timeline {
+  margin-bottom: 10px;
+}
 .timeline dl dd .events {
   -webkit-box-shadow: 8px 8px 6px -6px #777;
    -moz-box-shadow: 8px 8px 6px -6px #777;
