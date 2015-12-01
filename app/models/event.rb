@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   validates :date, presence: true
 
   def next_date  # FIXME: うるう年を考慮していない
+    return self.date if Date.current <= self.date # まだ一度も来ていない
     next_date = Date.new(Date.current.year, self.date.month, self.date.day)
     if next_date < Date.current # including today
       next_date = Date.new(Date.current.year + 1, self.date.month, self.date.day)
@@ -17,20 +18,24 @@ class Event < ActiveRecord::Base
   end
 
   def next_times # 初めてが0、その次が1=1回目の記念日
-    next_date = Date.new(Date.current.year, self.date.month, self.date.day)
+    return 0 if Date.current <= self.date # まだ一度も来ていない
     next_times = Date.current.year - self.date.year
+    next_date = Date.new(Date.current.year, self.date.month, self.date.day)
     if next_date < Date.current # including today
-      next_times += 1
+      next_date = Date.new(Date.current.year + 1, self.date.month, self.date.day)
     end
     next_times
   end
 
-  # 当日、7日前、14日前、21日前、28日前に通知
-  scope :notice, -> {
+  def self.notification_filter(events)
     notice_dates = []
     (0..4).each do |i|
-      notice_dates.push(Date.current.days_since(i * 7).strftime('%m%d'))
+      notice_dates.push(Date.current.days_since(i * 7))
     end
-    where("to_char(date, 'mmdd') IN (?)", notice_dates)
-  }
+    filtered = []
+    events.each do |e|
+      filtered.push(e) if notice_dates.include?(e.next_date)
+    end
+    filtered
+  end
 end
