@@ -1,4 +1,4 @@
-class BrowserNotice
+class NotificationBrowser
   def self.chrome_notice(subscription_id)
     uri = URI.parse("https://android.googleapis.com/gcm/send")
     https = Net::HTTP.new(uri.host, uri.port)

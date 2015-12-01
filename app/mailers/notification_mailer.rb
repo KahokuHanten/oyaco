@@ -1,7 +1,7 @@
 class NotificationMailer < ApplicationMailer
   add_template_helper(PeopleHelper)
 
-  def event_mail(user, events, holidays)
+  def mail_notice(user, events, holidays)
     @user = user
     @events = events
     @holidays = holidays

@@ -25,6 +25,7 @@ class Event < ActiveRecord::Base
     next_times
   end
 
+  # 当日、7日前、14日前、21日前、28日前に通知
   scope :notice, -> {
     notice_dates = []
     (0..4).each do |i|

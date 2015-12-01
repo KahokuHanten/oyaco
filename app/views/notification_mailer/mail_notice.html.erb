@@ -2,7 +2,11 @@
 <p>
 <% @events.each do |event| %>
 <% remaining_day = (event.next_date - Date.current).to_i %>
+<% if remaining_day == 0 %>
+<%= "今日は<b>「#{event.name}」（#{event.next_date.strftime('%Y年%-m月%e日')}）</b>です！".html_safe %>
+<% else %>
 <%= "<b>「#{event.name}」（#{event.next_date.strftime('%Y年%-m月%e日')}）</b>まで、あと<b>#{remaining_day}日</b>です。".html_safe %>
+<% end %>
 <%= birthday_comment(event.person) if event.birth? %>
 <br>
 <% end %>

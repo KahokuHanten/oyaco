@@ -7,7 +7,7 @@ namespace :notice do
         # check events to be notified
         events = user.events.notice
         if holidays.present? || events.present?
-          NotificationMailer.event_mail(user, events, holidays).deliver
+          NotificationMailer.mail_notice(user, events, holidays).deliver
         end
       end
     end
