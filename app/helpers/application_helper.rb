@@ -28,6 +28,18 @@ module ApplicationHelper
     end
   end
 
+  def li_link_to_input_event
+    if user_signed_in?
+      content_tag :li do
+        link_to raw('<i class="fa fa-calendar-plus-o fa-lg"></i>&nbsp; 記念日を追加'), "#input-event", 'data-toggle': "modal"
+      end
+    else
+      content_tag :li, class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "ユーザー登録が必要です" do
+        link_to raw('<i class="fa fa-calendar-plus-o fa-lg"></i>&nbsp; 記念日を追加'), 'javascript:void(0)'
+      end
+    end
+  end
+
   def li_link_to_push
     if push_support?
       menu_text = current_user.subscription_id.blank? ? 'イベント通知登録' : 'イベント通知解除'
