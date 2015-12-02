@@ -11,8 +11,7 @@
     <dl>
       <% m = Month(Date.current) %>
       <%
-         display_month = 12
-         display_month = user_signed_in? || 6
+         display_month = user_signed_in? ? 12 : 6
          m.upto(m + display_month ) do |m|
       %>
         <dt><%= "#{m.year}年#{m.number}月" %></dt>
