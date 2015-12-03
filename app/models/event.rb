@@ -22,7 +22,9 @@ class Event < ActiveRecord::Base
     next_times = Date.current.year - self.date.year
     next_date = Date.new(Date.current.year, self.date.month, self.date.day)
     if next_date < Date.current # including today
+      # すでに今年は過ぎているので、翌年に
       next_date = Date.new(Date.current.year + 1, self.date.month, self.date.day)
+      next_times += 1
     end
     next_times
   end
