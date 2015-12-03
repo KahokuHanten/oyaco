@@ -2,6 +2,11 @@
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+
+  function inputNote(noteTitle, eventId) {
+    $("#input_note_title").text(noteTitle+"のメモを追加")
+    $("#input_note_id").val(eventId)
+  }
 </script>
 
 <section class="topics">
@@ -49,7 +54,7 @@
                 </a>
                 <% end %>
                 <% if topic[:id].present? %>
-                  <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal", caption: topic[:name]}, class: "pull-right bottom-aligned-text" %>
+                  <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal"}, onclick: ("inputNote('"+topic[:name]+"','"+topic[:id].to_s+"')").html_safe, class: "pull-right bottom-aligned-text" %>
                 <% end %>
                 <% if topic[:type] == :user %>
                   <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
@@ -152,10 +157,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
-        <h4 class="modal-title">メモを追加</h4>
+        <h4 id="input_note_title" class="modal-title">メモを追加</h4>
       </div>
       <div class="modal-body">
         <%= simple_form_for [:users, @note] do |f| %>
+          <input type="hidden" id="input_note_id" name="input_note_id" value="">
           <%= f.input :body %>
           <%= f.button :submit %>
         <% end %>
