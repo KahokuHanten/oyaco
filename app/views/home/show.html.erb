@@ -10,7 +10,10 @@
   <div class="timeline col-sm-8">
     <dl>
       <% m = Month(Date.current) %>
-      <% m.upto(m + 12 ) do |m| %>
+      <%
+         display_month = user_signed_in? ? 12 : 6
+         m.upto(m + display_month ) do |m|
+      %>
         <dt><%= "#{m.year}年#{m.number}月" %></dt>
         <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
         <% m_topics.each_with_index do |topic, i| %>
@@ -54,6 +57,17 @@
         <% end %>
       <% end %>
     </dl>
+    <% unless user_signed_in? %>
+    <button class="btn btn-primary btn-block regist-recommend h4" data-toggle="collapse"  href="#collapseExample">OYACO始めてみませんか？</button>
+    <div class="collapse" id="collapseExample">
+      <div class="well">
+        <p>OYACOにユーザ登録すると便利な機能がご利用いただけます。</p>
+        <p><h5><i class="fa fa-paper-plane"></i>イベントのお知らせ</h5>親孝行イベントの1ヶ月前からご登録メールアドレスにお知らせメールを送付します。</p>
+        <p><h5><i class="fa fa-calendar"></i>記念日の登録</h5>あなただけの記念日をOYACOイベントに登録できます。</p>
+        <a class="btn btn-primary" href="<%= new_user_registration_path %>"><i class="fa fa-plus"></i>ユーザ登録する</a>
+      </div>
+    </div>
+    <% end %>
   </div>
   <div class="col-sm-4">
 
