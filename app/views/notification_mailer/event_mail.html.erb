@@ -1,8 +1,0 @@
-<h1><%= @user.name %>さん、<a href="https://oyaco.herokuapp.com">OYACO</a>からお知らせです。</h1>
-<p>
-<% @events.each do |event| %>
-<%= event.date.strftime('%Y年%-m月%e日') %>は<b>「<%= event.name %>」</b>です。
-<%= EventData.find_by_name(event.name).try(:comment) %>
-<br>
-<% end %>
-</p>

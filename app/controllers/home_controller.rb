@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
   #  before_action :authenticate_user!, only: :show
+  include PeopleHelper
+  include NewsHelper
+  include ApplicationHelper
 
   def disclaimer
   end
@@ -42,7 +45,7 @@ class HomeController < ApplicationController
           @topics.push(
             type: :birthday,
             date: person.next_birthday,
-            title: "#{person.next_birthday.strftime('%Y年%-m月%e日')} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
+            title: "#{format_date(person.next_birthday)} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
             comment1: (get_comment_by_age(person.age + 1)).html_safe,
             comment2: birthday_comment(person),
             comment3: 'こんなプレゼントはいかがですか？',
@@ -58,7 +61,7 @@ class HomeController < ApplicationController
       @topics.push(
         type: :holiday,
         date: holiday.date,
-        title: holiday.date.strftime('%Y年%-m月%e日') + 'は' + holiday.name,
+        title: format_date(holiday.date) + 'は' + holiday.name,
         name: holiday.name,
         comment1: EventData.find_by_name(holiday.name).try(:comment),
         wikipedia: EventData.find_by_name(holiday.name).try(:wikipedia),
@@ -72,8 +75,7 @@ class HomeController < ApplicationController
       current_user.events.each do |event|
         if event.birth?
           type = :birthday
-          date = event.next_date
-          title = "#{event.next_date.strftime('%Y年%-m月%e日')} は #{event.person.friendly_name} の #{event.person.age + 1} 歳の誕生日"
+          title = "#{format_date(event.next_date)} は #{event.person.friendly_name} の #{event.person.age + 1} 歳の誕生日"
           comment1 = (get_comment_by_age(event.person.age + 1)).html_safe
           comment2 = birthday_comment(event.person)
           comment3 = 'こんなプレゼントはいかがですか？'
@@ -81,18 +83,16 @@ class HomeController < ApplicationController
           item =  Present.item(event.person)
         else
           type = :user
-          date = event.date
-          title = event.next_date.strftime('%Y年%-m月%e日') + 'は' + event.name
+          comment1 = event.next_times.to_s + '回目の記念日です。' unless event.next_times == 0
+          title = "#{format_date(event.next_date)}は #{event.name}"
           image = EventData.find_by_name(event.name).try(:image)
         end
 
         @topics.push(
           id: event.id,
-          type: type, event: event, date: date, title: title, name: event.name,
+          type: type, event: event, date: event.next_date, title: title, name: event.name,
           image: image, item: item,
-          comment1: comment1,
-          comment2: comment2,
-          comment3: comment3)
+          comment1: comment1, comment2: comment2, comment3: comment3)
       end
     end
 
@@ -105,8 +105,8 @@ class HomeController < ApplicationController
     if pref_code.present?
       @pref_code = pref_code
       @pref_name = view_context.pref_code2name(pref_code)
-      @warnings = News.weather_warnings(pref_code)
-      @message = MessageGenerator.new(@warnings).generate
+      warnings = News.weather_warnings(pref_code)
+      @warning_comment = warning_comment(warnings)
       @googlenews = News.local(@pref_name)
     end
 
@@ -121,45 +121,5 @@ class HomeController < ApplicationController
 
     # 電話番号
     @tel = questionnaire.tel || ''
-  end
-
-  def birthday_comment(person)
-    return unless person.birthday?
-    if person.relation == "father"
-      category = '日本人男性'
-    else
-      category = '日本人女性'
-    end
-
-    remaining_time_to_life_span = person.remaining_time_to_life_span
-    if remaining_time_to_life_span == 0
-      birthday_comment = "今回では#{category}の平均寿命（ #{person.average_life_span} 歳）になります。"
-    elsif remaining_time_to_life_span < 0
-      birthday_comment = "#{category}の平均寿命は#{person.average_life_span} 歳です。ご長寿ですね。 "
-    elsif remaining_time_to_life_span > 0
-      birthday_comment = "あと#{remaining_time_to_life_span}年で、#{category}の平均寿命（#{person.average_life_span}）になります。"
-    end
-    return birthday_comment
-  end
-
-  def get_comment_by_age(age)
-    case age
-    when 61
-      '61歳は還暦です。【出典・由来】干支が60年後に出生時の干支に還って（かえって）くるため。'
-    when 70
-      '70歳は古希です。【出典・由来】「人生七十、古来稀なり」の詩（杜甫「曲江」）より。'
-    when 77
-      '77歳は喜寿です。【出典・由来】「喜」の草体が七十七のように見えるため。'
-    when 80
-      '80歳は傘寿です。【出典・由来】「傘」の字を略すと八十に見えるため。'
-    when 88
-      '88歳は米寿です。【出典・由来】「米」の字が八十八と分解できるため。'
-    when 90
-      '90歳は卒寿です。【出典・由来】「卒」の略字（卆）が九十と分解できるため。'
-    when 99
-      '99歳は白寿です。【出典・由来】「百」の字から一をとると白になる事から。'
-    else
-      ''
-    end
   end
 end

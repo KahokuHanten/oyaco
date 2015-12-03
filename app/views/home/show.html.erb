@@ -77,7 +77,7 @@
         <h4 class="panel-title"><%= @pref_name %>情報</h4>
       </div>
       <div class="panel-body">
-        <p><%= @pref_name %>は<%= @message %></p>
+        <p><%= @pref_name %>は<%= @warning_comment %></p>
         <% if @googlenews["items"] %>
           <% @googlenews["items"].first(3).each do |news| %>
             <%= link_to news["title"], news["link"], target: "_new" %><br>

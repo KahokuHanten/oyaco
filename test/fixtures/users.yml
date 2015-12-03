@@ -8,3 +8,7 @@ two:
   id: 2
   name: MyString
   email: two@example.com
+three:
+  id: 3
+  name: MyString
+  email: three@example.com
