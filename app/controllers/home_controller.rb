@@ -13,6 +13,7 @@ class HomeController < ApplicationController
 
     @user = current_user
     @event = Event.new
+    @note = Note.new
     questionnaire = Questionnaire.new
     questionnaire.restore_attributes_from_cookies(cookies)
     build_topics(questionnaire) if questionnaire.present?
