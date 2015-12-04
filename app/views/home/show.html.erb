@@ -2,6 +2,11 @@
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+
+  function inputNote(noteTitle, eventId) {
+    $("#input_note_title").text(noteTitle+"のメモを追加")
+    $("#input_note_id").val(eventId)
+  }
 </script>
 
 <section class="topics">
@@ -47,6 +52,10 @@
                   <a href="<%= topic[:item][:url] %>" target="_new">
                   <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
                 </a>
+                <% end %>
+                <p><%= topic[:note] %></p>
+                <% if topic[:id].present? %>
+                  <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal"}, onclick: ("inputNote('"+topic[:name]+"','"+topic[:id].to_s+"')").html_safe, class: "pull-right bottom-aligned-text" %>
                 <% end %>
                 <% if topic[:type] == :user %>
                   <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
@@ -138,6 +147,24 @@
         <%= simple_form_for [:users, @event] do |f| %>
           <%= f.input :date, as: :date_picker %>
           <%= f.input :name %>
+          <%= f.button :submit %>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="input-event-note" class="modal fade">  <!-- Modal本体 -->
+  <div class="modal-dialog"> <!-- Modalダイアログ部分 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
+        <h4 id="input_note_title" class="modal-title">メモを追加</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for [:users, @note] do |f| %>
+          <input type="hidden" id="input_note_id" name="input_note_id" value="">
+          <%= f.input :body %>
           <%= f.button :submit %>
         <% end %>
       </div>

@@ -16,6 +16,7 @@ class HomeController < ApplicationController
 
     @user = current_user
     @event = Event.new
+    @note = Note.new
     questionnaire = Questionnaire.new
     questionnaire.restore_attributes_from_cookies(cookies)
     build_topics(questionnaire) if questionnaire.present?
@@ -87,12 +88,14 @@ class HomeController < ApplicationController
           title = "#{format_date(event.next_date)}は #{event.name}"
           image = EventData.find_by_name(event.name).try(:image)
         end
+        note = event.notes.last.try(:body)
 
         @topics.push(
           id: event.id,
           type: type, event: event, date: event.next_date, title: title, name: event.name,
           image: image, item: item,
-          comment1: comment1, comment2: comment2, comment3: comment3)
+          comment1: comment1, comment2: comment2, comment3: comment3,
+          note: note)
       end
     end
 
