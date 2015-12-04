@@ -166,8 +166,8 @@
         <%= simple_form_for [:users, @note] do |f| %>
           <input type="hidden" id="input_note_id" name="input_note_id" value="">
           <%= f.input :body %>
-          <%= f.button :submit %>
           <%= f.input :image, :as => :image_preview, :input_html => {:preview_version => :thumb} %>
+          <%= f.button :submit %>
         <% end %>
       </div>
     </div><!-- /.modal-content -->

@@ -1,6 +1,5 @@
 class ImagePreviewInput < SimpleForm::Inputs::FileInput
   def input(wrapper_options = nil)
-    input_html_classes.push 'btn btn-default'
     # :preview_version is a custom attribute from :input_html hash, so you can pick custom sizes
     version = input_html_options.delete(:preview_version)
     out = ActiveSupport::SafeBuffer.new # the output buffer we're going to build
