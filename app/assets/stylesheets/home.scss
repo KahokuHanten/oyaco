@@ -35,7 +35,7 @@
 .intro-header .page-heading h1 {
   margin-top: 0;
   font-size: 60px;
-  font-weight: 600;
+  font-weight: bold;
 }
 .intro-header .site-heading .subheading,
 .intro-header .page-heading .subheading {
@@ -49,8 +49,8 @@
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading h1,
   .intro-header .page-heading h1 {
-    font-size: 120px;
-    font-weight: 600;
+    font-size: 100px;
+    font-weight: bold;
   }
 }
 .intro-header .post-heading h1 {
@@ -65,7 +65,7 @@
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 24px;
   margin: 10px 0 30px;
-  font-weight: 600;
+  font-weight: bold;
 }
 .intro-header .post-heading .meta {
   font-family: 'Lora', 'Times New Roman', serif;
@@ -86,6 +86,10 @@
 }
 
 /* Navigation */
+.navbar-brand {
+  font-weight: bold;
+}
+
 .navbar-toggle {
   margin-left: 15pt;
 }
@@ -157,10 +161,14 @@
 .timeline {
   margin-bottom: 10px;
 }
+
+//.timeline dl dt {
+//  background-color: ;
+//}
 .timeline dl dd .events {
-  -webkit-box-shadow: 8px 8px 6px -6px #777;
-   -moz-box-shadow: 8px 8px 6px -6px #777;
-        box-shadow: 8px 8px 6px -6px #777;
+  -webkit-box-shadow: 5px 5px 6px -6px #777;
+   -moz-box-shadow: 5px 5px 6px -6px #777;
+        box-shadow: 5px 5px 6px -6px #777;
 }
 
 .timeline dl dd.birthday {
