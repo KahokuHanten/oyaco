@@ -50,7 +50,7 @@
                 <% end %>
                 <% if topic[:item] %>
                   <a href="<%= topic[:item][:url] %>" target="_new">
-                  <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
+                  <%= image_tag topic[:item][:imageUrl], class: "gift img-rounded pull-right", size: '86x86' %>
                 </a>
                 <% end %>
                 <p><%= topic[:note] %></p>

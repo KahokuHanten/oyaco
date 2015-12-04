@@ -11,13 +11,18 @@
  * file per style scope.
  *
  */
-
 $dropdown-background-color: #FFF;
 $dropdown-background-color-hover: #CCD1D9;
 $dropdown-normal: #000;
 $dropdown-default: #000;
 $dropdown-font-color-dark:  #FFF;
 $dropdown-font-color-light: #434A54;
+$timeline-division-background-color: #48CFAD;
+$timeline-years-background-color:  #37BC9B;
+//$timeline-years-color:                    $white !default;
+//$timeline-dotted-color:                   $aqua-light !default;
+$timeline-dotted-border-color:  #48CFAD;
+$timeline-radius:                         8px !default;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -30,8 +35,16 @@ $dropdown-font-color-light: #434A54;
 @import "home";
 @import "question";
 
+@font-face {
+  font-family: '07YasashisaGothic';
+  src: font-url('07YasashisaGothic') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
+    font-family: '07YasashisaGothic';
     width: 100%;
     height: 100%;
 }
@@ -43,4 +56,8 @@ body {
 footer {
   text-align: center;
   padding-bottom: 30px;
+}
+
+.alert {
+  margin-bottom: 0px;
 }
