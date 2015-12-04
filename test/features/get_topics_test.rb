@@ -13,7 +13,6 @@ class GetTopicsTest < Capybara::Rails::TestCase
     end
     click_on 'next'
 
-    click_on 'next'
     click_on 'go-home'
 
     assert_content page, "大阪府"
@@ -36,8 +35,6 @@ class GetTopicsTest < Capybara::Rails::TestCase
   test "user back word and next" do
     visit root_path
     click_on 'try'
-    click_on 'next'
-    page.assert_selector("#backword")
     click_on 'next'
     page.assert_selector("#backword")
     click_on 'next'

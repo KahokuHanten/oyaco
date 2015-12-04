@@ -50,7 +50,7 @@
                 <% end %>
                 <% if topic[:item] %>
                   <a href="<%= topic[:item][:url] %>" target="_new">
-                  <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
+                  <%= image_tag topic[:item][:imageUrl], class: "gift img-rounded pull-right", size: '86x86' %>
                 </a>
                 <% end %>
                 <p><%= topic[:note] %></p>
@@ -117,11 +117,11 @@
 
     <div class="panel panel-success">
       <div class="panel-heading">
-        <h4 class="panel-title">趣味</h4>
+        <h4 class="panel-title">トピックス</h4>
       </div>
       <div class="panel-body">
         <% @hobbys.each do |hobby| %>
-          <b><%= hobby[:name] %>のニュース</b>
+          <b><%= hobby[:name] %></b>
           <% if hobby[:news]["items"] %>
             <ul>
             <% hobby[:news]["items"].first(3).each do |news| %>

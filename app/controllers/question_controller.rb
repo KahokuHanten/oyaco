@@ -1,7 +1,7 @@
 class QuestionController < ApplicationController
   include Wicked::Wizard
-  steps :dad, :mom, :pref, :tel, :hobby
-
+  #steps :dad, :mom, :pref, :tel, :hobby
+  steps :dad, :mom, :pref, :hobby
   def show
     @q = Questionnaire.new
     @q.restore_attributes_from_cookies(cookies)
