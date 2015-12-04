@@ -66,53 +66,55 @@
         <% end %>
       <% end %>
     </dl>
-    <% unless user_signed_in? %>
-    <button class="btn btn-primary btn-block regist-recommend h4" data-toggle="collapse"  href="#collapseExample">OYACO始めてみませんか？</button>
-    <div class="collapse" id="collapseExample">
-      <div class="well">
-        <p>OYACOにユーザ登録すると便利な機能がご利用いただけます。</p>
-        <p><h5><i class="fa fa-paper-plane"></i>親子イベントを事前にお知らせ</h5>親子イベントの1ヶ月前から、ご登録メールアドレスにお知らせメールを送付します。<br/>親孝行したいイベントのウッカリ忘れを防ぐことができます。</p>
-        <p><h5><i class="fa fa-calendar"></i>親子イベントの作成</h5>カレンダーに親子イベントを登録することができます。あなただけの親孝行カレンダーを作りましょう。</p>
-        <p><h5><i class="fa fa-camera-retro"></i>親子イベントの記録</h5>イベントの写真・メモをカレンダーに登録することができます。楽しい思い出をカレンダーに記録しましょう。</p>
-        <a class="btn btn-primary" href="<%= new_user_registration_path %>"><i class="fa fa-plus"></i>ユーザ登録する</a>
-      </div>
-    </div>
-    <% end %>
   </div>
   <div class="col-sm-4">
 
-  <% if @pref_name.present? %>
-    <div class="panel panel-warning">
-      <div class="panel-heading">
-        <h4 class="panel-title"><%= @pref_name %>情報</h4>
+  <% unless user_signed_in? %>
+      <div class="panel panel-info">
+        <div class="panel-heading h4 text-center">
+          OYACO始めてみませんか？
+        </div>
+        <div class="panel-body">
+          <p>OYACOにユーザ登録すると便利な機能がご利用いただけます。</p>
+          <p><h5><i class="fa fa-paper-plane"></i>親子イベントを事前にお知らせ</h5>親子イベントの1ヶ月前から、ご登録メールアドレスにお知らせメールを送付します。<br/>親孝行したいイベントのウッカリ忘れを防ぐことができます。</p>
+          <p><h5><i class="fa fa-calendar"></i>親子イベントの作成</h5>カレンダーに親子イベントを登録することができます。あなただけの親孝行カレンダーを作りましょう。</p>
+          <p><h5><i class="fa fa-camera-retro"></i>親子イベントの記録</h5>イベントの写真・メモをカレンダーに登録することができます。楽しい思い出をカレンダーに記録しましょう。</p>
+          <a class="btn btn-info" href="<%= new_user_registration_path %>"><i class="fa fa-plus"></i>ユーザ登録する</a>
+        </div>
       </div>
-      <div class="panel-body">
-        <p><%= @pref_name %>は<%= @warning_comment %></p>
-        <% if @googlenews["items"] %>
-          <% @googlenews["items"].first(3).each do |news| %>
-            <%= link_to news["title"], news["link"], target: "_new" %><br>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
   <% end %>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h4 class="panel-title">みんなの親孝行</h4>
-      </div>
-      <div class="panel-body">
-        <div class="pull-left">
-          <a href="https://twitter.com/intent/tweet?button_hashtag=%E8%A6%AA%E5%AD%9D%E8%A1%8C" class="twitter-hashtag-button" data-size="large" data-url="http://oyaco.herokuapp.com">Tweet #%E8%A6%AA%E5%AD%9D%E8%A1%8C</a>
-        </div>
-        <a class="twitter-timeline-container"
-          data-widget-id="670199121928523778"
-          data-widget-options="<%= {height: 600, chrome: 'noborders noheader nofooter'}.to_json %>"
-          href="https://twitter.com/TwitterDev"
-        ></a>
-      </div>
-
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">みんなの親孝行</h4>
     </div>
+    <div class="panel-body">
+      <div class="pull-left">
+        <a href="https://twitter.com/intent/tweet?button_hashtag=%E8%A6%AA%E5%AD%9D%E8%A1%8C" class="twitter-hashtag-button" data-size="large" data-url="http://oyaco.herokuapp.com">Tweet #%E8%A6%AA%E5%AD%9D%E8%A1%8C</a>
+      </div>
+      <a class="twitter-timeline-container"
+        data-widget-id="670199121928523778"
+        data-widget-options="<%= {height: 600, chrome: 'noborders noheader nofooter'}.to_json %>"
+        href="https://twitter.com/TwitterDev"
+      ></a>
+    </div>
+  </div>
+
+    <% if @pref_name.present? %>
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h4 class="panel-title"><%= @pref_name %>情報</h4>
+          </div>
+          <div class="panel-body">
+            <p><%= @pref_name %>は<%= @warning_comment %></p>
+            <% if @googlenews["items"] %>
+                <% @googlenews["items"].first(3).each do |news| %>
+                    <%= link_to news["title"], news["link"], target: "_new" %><br>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
 
     <div class="panel panel-success">
       <div class="panel-heading">
