@@ -4,11 +4,11 @@ class NotesController < ApplicationController
     @event = @user.events.find(params[:input_note_id])
     @note = @event.notes.create(note_params)
     if @note.errors.present?
-      flash[:alert] = "登録できませんでした #{@note.errors.full_messages.join(" ")}"
+      flash[:alert] = "登録できませんでした #{@note.errors.full_messages.join(' ')}"
       redirect_to home_path
     else
-      flash[:notice] = "登録しました"
-      redirect_to home_path anchor: "event#{@note.id}"
+      flash[:notice] = '登録しました'
+      redirect_to home_path anchor: "event#{@event.id}"
     end
   end
 
@@ -18,6 +18,7 @@ class NotesController < ApplicationController
   end
 
   private
+
   def note_params
     params.require(:note).permit(:body)
   end

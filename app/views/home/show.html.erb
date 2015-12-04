@@ -53,6 +53,7 @@
                   <img class="gift img-rounded" src="<%= topic[:item][:imageUrl] %>">
                 </a>
                 <% end %>
+                <p><%= topic[:note] %></p>
                 <% if topic[:id].present? %>
                   <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal"}, onclick: ("inputNote('"+topic[:name]+"','"+topic[:id].to_s+"')").html_safe, class: "pull-right bottom-aligned-text" %>
                 <% end %>
