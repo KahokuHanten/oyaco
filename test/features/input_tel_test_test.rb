@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require "test_helper"
-
+=begin
 class InputTelTestTest < Capybara::Rails::TestCase
   test "user inputs valid number with smartphone" do
     page.driver.browser.header('User-Agent', "Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1")
@@ -50,3 +50,4 @@ class InputTelTestTest < Capybara::Rails::TestCase
     assert page.find('#tel')[:class].include?("disabled")
   end
 end
+=end

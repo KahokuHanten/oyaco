@@ -13,11 +13,11 @@ class QuestionControllerTest < ActionController::TestCase
     assert_template :mom
   end
 
-  test 'get tel should render correct template' do
-    get(:show, 'id' => 'tel')
-    assert_response :success
-    assert_template :tel
-  end
+#  test 'get tel should render correct template' do
+#    get(:show, 'id' => 'tel')
+#    assert_response :success
+#    assert_template :tel
+#  end
 
   test 'get pref should render correct template' do
     get(:show, 'id' => 'pref')
@@ -46,12 +46,12 @@ class QuestionControllerTest < ActionController::TestCase
   test 'put pref should render correct template' do
     put(:update, 'id' => 'pref', 'pref_code' => 3)
     assert_response :redirect
-    assert_redirected_to question_path(:tel)
-  end
-
-  test 'put tel should render correct template' do
-    put(:update, 'id' => 'tel', 'tel' => '123-456-789')
-    assert_response :redirect
     assert_redirected_to question_path(:hobby)
   end
+
+#  test 'put tel should render correct template' do
+#    put(:update, 'id' => 'tel', 'tel' => '123-456-789')
+#    assert_response :redirect
+#    assert_redirected_to question_path(:hobby)
+#  end
 end

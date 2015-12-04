@@ -25,7 +25,7 @@ class AgeCommentTestTest < Capybara::Rails::TestCase
       within '#question-form' do
         select '東京都', from: 'questionnaire_pref_code'
       end
-      click_on 'next'
+
       click_on 'next'
       click_on 'go-home'
       assert_content page, test_comment
