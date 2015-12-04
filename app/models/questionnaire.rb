@@ -51,7 +51,7 @@ class Questionnaire
     self.pref_code = cookies.signed[:pref_code] || '1'
     self.tel = cookies.signed[:tel] || ''
     self.hobby = cookies.signed[:hobby] || '温泉旅行'
-    self.hobby2 = cookies.signed[:hobby2] || 'ゴルフ'
-    self.hobby3 = cookies.signed[:hobby3] || '落語'
+    self.hobby2 = cookies.signed[:hobby2] || '落語'
+    self.hobby3 = cookies.signed[:hobby3] || ''
   end
 end
