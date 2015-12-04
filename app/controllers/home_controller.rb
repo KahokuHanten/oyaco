@@ -89,13 +89,14 @@ class HomeController < ApplicationController
           image = EventData.find_by_name(event.name).try(:image)
         end
         note = event.notes.last.try(:body)
+        note_image = event.notes.last.try(:image)
 
         @topics.push(
           id: event.id,
           type: type, event: event, date: event.next_date, title: title, name: event.name,
           image: image, item: item,
           comment1: comment1, comment2: comment2, comment3: comment3,
-          note: note)
+          note: note, note_image: note_image)
       end
     end
 
