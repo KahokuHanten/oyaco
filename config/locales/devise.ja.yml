@@ -10,7 +10,7 @@ ja:
   "Resend confirmation instructions": "パスワード再発行"
   "Didn't receive confirmation instructions?": "確認メールの再送信"
   "Didn't receive unlock instructions?": "アカウント凍結解除メールの再送信"
-  "Remember me": "次回からパスワード入力を省く"
+  "Remember me": "次回からパスワード入力を省略"
 
   devise:
     confirmations:
