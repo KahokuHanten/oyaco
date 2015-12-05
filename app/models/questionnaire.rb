@@ -54,4 +54,11 @@ class Questionnaire
     self.hobby2 = cookies.signed[:hobby2] || '落語'
     self.hobby3 = cookies.signed[:hobby3] || ''
   end
+
+  def restore_attributes_from_db(cookies, user)
+    cookies.signed[:dad] = user.people.father.first.try('birthday')
+    cookies.signed[:mom] = user.people.mother.first.try('birthday')
+    cookies.signed[:pref_code] = user.people.father.first.try('location').to_s
+    restore_attributes_from_cookies(cookies)
+  end
 end
