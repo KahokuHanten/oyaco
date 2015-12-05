@@ -26,13 +26,12 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <li><a href="#"><b><%= current_or_guest_user.name %>&nbsp;<i class="fa fa-heart"></i>&nbsp;<%= current_user.sign_in_count*10 %>pt</b></a></li>
+          <li><a href="#"><b><%= current_user.name %>&nbsp;<i class="fa fa-heart"></i>&nbsp;<%= current_user.point %>pt</b></a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-cog fa-lg"></i>&nbsp; 設定 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <%= li_link_to_push %>
-              <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
               <li><%= link_to raw('<i class="fa fa-file-text fa-fw"></i>&nbsp; 登録情報更新'), all_questions_path %></li>
               <li role="separator" class="divider"></li>
               <li><%= link_to raw('<i class="fa fa-user fa-fw"></i>&nbsp; ログイン情報更新'), edit_user_registration_path %></li>

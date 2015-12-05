@@ -2,7 +2,7 @@ class AllQuestionsController < ApplicationController
   def index
     if user_signed_in?
       @q = Questionnaire.new
-      @q.restore_attributes_from_cookies(cookies)
+      @q.restore_attributes_from_db(cookies, current_user)
     else
       redirect_to new_user_session_path
     end
@@ -40,7 +40,7 @@ class AllQuestionsController < ApplicationController
     else
       current_user.events.create(name: "お母さんの誕生日", date: @q.mom, kind: :birth, person_id: mother.id)
     end
-    
+
     redirect_to home_path
   end
 

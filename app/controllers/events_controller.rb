@@ -7,6 +7,8 @@ class EventsController < ApplicationController
       redirect_to home_path
     else
       flash[:notice] = "登録しました"
+      @user.point += 50
+      @user.save
       redirect_to home_path anchor: "event#{@event.id}"
     end
   end
