@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :people, dependent: :destroy
   has_many :events, dependent: :destroy
+  has_many :people, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 50 }
 end
