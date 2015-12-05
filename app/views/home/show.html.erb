@@ -58,7 +58,7 @@
                   <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal"}, onclick: ("inputNote('"+topic[:name]+"','"+topic[:id].to_s+"')").html_safe, class: "pull-right bottom-aligned-text" %>
                 <% end %>
                 <% if topic[:type] == :user %>
-                  <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "pull-right bottom-aligned-text" %>
+                  <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: { confirm: "本当にいいですか？", "confirm-title": "記念日を削除" }, class: "pull-right bottom-aligned-text" %>
                 <% end %>
               </div>
             </div>
