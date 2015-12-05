@@ -20,8 +20,10 @@ class HomeController < ApplicationController
     questionnaire = Questionnaire.new
     questionnaire.restore_attributes_from_cookies(cookies)
     build_topics(questionnaire) if questionnaire.present?
-    @user.point += 10
-    @user.save
+    if user_signed_in?
+      @user.point += 10 
+      @user.save
+    end
   end
 
   private
