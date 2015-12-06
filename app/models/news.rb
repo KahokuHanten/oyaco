@@ -5,7 +5,6 @@ class News
   WW_URL = 'http://weather.livedoor.com/forecast/rss/warn/'
   NEWS_NOT_FOUND_MESSAGE = 'に関するニュースは見つかりませんでした'
   API_USAGE_LIMIT = '使用APIの回数制限のため、検索できませんでした'
-  JAPAN_FRESH_NEWS = 'jfn'
 
   class << self
     def weather_warnings(id)
@@ -35,7 +34,7 @@ class News
 
     def local(pref_name)
       Rails.cache.fetch "l_#{pref_name}", :expires_in => 24.hours do
-        google_cse(pref_name + ' ' + JAPAN_FRESH_NEWS, pref_name)
+        google_cse(pref_name , pref_name)
       end
     end
 
@@ -61,7 +60,7 @@ class News
 
     private
     def google_cse(search_text, error_prefix)
-      result = GoogleCustomSearchApi.search(search_text)
+      result = GoogleCustomSearchApi.search(search_text, {"dateRestrict"=>"m"})
       error_reason = begin
                       result['error']['errors'][0]['reason']
                     rescue
