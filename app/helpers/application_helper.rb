@@ -43,8 +43,8 @@ module ApplicationHelper
   def li_link_to_push
     if push_support?
       menu_text = current_user.subscription_id.blank? ? 'イベント通知登録' : 'イベント通知解除'
-      content_tag :li do
-        link_to raw('<i class="fa fa-bell fa-fw"></i>&nbsp; ' + menu_text), 'javascript:void(0)', class: 'js-push-button'
+      content_tag :li, 'data-toggle': "tooltip", 'data-placement': "auto", title: "ブラウザへのプッシュ通知を設定します" do
+        link_to raw('<i class="fa fa-bell fa-fw"></i> ' + menu_text), 'javascript:void(0)', class: 'js-push-button'
       end
     else
       content_tag :li, class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "お使いのブラウザは対応していません" do
