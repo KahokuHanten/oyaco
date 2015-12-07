@@ -20,7 +20,7 @@
           <%= li_link_to_input_event %>
           <%= li_link_to_tel %>
           <% unless user_signed_in? %>
-            <li><%= link_to raw('<i class="fa fa-question fa-fw"></i>&nbsp; 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
+            <li><%= link_to raw('<i class="fa fa-question fa-fw"></i> 質問をやり直す'), destroy_question_path, method: "delete", id: 'question-again' %></li>
           <% end %>
         <% end %>
       </ul>
@@ -32,10 +32,10 @@
               <i class="fa fa-cog fa-lg"></i>&nbsp; 設定 <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <%= li_link_to_push %>
-              <li><%= link_to raw('<i class="fa fa-file-text fa-fw"></i>&nbsp; 登録情報更新'), all_questions_path %></li>
+              <li><%= link_to raw('<i class="fa fa-file-text fa-fw"></i> 登録情報更新'), all_questions_path %></li>
               <li role="separator" class="divider"></li>
-              <li><%= link_to raw('<i class="fa fa-user fa-fw"></i>&nbsp; ログイン情報更新'), edit_user_registration_path %></li>
-              <li><%= link_to raw('<i class="fa fa-sign-out fa-fw"></i>&nbsp; ログアウト'), destroy_user_session_path, method: :delete %></li>
+              <li><%= link_to raw('<i class="fa fa-user fa-fw"></i> ログイン情報更新'), edit_user_registration_path %></li>
+              <li><%= link_to raw('<i class="fa fa-sign-out fa-fw"></i> ログアウト'), destroy_user_session_path, method: :delete %></li>
             </ul>
           </li>
         <% else %>

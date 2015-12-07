@@ -69,37 +69,32 @@
     </dl>
   </div>
   <div class="col-sm-4">
-
-  <% unless user_signed_in? %>
-      <div class="panel panel-info">
-        <div class="panel-heading h4 text-center">
-          OYACO始めてみませんか？
-        </div>
-        <div class="panel-body">
-          <p>OYACOにユーザ登録すると便利な機能がご利用いただけます。</p>
-          <p><h5><i class="fa fa-paper-plane"></i>親子イベントを事前にお知らせ</h5>親子イベントの1ヶ月前から、ご登録メールアドレスにお知らせメールを送付します。<br/>親孝行したいイベントのウッカリ忘れを防ぐことができます。</p>
-          <p><h5><i class="fa fa-calendar"></i>親子イベントの作成</h5>カレンダーに親子イベントを登録することができます。あなただけの親孝行カレンダーを作りましょう。</p>
-          <p><h5><i class="fa fa-camera-retro"></i>親子イベントの記録</h5>イベントの写真・メモをカレンダーに登録することができます。楽しい思い出をカレンダーに記録しましょう。</p>
-          <a class="btn btn-info" href="<%= new_user_registration_path %>"><i class="fa fa-plus"></i>ユーザ登録する</a>
-        </div>
+    <% unless user_signed_in? %>
+    <div class="thumbnail" style="position: relative;">
+      <img class="img-rounded" src="<%= asset_path "top.jpg" %>" >
+      <h4 style="font-size: 20pt; text-align: center; width: 100%; position: absolute; top: 8px;">OYACO</br>はじめてみませんか？</h4>
+      <div class="caption text-center">
+        <p>家族の記念日を追加・記録したり、メールやブラウザで事前にお知らせします</p>
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-warning", role: "button" %>
       </div>
-  <% end %>
+    </div>
+    <% end %>
 
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h4 class="panel-title">みんなの親孝行</h4>
-    </div>
-    <div class="panel-body">
-      <div class="pull-left">
-        <a href="https://twitter.com/intent/tweet?button_hashtag=%E8%A6%AA%E5%AD%9D%E8%A1%8C" class="twitter-hashtag-button" data-size="large" data-url="http://oyaco.herokuapp.com">Tweet #%E8%A6%AA%E5%AD%9D%E8%A1%8C</a>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">みんなの親孝行</h4>
       </div>
-      <a class="twitter-timeline-container"
-        data-widget-id="668742111487856640"
-        data-widget-options="<%= {height: 600, chrome: 'noborders noheader nofooter'}.to_json %>"
-        href="https://twitter.com/TwitterDev"
-      ></a>
+      <div class="panel-body">
+        <div class="pull-left">
+          <a href="https://twitter.com/intent/tweet?button_hashtag=%E8%A6%AA%E5%AD%9D%E8%A1%8C" class="twitter-hashtag-button" data-size="large" data-url="http://oyaco.herokuapp.com">Tweet #%E8%A6%AA%E5%AD%9D%E8%A1%8C</a>
+        </div>
+        <a class="twitter-timeline-container"
+          data-widget-id="668742111487856640"
+          data-widget-options="<%= {height: 600, chrome: 'noborders noheader nofooter'}.to_json %>"
+          href="https://twitter.com/TwitterDev"
+        ></a>
+      </div>
     </div>
-  </div>
 
     <% if @pref_name.present? %>
         <div class="panel panel-warning">
