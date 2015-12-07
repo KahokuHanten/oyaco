@@ -2,11 +2,6 @@
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
-
-  function inputNote(noteTitle, eventId) {
-    $("#input_note_title").text(noteTitle+"のメモを追加")
-    $("#input_note_id").val(eventId)
-  }
 </script>
 
 <section class="topics">
@@ -56,7 +51,11 @@
                 <p><%= topic[:note] %></p>
                 <%= image_tag topic[:note_image].thumb.url if topic[:note_image].present? %>
                 <% if topic[:id].present? %>
-                  <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal"}, onclick: ("inputNote('"+topic[:name]+"','"+topic[:id].to_s+"')").html_safe, class: "pull-right bottom-aligned-text" %>
+                  <% if topic[:note].present? || topic[:note_image].present? %>
+                    <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), edit_users_note_path(topic[:event].notes.last), remote: true, class: "pull-right bottom-aligned-text" %>
+                  <% else %>
+                    <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), new_users_note_path(:event_id => topic[:id]), remote: true, class: "pull-right bottom-aligned-text" %>
+                  <% end %>
                 <% end %>
                 <% if topic[:type] == :user %>
                   <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: { confirm: "本当にいいですか？", "confirm-title": "記念日を削除" }, class: "pull-right bottom-aligned-text" %>
@@ -153,21 +152,4 @@
 </div><!-- /.modal -->
 
 <div id="input-event-note" class="modal fade">  <!-- Modal本体 -->
-  <div class="modal-dialog"> <!-- Modalダイアログ部分 -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
-        <h4 id="input_note_title" class="modal-title">メモを追加</h4>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for [:users, @note] do |f| %>
-          <input type="hidden" id="input_note_id" name="input_note_id" value="">
-          <%= f.input :body %>
-          <!-- <%= f.check_box :remove_image %> -->
-          <%= f.input :image, :as => :image_preview, :input_html => {:preview_version => :thumb} %>
-          <%= f.button :submit %>
-        <% end %>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

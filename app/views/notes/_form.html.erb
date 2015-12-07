@@ -1,0 +1,6 @@
+<%= simple_form_for [:users, @note] do |f| %>
+  <%= hidden_field_tag 'input_note_id', @event.id %>
+  <%= f.input :body %>
+  <%= f.input :image, :as => :image_preview, :input_html => {:preview_version => :thumb} %>
+  <%= f.button :submit %>
+<% end %>
