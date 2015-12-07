@@ -1,9 +1,9 @@
 <%= render layout: 'form' do |f| %>
-  <h1><%= f.label(:tel, "ご両親の電話番号は？", class: "control-label") %></h1>
+  <h2><%= f.label(:tel, "ご両親の電話番号は？", class: "control-label") %></h2>
   <p>
     <div class="row">
       <div class="col-xs-offset-4 col-xs-4">
-        <%= f.telephone_field(:tel, placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control") %>
+        <%= f.telephone_field(:tel, placeholder: "00-0000-0000", pattern: "^[0-9\-]+$", class: "form-control input-lg") %>
       </div>
     </div>
   </p>

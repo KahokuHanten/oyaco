@@ -12,14 +12,14 @@
 
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<section class="intro-header" style="background-image: url(<%= asset_path "gahag-0002156290a.jpg" %>)">
+<section class="intro-header" style="background-image: url(<%= asset_path "top.jpg" %>)">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
           <h1>OYACO</h1>
           <span class="subheading">親子のコミュニケーションを促す、親孝行サービス</span><br>
-          <%= link_to '試してみる', question_path(:dad) ,method: :get, class: "btn btn-success" %>
+          <%= link_to '試してみる', question_path(:dad) ,method: :get, class: "btn btn-lg btn-success" %>
         </div>
       </div>
     </div>
@@ -31,26 +31,25 @@
   <div class="container-fluid feature">
     <div class="row">
       <div class="col-sm-4">
-        <img src="<%= asset_path "top_image_01.gif" %>" alt="" width="150" height="150" />
-        <h3>イベントの通知</h3>
+        <img src="<%= asset_path "top_image_02.png" %>" alt="" width="150" height="150" />
+        <h3>記念日の登録とメモ</h3>
         <p>
-          誕生日や敬老の日など、親孝行イベントをメールやブラウザ(※)で事前にお知らせします。もううっかり忘れてしまうことはありません。
-          <div class="note">※ 対応ブラウザ: Chrome</div>
+          家族の特別な記念日を登録することができます。写真やメモを記録して、あなただけの親孝行カレンダーを作りましょう。
         </p>
       </div>
       <div class="col-sm-4">
-        <img src="<%= asset_path "top_image_02.gif" %>" alt="" width="150" height="150" />
+        <img src="<%= asset_path "top_image_01.png" %>" alt="" width="150" height="150"/>
+        <h3>事前にお知らせ</h3>
+        <p>
+          親孝行イベントをメールやブラウザ<small>(※)</small>でお知らせします。もううっかり忘れてしまうことはありません。
+          <div class="note">※ 最新のChromeブラウザおよびAndroidスマホ</div>
+        </p>
+      </div>
+      <div class="col-sm-4">
+        <img src="<%= asset_path "top_image_03.png" %>" alt="" width="150" height="150" />
         <h3>話題の提供</h3>
         <p>
-          親孝行のための話題を提供します。いくつかの質問に答えることで、より的確な話題を提案します。もう話のネタに困ることはありません。
-        </p>
-      </div>
-      <div class="col-sm-4">
-        <img src="<%= asset_path "top_image_03.gif" %>" alt="" width="150" height="150" />
-        <h3>すぐに電話</h3>
-        <p>
-          電話番号を入力しておくと、すぐに電話がかけられます。
-          <div class="note">※ 対応機器: iPhone及びAndroid携帯</div>
+          親孝行にまつわる話題やニュースを提供します。親との会話や親孝行のヒントが得られるかも？
         </p>
       </div>
     </div>
@@ -58,29 +57,5 @@
 </section>
 
 <section class="try" id="try">
-  <%= link_to '試してみる', question_path(:dad) ,method: :get, id: "try", class: "btn-lg btn-success" %>
-</section>
-<section class="regist-discription">
-  <div class="container-fluid feature">
-    <div class="row">
-      <div class="col-sm-2">
-      </div>
-      <div class="col-sm-8">
-        <div class="panel panel-success">
-          <div class="panel-heading h5">
-              ユーザ登録でできること
-          </div>
-          <div class="panel-body">
-            <p>OYACOにユーザ登録すると親孝行に便利な機能がご利用いただけます。</p>
-            <p><h5><i class="fa fa-paper-plane"></i>親子イベントを事前にお知らせ</h5>親子イベントの1ヶ月前から、ご登録メールアドレスにお知らせメールを送付します。<br/>親孝行したいイベントのウッカリ忘れを防ぐことができます。</p>
-            <p><h5><i class="fa fa-calendar"></i>親子イベントの作成</h5>カレンダーに親子イベントを登録することができます。あなただけの親孝行カレンダーを作りましょう。<br/>※お試しユーザの場合は固定のイベントのみ確認することができます。</p>
-            <p><h5><i class="fa fa-camera-retro"></i>親子イベントの記録</h5>イベントの写真・メモをカレンダーに登録することができます。楽しい思い出をカレンダーに記録しましょう。<br/>※お試しユーザの場合はイベントの確認のみ行うことができます。</p>
-            <a class="btn btn-success" href="<%= new_user_registration_path %>"><i class="fa fa-plus"></i>ユーザ登録する</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-      </div>
-    </div>
-  </div>
+  <%= link_to '試してみる', question_path(:dad) ,method: :get, id: "try", class: "btn btn-success btn-lg" %>
 </section>

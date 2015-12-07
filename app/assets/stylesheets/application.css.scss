@@ -11,6 +11,10 @@
  * file per style scope.
  *
  */
+
+$navbar-background-color: #8CC152;
+$navbar-background-color-active: #A0D468;
+$navbar-font-color: #FFF;
 $dropdown-background-color: #FFF;
 $dropdown-background-color-hover: #CCD1D9;
 $dropdown-normal: #000;
@@ -60,4 +64,11 @@ footer {
 
 .alert {
   margin-bottom: 0px;
+}
+
+hr {
+  height:0;
+  border:0;
+  border-top:1px solid #ccc;
+  border-bottom:1px solid #fff;
 }

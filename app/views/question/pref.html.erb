@@ -1,7 +1,7 @@
 <%= render layout: 'form' do |f| %>
-  <h1><%= f.label(:pref_code, "ご両親のお住まいは？", class: "control-label") %></h1>
+  <h2><%= f.label(:pref_code, "ご両親のお住まいは？", class: "control-label") %></h2>
   <p>
     <%= f.collection_select(:pref_code, JpPrefecture::Prefecture.all, :code, :name, {},
-      class: "form-control", style: "display: inline-block; width: auto") %>
+      class: "form-control input-lg", style: "display: inline-block; width: auto") %>
   </p>
 <% end %>
