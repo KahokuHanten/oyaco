@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20151205075705) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "image"
   end
 
   add_index "notes", ["event_id"], name: "index_notes_on_event_id", using: :btree

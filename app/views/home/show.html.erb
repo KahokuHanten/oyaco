@@ -54,6 +54,7 @@
                 </a>
                 <% end %>
                 <p><%= topic[:note] %></p>
+                <%= image_tag topic[:note_image].thumb.url if topic[:note_image].present? %>
                 <% if topic[:id].present? %>
                   <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal"}, onclick: ("inputNote('"+topic[:name]+"','"+topic[:id].to_s+"')").html_safe, class: "pull-right bottom-aligned-text" %>
                 <% end %>
@@ -167,6 +168,8 @@
         <%= simple_form_for [:users, @note] do |f| %>
           <input type="hidden" id="input_note_id" name="input_note_id" value="">
           <%= f.input :body %>
+          <!-- <%= f.check_box :remove_image %> -->
+          <%= f.input :image, :as => :image_preview, :input_html => {:preview_version => :thumb} %>
           <%= f.button :submit %>
         <% end %>
       </div>
