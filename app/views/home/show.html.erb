@@ -24,7 +24,11 @@
             <div class="events">
               <div class="pull-left">
                 <% if topic[:image].present? %>
-                  <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
+                  <% if topic[:event] && topic[:event].image.present? %>
+                    <%= link_to image_tag("#{topic[:image]}", class: "events-object img-rounded"), topic[:event].image.display.url, data: { lightbox: topic[:id] } %>
+                  <% else %>
+                    <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
+                  <% end %>
                 <% else %>
                   <%= image_tag "s64_f_event_13_0bg.png", class: "events-object img-rounded" %>
                 <% end %>
@@ -51,7 +55,9 @@
                 </a>
                 <% end %>
                 <p><%= topic[:note] %></p>
-                <%= image_tag topic[:note_image].thumb.url if topic[:note_image].present? %>
+                <% if topic[:note_image].present? %>
+                  <%= link_to image_tag(topic[:note_image].thumb.url), topic[:note_image].display.url, data: { lightbox: topic[:id] }  %>
+                <% end %>
                 <!-- buttons -->
                 <div class="event-buttons btn-group pull-right" role="group">
                   <% if topic[:id].present? %>
