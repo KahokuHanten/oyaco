@@ -31,7 +31,7 @@ module ApplicationHelper
   def li_link_to_input_event
     if user_signed_in?
       content_tag :li do
-        link_to raw('<i class="fa fa-calendar-plus-o fa-lg"></i> 記念日を追加'), "#input-event", 'data-toggle': "modal"
+        link_to raw('<i class="fa fa-calendar-plus-o fa-lg"></i> 記念日を追加'), new_users_event_path, remote: true
       end
     else
       content_tag :li, class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "ユーザー登録が必要です" do
