@@ -18,7 +18,7 @@
         <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
         <% m_topics.each_with_index do |topic, i| %>
           <span class="anchor" <%= "id=event#{topic[:id]}" if topic[:id].present? %> ></span>
-          <dd class="<%= timeline_pos(i) %> <%= "#{topic[:type]}" %> clearfix">
+          <dd class="pos-right <%= "#{topic[:type]}" %> clearfix">
             <div class="circ"></div>
             <div class="time"><%= "#{topic[:date].day}日" %></div>
             <div class="events">
