@@ -173,7 +173,7 @@
         box-shadow: 5px 5px 6px -6px #777;
 }
 
-.timeline dl dd.birthday {
+.timeline dl dd.person {
   .circ {
     left: 42pt;
     width: 30px;
@@ -224,4 +224,8 @@ ul, ol {
 
 .regist-discription {
   margin-top: 30px;
+}
+
+.modal-body {
+  padding-bottom: 15px;
 }

@@ -24,6 +24,7 @@ gem 'simple_form'
 gem 'twitter-bootstrap-rails-confirm'
 gem 'carrierwave'
 gem 'cloudinary'
+gem 'lightbox2-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'

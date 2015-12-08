@@ -2,5 +2,10 @@
   <%= hidden_field_tag 'input_note_id', @event.id %>
   <%= f.input :body %>
   <%= f.input :image, :as => :image_preview, :input_html => {:preview_version => :thumb} %>
-  <%= f.button :submit %>
+  <div class="button-group">
+    <%= f.button :submit, class: "btn btn-success" %>
+    <% if controller.action_name == "edit" %>
+      <%= link_to '削除する', users_note_path(@note), method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </div>
 <% end %>
