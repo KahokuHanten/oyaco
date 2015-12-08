@@ -34,6 +34,7 @@
               <%= li_link_to_push %>
               <li><%= link_to raw('<i class="fa fa-file-text fa-fw"></i> 登録情報更新'), all_questions_path %></li>
               <li role="separator" class="divider"></li>
+              <li><%= link_to raw('<i class="fa fa-question-circle fa-fw"></i> フィードバック'), "http://goo.gl/forms/9IBVB67c5L" %></li>
               <li><%= link_to raw('<i class="fa fa-user fa-fw"></i> ログイン情報更新'), edit_user_registration_path %></li>
               <li><%= link_to raw('<i class="fa fa-sign-out fa-fw"></i> ログアウト'), destroy_user_session_path, method: :delete %></li>
             </ul>
