@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    $('.datetimepicker').datetimepicker();
+</script>
+<div class="modal-dialog"> <!-- Modalダイアログ部分 -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
+      <h4 class="modal-title">記念日を編集</h4>
+    </div>
+    <div class="modal-body">
+      <%= render "form" %>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

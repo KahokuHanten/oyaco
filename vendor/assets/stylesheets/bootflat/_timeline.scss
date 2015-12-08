@@ -88,12 +88,21 @@ $timeline-radius:                         4px !default;
 
 				  &:before {
 					 position: absolute;
+/*
 					 top: 12px;
 					 width: 0;
 					 height: 0;
 					 content: '';
 					 border-width: 6px;
 					 border-style: solid;
+*/
+            top: 12px;
+            width: 0;
+            height: 0;
+            content: '';
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 20px solid $white;
 				  }
 
 				  & .events-object {
@@ -121,7 +130,8 @@ $timeline-radius:                         4px !default;
 					float: right;
 
 					&:before {
-						left: -12px;
+//						left: -12px;
+						left: -20px;
 						border-color: transparent $white transparent transparent;
 					}
 				}
@@ -180,12 +190,62 @@ $timeline-radius:                         4px !default;
 						text-align: left;
 					}
 					& .events {
-						float: right;
-						width: 84%;
+//						float: right;
+//						width: 84%;
+            width: calc(100% - 90px);
 					}
 				}
 			}
 		}
   }
-
+  @media screen and (max-width: 767px) {
+    .timeline dl {
+			&:before {
+				left: 60px;
+			}
+			& dt {
+				margin: 0 0 30px;
+			}
+			& dd {
+				& .circ {
+          display: none;
+					left: 60px;
+				}
+				& .time {
+					left: 0;
+				}
+				&.pos-left {
+					& .time {
+						margin-left: 0;
+						padding: 10px 0;
+						text-align: left;
+					}
+					& .events {
+						float: right;
+						width: 84%;
+						&:before {
+							left: -12px;
+							border-color: transparent $white transparent transparent;
+						}
+					}
+				}
+				&.pos-right {
+					& .time {
+            display: none;
+						margin-left: 0;
+						padding: 10px 0;
+						text-align: left;
+					}
+					& .events {
+            width: calc(100% - 19px);
+            &:before {
+              display: none;
+              left: -12px;
+              border-color: transparent $white transparent transparent;
+            }
+					}
+				}
+			}
+		}
+  }
 }

@@ -203,12 +203,15 @@ ja:
   activerecord:
     attributes:
       event:
-        name: '名前'
-        date: '日付'
+        name: 名前
+        date: 日付（年月日）
+        kind: 種類
+        image: 写真
       user:
        name: 名前
        password: パスワード
        password_confirmation: パスワード確認
        email: メールアドレス
       note:
-        body: 'メモ'
+        body: メモ
+        image: 写真

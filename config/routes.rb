@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   devise_for :users
   resource :users, only: [:show] do
     resources :people
-    resources :events, only: [:create, :destroy]
-    resources :notes, only: [:create, :destroy]
+    resources :events, only: [:new, :create, :edit, :update, :destroy]
+    resources :notes, only: [:new, :create, :edit, :update, :destroy]
     member do
       post 'save_subscription_id'
       post 'clear_subscription_id'

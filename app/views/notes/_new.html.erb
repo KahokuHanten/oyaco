@@ -1,0 +1,11 @@
+<div class="modal-dialog"> <!-- Modalダイアログ部分 -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
+      <h4 id="input_note_title" class="modal-title"><%= @event.name %>のメモを追加</h4>
+    </div>
+    <div class="modal-body">
+      <%= render "form" %>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
