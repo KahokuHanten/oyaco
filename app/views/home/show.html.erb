@@ -1,14 +1,3 @@
-<script>
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-
-  function inputNote(noteTitle, eventId) {
-    $("#input_note_title").text(noteTitle+"のメモを追加")
-    $("#input_note_id").val(eventId)
-  }
-</script>
-
 <section class="topics">
   <div class="container-fluid">
   <div class="row">
@@ -23,19 +12,25 @@
         <% m_topics = @topics.select {|t| m.include?(t[:date])} %>
         <% m_topics.each_with_index do |topic, i| %>
           <span class="anchor" <%= "id=event#{topic[:id]}" if topic[:id].present? %> ></span>
-          <dd class="<%= timeline_pos(i) %> <%= "#{topic[:type]}" %> clearfix">
+          <dd class="pos-right <%= "#{topic[:type]}" %> clearfix">
             <div class="circ"></div>
             <div class="time"><%= "#{topic[:date].day}日" %></div>
             <div class="events">
               <div class="pull-left">
                 <% if topic[:image].present? %>
-                  <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
+                  <% if topic[:event] && topic[:event].image.present? %>
+                    <%= link_to image_tag("#{topic[:image]}", class: "events-object img-rounded"), topic[:event].image.display.url, data: { lightbox: topic[:id] } %>
+                  <% else %>
+                    <%= image_tag "#{topic[:image]}", class: "events-object img-rounded" %>
+                  <% end %>
                 <% else %>
                   <%= image_tag "s64_f_event_13_0bg.png", class: "events-object img-rounded" %>
                 <% end %>
               </div>
               <div class="events-body">
-                <h4 class="events-heading"><%= topic[:title] %></h4>
+                <h4 class="events-heading"><%= topic[:title] %>
+                  <%= link_to raw('<i class="fa fa-pencil-square-o"></i>'), edit_users_event_path(topic[:event]), remote: true if topic[:type] == :user %>
+                </h4>
                 <% if topic[:wikipedia].present? %>
                   <p class="wikipedia"><%= truncate(topic[:wikipedia], length: 100) %>
                     <%= link_to "[Wikipedia]", "http://ja.wikipedia.org/wiki/#{topic[:name]}", target: "_new" %>
@@ -54,13 +49,19 @@
                 </a>
                 <% end %>
                 <p><%= topic[:note] %></p>
-                <%= image_tag topic[:note_image].thumb.url if topic[:note_image].present? %>
-                <% if topic[:id].present? %>
-                  <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), "#input-event-note", data: {toggle: "modal"}, onclick: ("inputNote('"+topic[:name]+"','"+topic[:id].to_s+"')").html_safe, class: "pull-right bottom-aligned-text" %>
+                <% if topic[:note_image].present? %>
+                  <%= link_to image_tag(topic[:note_image].thumb.url), topic[:note_image].display.url, data: { lightbox: topic[:id] }  %>
                 <% end %>
-                <% if topic[:type] == :user %>
-                  <%= link_to raw('<i class="fa fa-trash fa-lg"></i>'), users_event_path(topic[:event]), method: :delete, data: { confirm: "本当にいいですか？", "confirm-title": "記念日を削除" }, class: "pull-right bottom-aligned-text" %>
-                <% end %>
+                <!-- buttons -->
+                <div class="event-buttons btn-group pull-right" role="group">
+                  <% if topic[:id].present? %>
+                    <% if topic[:note].present? || topic[:note_image].present? %>
+                      <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), edit_users_note_path(topic[:event].notes.last), remote: true %>
+                    <% else %>
+                      <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), new_users_note_path(:event_id => topic[:id]), remote: true %>
+                    <% end %>
+                  <% end %>
+                </div>
               </div>
             </div>
           </dd>
@@ -135,39 +136,7 @@
 </section>
 
 <div id="input-event" class="modal fade">  <!-- Modal本体 -->
-  <div class="modal-dialog"> <!-- Modalダイアログ部分 -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
-        <h4 class="modal-title">記念日を追加</h4>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for [:users, @event] do |f| %>
-          <%= f.input :date, as: :date_picker %>
-          <%= f.input :name %>
-          <%= f.button :submit %>
-        <% end %>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <div id="input-event-note" class="modal fade">  <!-- Modal本体 -->
-  <div class="modal-dialog"> <!-- Modalダイアログ部分 -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  <!-- closeボタン -->
-        <h4 id="input_note_title" class="modal-title">メモを追加</h4>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for [:users, @note] do |f| %>
-          <input type="hidden" id="input_note_id" name="input_note_id" value="">
-          <%= f.input :body %>
-          <!-- <%= f.check_box :remove_image %> -->
-          <%= f.input :image, :as => :image_preview, :input_html => {:preview_version => :thumb} %>
-          <%= f.button :submit %>
-        <% end %>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

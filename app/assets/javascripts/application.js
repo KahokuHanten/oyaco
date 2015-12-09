@@ -20,6 +20,7 @@
 //= require bootstrap-datetimepicker
 //= require pickers
 //= require twitter/bootstrap/rails/confirm
+//= require lightbox
 
 //$.fn.twitter_bootstrap_confirmbox.defaults.title = "削除";
 $.fn.twitter_bootstrap_confirmbox.defaults.fade = true;

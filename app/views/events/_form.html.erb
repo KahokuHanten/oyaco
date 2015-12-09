@@ -1,0 +1,13 @@
+<%= simple_form_for [:users, @event] do |f| %>
+  <%= f.input :date, as: :date_picker %>
+  <%= f.input :name %>
+  <% kind_list = [["誕生", "birth"],["結婚", "wedding"], ["その他", "annual"]] %>
+  <%= f.input :kind, collection: kind_list %>
+  <%= f.input :image, :as => :image_preview, :input_html => {:preview_version => :thumb} %>
+  <div class="button-group">
+    <%= f.button :submit, class: "btn btn-success" %>
+    <% if controller.action_name == "edit" %>
+      <%= link_to '削除する', users_event_path(@event), method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+<% end %>

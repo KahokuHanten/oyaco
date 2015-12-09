@@ -31,7 +31,7 @@ module ApplicationHelper
   def li_link_to_input_event
     if user_signed_in?
       content_tag :li do
-        link_to raw('<i class="fa fa-calendar-plus-o fa-lg"></i> 記念日を追加'), "#input-event", 'data-toggle': "modal"
+        link_to raw('<i class="fa fa-calendar-plus-o fa-lg"></i> 記念日を追加'), new_users_event_path, remote: true
       end
     else
       content_tag :li, class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "ユーザー登録が必要です" do
@@ -43,8 +43,8 @@ module ApplicationHelper
   def li_link_to_push
     if push_support?
       menu_text = current_user.subscription_id.blank? ? 'イベント通知登録' : 'イベント通知解除'
-      content_tag :li do
-        link_to raw('<i class="fa fa-bell fa-fw"></i>&nbsp; ' + menu_text), 'javascript:void(0)', class: 'js-push-button'
+      content_tag :li, 'data-toggle': "tooltip", 'data-placement': "auto", title: "ブラウザへのプッシュ通知を設定します" do
+        link_to raw('<i class="fa fa-bell fa-fw"></i> ' + menu_text), 'javascript:void(0)', class: 'js-push-button'
       end
     else
       content_tag :li, class: 'disabled', 'data-toggle': "tooltip", 'data-placement': "auto", title: "お使いのブラウザは対応していません" do
