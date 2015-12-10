@@ -1,6 +1,5 @@
 class AllQuestionsController < ApplicationController
   def index
-    logging_in
     if user_signed_in?
       @q = Questionnaire.new
       @q.restore_attributes_from_db(cookies, current_user)
