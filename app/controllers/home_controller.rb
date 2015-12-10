@@ -65,6 +65,7 @@ class HomeController < ApplicationController
           date: event.next_date,
           title: "#{format_date(event.next_date)}は #{event.name}",
           comment1: comment1,
+          comment2: (wedding_name(event.next_times) + "と呼ばれるそうです。それにちなんだプレゼントを贈ってみてはいかがでしょうか。").html_safe,
           image: EventData.find_by_name("結婚記念日").try(:image))
       end
     end
@@ -111,6 +112,7 @@ class HomeController < ApplicationController
           image = EventData.find_by_name("誕生日").try(:image)
         elsif event.wedding?
           image = EventData.find_by_name("結婚記念日").try(:image)
+          comment2 = wedding_name(event.next_times).html_safe + "と呼ばれるそうです。それにちなんだプレゼントを贈ってみてはいかがでしょうか。"
         else
           image = EventData.find_by_name(event.name).try(:image)
         end

@@ -3,7 +3,6 @@ class AllQuestionsController < ApplicationController
     if user_signed_in?
       @q = Questionnaire.new
       @q.restore_attributes_from_db(cookies, current_user)
-binding.pry
       if (e = current_user.events.find_by(kind: 2))
         @q.wedding = e.date
       end
