@@ -13,7 +13,7 @@ class AllQuestionsController < ApplicationController
     @q.restore_attributes_from_cookies(cookies)
     @q.assign_attributes(params[:questionnaire])
 
-     [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
+    [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = @q.send(param)
     end
 
