@@ -1,5 +1,6 @@
 class AllQuestionsController < ApplicationController
   def index
+    logging_in
     if user_signed_in?
       @q = Questionnaire.new
       @q.restore_attributes_from_db(cookies, current_user)
@@ -13,7 +14,7 @@ class AllQuestionsController < ApplicationController
     @q.restore_attributes_from_cookies(cookies)
     @q.assign_attributes(params[:questionnaire])
 
-    [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
+     [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = @q.send(param)
     end
 
