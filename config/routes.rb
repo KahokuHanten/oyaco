@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   # users
-  devise_for :users
+  devise_for :users ,controllers: { registrations: 'registrations' }
   resource :users, only: [:show] do
     resources :people
     resources :events, only: [:new, :create, :edit, :update, :destroy]

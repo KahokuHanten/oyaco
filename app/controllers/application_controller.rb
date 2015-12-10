@@ -56,10 +56,20 @@ class ApplicationController < ActionController::Base
   # called (once) when the user logs in, insert any code your application needs
   # to hand off from guest_user to current_user.
   def logging_in
-    # TODO:
-    # put all your processing for transferring
-    # from a guest user to a registered user
-    # i.e. update votes, update comments, etc.
+    @q = Questionnaire.new
+    @q.restore_attributes_from_cookies(cookies)
+    father = Person.new
+    father.user = current_user
+    father.assign_attributes(relation: Person.relations[:father],
+                             birthday: @q.dad,
+                             location: @q.pref_code)
+    father.save
+    mother = Person.new
+    mother.user = current_user
+    mother.assign_attributes(relation: Person.relations[:mother],
+                             birthday: @q.mom,
+                             location: @q.pref_code)
+    mother.save
   end
 
   # creates guest user by adding a record to the DB
