@@ -60,12 +60,13 @@ class HomeController < ApplicationController
       if questionnaire.wedding
         event = Event.new(name: "親の結婚記念日", date: questionnaire.wedding, kind: :wedding)
         comment1 = event.next_times.to_s + '回目の記念日です。' unless event.next_times == 0
+        comment2 = wedding_name(event.next_times).html_safe + "と呼ばれるそうです。それにちなんだプレゼントを贈ってみてはいかがでしょうか。" if wedding_name(event.next_times).present?
         @topics.push(
           type: :wedding,
           date: event.next_date,
           title: "#{format_date(event.next_date)}は #{event.name}",
           comment1: comment1,
-          comment2: (wedding_name(event.next_times) + "と呼ばれるそうです。それにちなんだプレゼントを贈ってみてはいかがでしょうか。").html_safe,
+          comment2: comment2,
           image: EventData.find_by_name("結婚記念日").try(:image))
       end
     end
@@ -88,7 +89,7 @@ class HomeController < ApplicationController
     # ユーザーイベント
     if user_signed_in?
       current_user.events.each do |event|
-        type = :user
+        comment1 = comment2 = comment3 = ""
         if event.birth?
           if event.person.present?
             type = :person
@@ -112,7 +113,7 @@ class HomeController < ApplicationController
           image = EventData.find_by_name("誕生日").try(:image)
         elsif event.wedding?
           image = EventData.find_by_name("結婚記念日").try(:image)
-          comment2 = wedding_name(event.next_times).html_safe + "と呼ばれるそうです。それにちなんだプレゼントを贈ってみてはいかがでしょうか。"
+          comment2 = wedding_name(event.next_times).html_safe + "と呼ばれるそうです。それにちなんだプレゼントを贈ってみてはいかがでしょうか。" if wedding_name(event.next_times).present?
         else
           image = EventData.find_by_name(event.name).try(:image)
         end
