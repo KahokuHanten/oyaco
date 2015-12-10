@@ -3,6 +3,10 @@ class AllQuestionsController < ApplicationController
     if user_signed_in?
       @q = Questionnaire.new
       @q.restore_attributes_from_db(cookies, current_user)
+binding.pry
+      if (e = current_user.events.find_by(kind: 2))
+        @q.wedding = e.date
+      end
     else
       redirect_to new_user_session_path
     end
@@ -39,6 +43,14 @@ class AllQuestionsController < ApplicationController
       e.update(name: "お母さんの誕生日", date: @q.mom, kind: :birth, person_id: mother.id)
     else
       current_user.events.create(name: "お母さんの誕生日", date: @q.mom, kind: :birth, person_id: mother.id)
+    end
+
+    if @q.wedding.present?
+      if (e = current_user.events.find_by(kind: 2))
+        e.update(name: "親の結婚記念日", date: @q.wedding, kind: :wedding)
+      else
+        current_user.events.create(name: "親の結婚記念日", date: @q.wedding, kind: :wedding)
+      end
     end
 
     redirect_to home_path

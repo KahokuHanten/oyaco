@@ -56,6 +56,17 @@ class HomeController < ApplicationController
             item:  Present.item(person))
         end
       end
+
+      if questionnaire.wedding
+        event = Event.new(name: "親の結婚記念日", date: questionnaire.wedding, kind: :wedding)
+        comment1 = event.next_times.to_s + '回目の記念日です。' unless event.next_times == 0
+        @topics.push(
+          type: :wedding,
+          date: event.next_date,
+          title: "#{format_date(event.next_date)}は #{event.name}",
+          comment1: comment1,
+          image: EventData.find_by_name("結婚記念日").try(:image))
+      end
     end
 
     # 祝日関連の話題

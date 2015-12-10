@@ -2,7 +2,7 @@
 class Questionnaire
   include ActiveModel::Model
 
-  attr_accessor :dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3
+  attr_accessor :dad, :mom, :pref_code, :wedding, :tel, :hobby, :hobby2, :hobby3
 
   def save # to pass render_wizard @questionnaire
     true
@@ -18,7 +18,7 @@ class Questionnaire
         self.dad = Date.new(dad_year, dad_month, dad_day)
       end
     rescue ArgumentError
-      self.dad = Oyaco::Application.config.default_birthday
+      self.dad = nil
     end
 
     begin
@@ -29,7 +29,18 @@ class Questionnaire
         self.mom = Date.new(mom_year, mom_month, mom_day)
       end
     rescue ArgumentError
-      self.mom = Oyaco::Application.config.default_birthday
+      self.mom = nil
+    end
+
+    begin
+      if params.key?('wedding(1i)') && params.key?('wedding(2i)') && params.key?('wedding(3i)')
+        wedding_year = params['wedding(1i)'].to_i
+        wedding_month = params['wedding(2i)'].to_i
+        wedding_day = params['wedding(3i)'].to_i
+        self.wedding = Date.new(wedding_year, wedding_month, wedding_day)
+      end
+    rescue ArgumentError
+      self.wedding = nil
     end
 
     self.pref_code = params[:pref_code] if params[:pref_code]
@@ -46,6 +57,10 @@ class Questionnaire
 
     if cookies.signed[:mom]
       self.mom = Date.parse(cookies.signed[:mom])
+    end
+
+    if cookies.signed[:wedding]
+      self.wedding = Date.parse(cookies.signed[:wedding])
     end
 
     self.pref_code = cookies.signed[:pref_code] || '1'

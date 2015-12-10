@@ -1,0 +1,8 @@
+<%= render layout: 'form' do |f| %>
+  <h2><%= f.label(:wedding, "ご両親の結婚記念日は？", class: "control-label") %></h2>
+  <p>
+    <%= f.date_select(:wedding, { start_year: 1900, end_year: Time.current.year, include_blank: true,
+      use_month_numbers: true, date_separator: '/' },
+      class: "form-control input-lg", style: "display: inline-block; width: auto") %>
+  </p>
+<% end %>

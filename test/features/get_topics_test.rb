@@ -11,6 +11,8 @@ class GetTopicsTest < Capybara::Rails::TestCase
     within '#question-form' do
       select '大阪府', from: 'questionnaire_pref_code'
     end
+
+    click_on 'next'
     click_on 'next'
 
     click_on 'go-home'
