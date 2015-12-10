@@ -1,7 +1,7 @@
 class QuestionController < ApplicationController
   include Wicked::Wizard
   #steps :dad, :mom, :pref, :tel, :hobby
-  steps :dad, :mom, :pref, :hobby
+  steps :dad, :mom, :pref, :wedding, :hobby
   def show
     @q = Questionnaire.new
     @q.restore_attributes_from_cookies(cookies)
@@ -13,7 +13,7 @@ class QuestionController < ApplicationController
     @q.restore_attributes_from_cookies(cookies)
     @q.assign_attributes(params[:questionnaire])
 
-    [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
+    [:dad, :mom, :pref_code, :wedding, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.signed[param] = @q.send(param)
     end
 
@@ -55,7 +55,7 @@ class QuestionController < ApplicationController
   end
 
   def destroy_all
-    [:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3].each do |param|
+    [:dad, :mom, :pref_code, :wedding, :tel, :hobby, :hobby2, :hobby3].each do |param|
       cookies.delete(param)
     end
     redirect_to question_path(:dad)
@@ -63,6 +63,6 @@ class QuestionController < ApplicationController
 
   private
   def questionnaire_params
-    params.require(:questionnaire).permit(:dad, :mom, :pref_code, :tel, :hobby, :hobby2, :hobby3)
+    params.require(:questionnaire).permit(:dad, :mom, :pref_code, :wedding, :tel, :hobby, :hobby2, :hobby3)
   end
 end

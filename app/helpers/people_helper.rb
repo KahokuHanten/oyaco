@@ -38,4 +38,67 @@ module PeopleHelper
       ''
     end
   end
+
+  def wedding_name(num)
+    case num
+    when 1
+      "紙婚式"
+    when 2
+      "藁婚式、綿婚式"
+    when 3
+      "革婚式"
+    when 4
+      "花実婚式"
+    when 5
+      "木婚式"
+    when 6
+      "鉄婚式"
+    when 7
+      "銅婚式"
+    when 8
+      "青銅婚式"
+    when 9
+      "陶器婚式"
+    when 10
+      "アルミ婚式、錫婚式"
+    when 11
+      "鋼鉄婚式"
+    when 12
+      "絹婚式、亜麻婚式"
+    when 13
+      "レース婚式"
+    when 14
+      "象牙婚式"
+    when 15
+      "水晶婚式"
+    when 20
+      "磁器婚式、陶器婚式"
+    when 25
+      "銀婚式"
+    when 30
+      "真珠婚式"
+    when 35
+      "珊瑚婚式"
+    when 40
+      "ルビー婚式"
+    when 45
+      "サファイア婚式"
+    when 50
+      "金婚式"
+    when 55
+      "エメラルド婚式"
+    when 60
+      "ダイヤモンド婚式"
+    when 70
+      "プラチナ婚式"
+    when 75
+      "ダイヤと金婚式"
+    when 80
+      "樫婚式"
+    when 85
+      "ワイン婚式"
+    else
+      ''
+    end
+  end
 end

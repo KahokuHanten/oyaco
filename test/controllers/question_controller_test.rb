@@ -46,7 +46,7 @@ class QuestionControllerTest < ActionController::TestCase
   test 'put pref should render correct template' do
     put(:update, 'id' => 'pref', 'pref_code' => 3)
     assert_response :redirect
-    assert_redirected_to question_path(:hobby)
+    assert_redirected_to question_path(:wedding)
   end
 
 #  test 'put tel should render correct template' do

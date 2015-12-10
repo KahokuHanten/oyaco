@@ -31,6 +31,8 @@ class CanRecommendTopicsTest < Capybara::Rails::TestCase
     within '#question-form' do
       select '東京都', from: 'questionnaire_pref_code'
     end
+
+    click_on 'next'
     click_on 'next'
     click_on 'go-home'
     assert_content page, father_birthday.month.to_s+"月"+father_birthday.day.to_s.rjust(2, ' ')+"日"
