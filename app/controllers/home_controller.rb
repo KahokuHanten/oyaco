@@ -51,7 +51,6 @@ class HomeController < ApplicationController
             title: "#{format_date(person.next_birthday)} は #{person.friendly_name} の #{person.age + 1} 歳の誕生日",
             comment1: (get_comment_by_age(person.age + 1)).html_safe,
             comment2: birthday_comment(person),
-            comment3: 'こんなプレゼントはいかがですか？',
             image: EventData.find_by_name("誕生日").try(:image),
             item:  Present.item(person))
         end
@@ -89,14 +88,13 @@ class HomeController < ApplicationController
     # ユーザーイベント
     if user_signed_in?
       current_user.events.each do |event|
-        comment1 = comment2 = comment3 = ""
+        comment1 = comment2 = ""
+        type = :user
         if event.birth?
           if event.person.present?
-            type = :person
             title = "#{format_date(event.next_date)} は #{event.person.friendly_name} の #{event.person.age + 1} 歳の誕生日"
             comment1 = (get_comment_by_age(event.person.age + 1)).html_safe
             comment2 = birthday_comment(event.person)
-            comment3 = 'こんなプレゼントはいかがですか？'
             item =  Present.item(event.person)
           else
             title = "#{format_date(event.next_date)}は #{event.name}"
@@ -118,15 +116,15 @@ class HomeController < ApplicationController
           image = EventData.find_by_name(event.name).try(:image)
         end
 
-        note = event.notes.last.try(:body)
-        note_image = event.notes.last.try(:image)
+        # note = event.notes.last.try(:body)
+        # note_image = event.notes.last.try(:image)
 
         @topics.push(
           id: event.id,
           type: type, event: event, date: event.next_date, title: title, name: event.name,
           image: image, item: item,
-          comment1: comment1, comment2: comment2, comment3: comment3,
-          note: note, note_image: note_image)
+          comment1: comment1, comment2: comment2)
+          # note: note, note_image: note_image)
       end
     end
 

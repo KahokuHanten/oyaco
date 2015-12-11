@@ -167,13 +167,23 @@
 //.timeline dl dt {
 //  background-color: ;
 //}
+
+.timeline dl dt {
+    margin: 0 0 20px;
+}
+
+.timeline table {
+  margin-bottom: 10px;
+}
+
 .timeline dl dd .events {
+  margin-top: 20px;
   -webkit-box-shadow: 5px 5px 6px -6px #777;
    -moz-box-shadow: 5px 5px 6px -6px #777;
         box-shadow: 5px 5px 6px -6px #777;
 }
 
-.timeline dl dd.person {
+.timeline dl dd.user {
   .circ {
     left: 42pt;
     width: 30px;
@@ -182,14 +192,6 @@
   }
 }
 
-.timeline dl dd.user {
-  .circ {
-    left: 42pt;
-    width: 30px;
-    height: 30px;
-    background-color: green;
-  }
-}
 .timeline div.time {
   font-size: 1.5em;
 }
@@ -228,4 +230,19 @@ ul, ol {
 
 .modal-body {
   padding-bottom: 15px;
+  .table {
+    margin-top: 10px;
+  }
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+  padding: 6px;
+  line-height: 1;
+  vertical-align: middle;
+  border-top: 1px solid #ddd;
 }

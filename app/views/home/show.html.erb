@@ -27,6 +27,7 @@
                   <%= image_tag "s64_f_event_13_0bg.png", class: "events-object img-rounded" %>
                 <% end %>
               </div>
+
               <div class="events-body">
                 <h4 class="events-heading"><%= topic[:title] %>
                   <%= link_to raw('<i class="fa fa-pencil-square-o"></i>'), edit_users_event_path(topic[:event]), remote: true if topic[:type] == :user %>
@@ -38,30 +39,38 @@
                 <% end %>
                 <p><%= topic[:comment1] %></p>
                 <p><%= topic[:comment2] %></p>
-                <p><%= topic[:comment3] %></p>
                 <% if topic[:message].present? %>
                 <p>こんな言葉を贈ってはどうですか？</p>
                 <p>「<%= topic[:message] %>」</p>
                 <% end %>
+
+                <!-- present -->
                 <% if topic[:item] %>
-                  <a href="<%= topic[:item][:url] %>" target="_new">
-                  <%= image_tag topic[:item][:imageUrl], class: "gift img-rounded pull-right", size: '86x86' %>
-                </a>
+                  <table class="table">
+                    <tr>
+                      <td valign="middle">こんなプレゼントはいかがですか</td>
+                      <td>
+                        <%= link_to image_tag(topic[:item][:imageUrl], size: '64x64'), topic[:item][:url], target: "_new" %></td>
+                    </tr>
+                  </table>
                 <% end %>
-                <p><%= topic[:note] %></p>
-                <% if topic[:note_image].present? %>
-                  <%= link_to image_tag(topic[:note_image].thumb.url), topic[:note_image].display.url, data: { lightbox: topic[:id] }  %>
-                <% end %>
-                <!-- buttons -->
-                <div class="event-buttons btn-group pull-right" role="group">
-                  <% if topic[:id].present? %>
-                    <% if topic[:note].present? || topic[:note_image].present? %>
-                      <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), edit_users_note_path(topic[:event].notes.last), remote: true %>
-                    <% else %>
-                      <%= link_to raw('<i class="fa fa-comment fa-lg"></i>'), new_users_note_path(:event_id => topic[:id]), remote: true %>
+
+                <!-- note / image -->
+                <% if event = topic[:event] %>
+                  <table class="table">
+                    <caption><%= link_to raw('<i class="fa fa-sticky-note fa-lg"></i>'), new_users_note_path(:event_id => topic[:id]), remote: true %></caption>
+                    <% event.notes.order('id desc').each do |note| %>
+                    <tr>
+                      <td valign="middle"><%= note.body %></td>
+                      <td>
+                        <% if note.image.present? %>
+                        <%= link_to image_tag(note.image.thumb.url), note.image.display.url, data: { lightbox: topic[:id] } %>
+                        <% end %>
+                      </td>
+                    </tr>
                     <% end %>
-                  <% end %>
-                </div>
+                  </table>
+                <% end %>
               </div>
             </div>
           </dd>
