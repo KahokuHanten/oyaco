@@ -6,6 +6,15 @@
     </div>
     <div class="modal-body">
       <%= render "form" %>
+      <table class="table">
+      <% @notes.order('id desc').each do |note| %>
+        <tr>
+          <td><%= note.body %></td>
+          <td><%= image_tag(note.image.thumb.url) if note.image.present? %></td>
+          <td><%= link_to '削除する', users_note_path(note), method: :delete, class: "btn btn-danger" %></td>
+        </tr>
+      <% end %>
+      </table>
     </div>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

@@ -2,6 +2,7 @@ class NotesController < ApplicationController
   def new
     @user = current_user
     @event = @user.events.find(params[:event_id])
+    @notes = @event.notes
     @note = Note.new
     respond_to do |format|
       format.html { redirect_to home_path }
