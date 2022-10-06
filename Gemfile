@@ -26,6 +26,9 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'lightbox2-rails'
 
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", "~> 5.0"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use postgresql as the database for Active Record
