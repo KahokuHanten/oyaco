@@ -10,7 +10,7 @@ gem 'sprockets'
 gem 'google_custom_search_api'
 gem 'jp_prefecture'
 gem 'devise'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin'
 gem 'font-awesome-sass'
 gem 'wicked'
 gem 'active_hash'
@@ -18,13 +18,19 @@ gem 'newrelic_rpm'
 gem 'redis'
 gem 'redis-rails'
 gem 'month'
-gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
-gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+# gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
+# gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+gem 'momentjs-rails', '~> 2.9'
+gem 'datetimepicker-rails', git: 'https://github.com/zpaulovics/datetimepicker-rails'
 gem 'simple_form'
 gem 'twitter-bootstrap-rails-confirm'
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'lightbox2-rails'
+gem 'dotenv-rails'
+
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", "~> 3.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -40,7 +46,9 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+# gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'rails-ujs', '~> 0.1.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

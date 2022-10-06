@@ -81,11 +81,11 @@ test:
 production:
   <<: *default
   database: oyako_production
-  username: oyako
+  username: <%= ENV['OYAKO_DATABASE_USER'] %>
   password: <%= ENV['OYAKO_DATABASE_PASSWORD'] %>
 
 staging:
   <<: *default
   database: oyako_staging
-  username: oyako
+  username: <%= ENV['OYAKO_DATABASE_USER'] %>
   password: <%= ENV['OYAKO_DATABASE_PASSWORD'] %>
